@@ -13,7 +13,7 @@ Statuses: **open** (undecided) · **proposed** (candidate, pending validation) �
 | [0003](0003-templates-compile.md) | Templates compile; three transformation mechanisms | ✅ Accepted |
 | [0004](0004-verify-in-containers.md) | Verification runs in containers, declared in the manifest | ✅ Accepted |
 | [0005](0005-prepare-for-updates.md) | Answers file from day one; three-way-merge updates postponed | ✅ Accepted |
-| [0006](0006-engine-language.md) | Engine implementation language | 🟡 Proposed |
+| [0006](0006-engine-language.md) | Engine implementation language: Go | ✅ Accepted |
 | [0007](0007-directive-grammar.md) | Minimal grammar for `tpl:` directives | ⏳ Open |
 | [0008](0008-project-name-templetry.md) | Project name: Templetry | ✅ Accepted |
 | [0009](0009-multi-forge.md) | Repo creation on any forge (multi-forge) | ✅ Accepted |

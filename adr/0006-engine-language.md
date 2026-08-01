@@ -1,6 +1,6 @@
 # ADR 0006 — Engine implementation language
 
-**Status:** 🟡 Proposed · **Date:** 2026-08-01
+**Status:** ✅ Accepted · **Date:** 2026-08-01
 
 ## Context
 
@@ -27,4 +27,13 @@ Final decision matrix — each finalist owns one axis: machine efficiency → **
 
 ## Decision
 
-*Pending: choose which axis to weight first. The Part 1 architecture shapes transfer intact to any of the three.*
+**Go**, weighting the machine-efficiency axis first (best startup, memory, throughput and per-file parallelism; smallest static binaries; `archive/tar` and golden-file testing are first-class in the stdlib).
+
+Accepted trade-offs, stated explicitly: it is the author's least familiar language (a learning investment absorbed deliberately), and there is no code sharing with the phase-3 web app — the engine will be consumed through its CLI/API boundary.
+
+## Consequences
+
+- Module `github.com/Templetry/engine`; thin CLI `templetry` on top (cobra), pure-library core per the study's Part 1 shapes.
+- Reference libraries (study §2.3): goccy/go-yaml, evanphx/json-patch, bmatcuk/doublestar, iancoleman/strcase (casing variants to be extended in-house), stdlib `archive/tar`, `os/exec` for Docker.
+- Golden tests follow the idiomatic `testdata/` pattern.
+- Cross-compiled release binaries for the three desktop platforms from day one.
