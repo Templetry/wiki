@@ -51,7 +51,7 @@ Every `string` variable automatically yields casing variants, usable anywhere pl
 
 ### Identity map
 - Applied to **file content and file paths**, longest `from` first (deterministic, avoids substring shadowing).
-- `to` supports placeholders. Package-style identities rename paths segment by segment (`com/template/base/` follows `com.template.base`).
+- `to` supports placeholders. Dotted identities also apply their **slash form** to both paths and content: `com.template.base` renames `com/template/base/` directories *and* rewrites path references inside docs and scripts.
 - Two files mapping to the same destination path is an error.
 
 ### Features
