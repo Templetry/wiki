@@ -1,6 +1,6 @@
 # ADR 0006 — Engine implementation language
 
-**Status:** ⏳ Open · **Date:** 2026-08-01
+**Status:** 🟡 Proposed · **Date:** 2026-08-01
 
 ## Context
 
@@ -16,6 +16,10 @@ The engine is a pure library + CLI (NFR3), so the language doesn't shape the arc
 | Libraries (casings, JSON Patch, tar, YAML) | ★★ | ★★★ | ★★ |
 | Risk/novelty | low | low | medium |
 
+## Study
+
+Full technology and architecture study in [study/engine-tech-v1.md](../study/engine-tech-v1.md) (2026-08). Key finding: distribution no longer discriminates (GraalVM native and `bun build --compile` are both production-mature), so the decision hinges on author affinity (→ Kotlin), niche ecosystem fit (→ TypeScript) and reuse with the phase-3 web app (→ TypeScript, via a single zod manifest schema). Go exits the race.
+
 ## Decision
 
-*Pending.*
+*Proposed: TypeScript on Bun — pure library `@templetry/engine` + thin `templetry` CLI, distributed via `bun build --compile`. Kotlin remains the defensible alternative if author affinity is weighted first. Pending acceptance.*
