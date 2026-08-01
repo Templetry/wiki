@@ -17,3 +17,4 @@ Statuses: **open** (undecided) · **proposed** (candidate, pending validation) �
 | [0007](0007-directive-grammar.md) | Minimal grammar for `tpl:` directives | ✅ Accepted |
 | [0008](0008-project-name-templetry.md) | Project name: Templetry | ✅ Accepted |
 | [0009](0009-multi-forge.md) | Repo creation on any forge (multi-forge) | ✅ Accepted |
+| [0010](0010-engine-execution-model.md) | Engine execution model: embedded in a Go backend | 🟡 Proposed |
