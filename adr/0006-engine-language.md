@@ -18,8 +18,13 @@ The engine is a pure library + CLI (NFR3), so the language doesn't shape the arc
 
 ## Study
 
-Full technology and architecture study in [study/engine-tech-v1.md](../study/engine-tech-v1.md) (2026-08). Key finding: distribution no longer discriminates (GraalVM native and `bun build --compile` are both production-mature), so the decision hinges on author affinity (→ Kotlin), niche ecosystem fit (→ TypeScript) and reuse with the phase-3 web app (→ TypeScript, via a single zod manifest schema). Go exits the race.
+Full technology and architecture study in [study/engine-tech-v1.md](../study/engine-tech-v1.md) (2026-08). Findings:
+
+- Distribution no longer discriminates (GraalVM native and `bun build --compile` are both production-mature).
+- Runtime-efficiency deep-dive (study Part 5): **Go wins every efficiency column** (startup ~2–10 ms, ~5–20 MB RSS, best throughput and parallelism), Kotlin/GraalVM second, Bun a close third, Kotlin/JVM last. Caveat: the deltas are tens of ms / tens of MB per render against a 30-second success metric — real pipeline costs (fetch, Docker verify) dwarf them by orders of magnitude.
+
+Final decision matrix — each finalist owns one axis: machine efficiency → **Go** · author velocity/affinity → **Kotlin** · niche libraries + future web reuse → **TypeScript**.
 
 ## Decision
 
-*Proposed: TypeScript on Bun — pure library `@templetry/engine` + thin `templetry` CLI, distributed via `bun build --compile`. Kotlin remains the defensible alternative if author affinity is weighted first. Pending acceptance.*
+*Pending: choose which axis to weight first. The Part 1 architecture shapes transfer intact to any of the three.*

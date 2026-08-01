@@ -131,3 +131,45 @@ Go exits the race: its historical advantage was distribution, now neutralized, a
 - Choose **TypeScript + Bun** to optimize for the product: tailor-made libraries, golden tests as native snapshots, and — decisive — the zod manifest schema as a single source of truth reused by the phase-3 web forms. The manifest is the public API (ADR-0002); having exactly one definition of it across the entire product removes the most dangerous class of drift.
 
 **Proposal: TypeScript on Bun**, with the engine as a pure library (`@templetry/engine`) plus a thin CLI (`templetry`), compiled with `bun build --compile` for distribution. Kotlin remains a fully defensible alternative if the affinity factor is weighted first — the shapes in Part 1 are identical either way, so no architectural work is lost if the choice is ever revisited.
+
+---
+
+## Part 5 — Runtime efficiency deep-dive (2026-08 addendum)
+
+Requested follow-up: with the project scoped to *engine only* for now (web reuse off the table), which language is the most **efficient**? Efficiency is meaningless without a workload, so first the workload, then the numbers.
+
+### 5.1 The engine's actual workload
+
+One render = one short-lived CLI process that: parses one small YAML file, walks 100–3,000 mostly-small text files (1–30 MB total), matches globs over paths, scans lines for directives, performs casing-aware string replacements, applies a handful of JSON patches, and writes the tree once. CPU work is O(total bytes) string processing; I/O is small-file reads/writes. No long-lived state, no concurrency pressure, no network in the core.
+
+Order of magnitude: 30 MB of text at the 100 MB/s–1 GB/s string-processing rates of any compiled or JIT'd language = **30–300 ms of compute**. The whole render sits far below one second in every candidate stack. What actually differs measurably between stacks is **process startup**, **memory footprint**, and **parallel file processing**.
+
+### 5.2 The numbers
+
+| Metric (one-shot CLI) | Go | Kotlin (GraalVM native) | TypeScript (Bun) | Kotlin (JVM) |
+|---|---|---|---|---|
+| Process startup | ~2–10 ms | ~50–100 ms | ~10–30 ms | ~300–1,000 ms |
+| Memory footprint | ~5–20 MB | ~20–60 MB | ~50–150 MB | ~100–300 MB |
+| String/file throughput | excellent (compiled) | good (AOT, slightly below JIT peak) | very good (JSC is strong on strings) | excellent once warm — but a one-shot CLI never warms up |
+| Trivial parallelism (per-file) | ★★★ goroutines | ★★ coroutines | ★ single-threaded (workers are awkward) | ★★ coroutines |
+| Binary size | ~5–15 MB | ~20–50 MB | ~60–90 MB | needs JVM |
+
+Sources: [WWT cross-language benchmark](https://www.wwt.com/blog/performance-benchmarking-bun-vs-c-vs-go-vs-nodejs-vs-python) (Go clearly wins memory; Bun highest of the compared set), [Bun vs Go server micro-benchmarks](https://www.peterbe.com/plog/bun-go-basic-web-server-benchmark) (throughput comparable, grain of salt), [GraalVM native image performance profile](https://www.javacodegeeks.com/2026/02/graalvm-native-image-javas-answer-to-rusts-startup-speed.html) (millisecond startups, memory competitive with Go's class), [runtime guide 2026](https://dev.to/dataformathub/nodejs-vs-deno-vs-bun-the-ultimate-runtime-guide-for-2026-di) (Bun ~3× faster boot than Node; instant-feeling CLIs).
+
+### 5.3 Verdict on the efficiency criterion
+
+**Ranking: 1. Go · 2. Kotlin/GraalVM · 3. Bun (close third) · 4. Kotlin/JVM.** Go wins every efficiency column and re-enters the race it had exited in Part 4 — it left because its *distribution* edge was neutralized, but on *runtime efficiency* it was never beaten.
+
+The honest engineering caveat, stated plainly: the deltas are **tens of milliseconds and tens of megabytes, once per render**, against a 30-second success metric (study I §1) — and the pipeline's real costs (network fetch: seconds; Docker verify: minutes) dwarf all of them by 2–4 orders of magnitude. Efficiency is a real ranking with a clear winner, and it is also the criterion least capable of making a user-perceivable difference in this particular tool.
+
+### 5.4 The decision matrix, final form
+
+With web reuse temporarily out of scope, each finalist owns exactly one axis:
+
+| Axis | Winner |
+|---|---|
+| Machine efficiency | **Go** |
+| Author velocity & affinity | **Kotlin** |
+| Niche library fit (+ future web reuse when phase 3 arrives) | **TypeScript** |
+
+ADR-0006 is now a question of which axis the project's owner weights first — all three are legitimate, none is wrong, and the Part 1 shapes transfer intact to any of them.
