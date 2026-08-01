@@ -1,36 +1,36 @@
-# Templetry — Wiki de estudio y diseño
+# Templetry — Study & design wiki
 
-**Templetry** es un gestor de arquitecturas, proyectos y frameworks: una herramienta que genera repositorios listos para trabajar a partir de una biblioteca de plantillas multiplataforma, y los crea en cualquier alojador git (GitHub, GitLab, Gitea/Forgejo, servidor propio) a la velocidad de la luz.
+**Templetry** is a manager for architectures, projects and frameworks: a tool that generates ready-to-work repositories from a library of multi-platform templates, and creates them on any git host (GitHub, GitLab, Gitea/Forgejo, self-hosted) at the speed of light.
 
-> *Templetry* viene de **templet**, la grafía original de "template" — que además nombraba una herramienta real del telar: la pieza que mantiene la forma de la tela mientras se teje.
+> *Templetry* comes from **templet**, the original spelling of "template" — which also named a real weaving tool: the piece that keeps the cloth's shape on the loom.
 
-## Estado del proyecto
+## Project status
 
-**Fase 0 — Estudio previo.** Sin código todavía, por diseño: primero se cierran las decisiones caras de revertir.
+**Phase 0 — Preliminary study.** No code yet, by design: the decisions that are expensive to reverse get closed first.
 
-## Los tres principios (resumen del estudio)
+## The three principles (study summary)
 
-1. **El motor no sabe qué es un framework** — todo el conocimiento vive en el `template.yml` de cada plantilla; el motor solo tiene 5 operaciones genéricas.
-2. **La plantilla compila** — cada repo plantilla es un proyecto real con CI propio, nunca un esqueleto con placeholders rotos.
-3. **Motor primero, web después** — librería pura + CLI; la web app (OAuth GitHub, catálogo, formularios) es una piel encima, en fases posteriores.
+1. **The engine doesn't know what a framework is** — all knowledge lives in each template's `template.yml`; the engine has only 5 generic operations.
+2. **Templates compile** — every template repo is a real project with its own CI, never a skeleton full of broken placeholders.
+3. **Engine first, web later** — pure library + CLI; the web app (GitHub OAuth, catalog, forms) is a skin on top, in later phases.
 
-## Mapa del repo
+## Repo map
 
-| Carpeta | Contenido |
+| Folder | Contents |
 |---|---|
-| [`estudio/`](estudio/) | El estudio previo completo (requisitos, estado del arte, riesgos, roadmap) |
-| [`adr/`](adr/) | Architecture Decision Records — una decisión por archivo, con estado explícito |
-| [`spec/`](spec/) | Especificación en evolución del manifest `template.yml` |
-| [`diario/`](diario/) | Bitácora de sesiones de estudio y diseño |
+| [`study/`](study/) | The full preliminary study (requirements, state of the art, risks, roadmap) |
+| [`adr/`](adr/) | Architecture Decision Records — one decision per file, explicit status |
+| [`spec/`](spec/) | The evolving spec of the `template.yml` manifest |
+| [`journal/`](journal/) | Log of study and design sessions |
 
-## Cómo se trabaja aquí
+## How we work here
 
-Las decisiones se registran como ADRs con estado `abierta → propuesta → aceptada` (o `reemplazada`). Nada se decide "en la cabeza": si no está en una ADR, no está decidido. El [índice de ADRs](adr/README.md) muestra el estado global de un vistazo.
+Decisions are recorded as ADRs with status `open → proposed → accepted` (or `superseded`). Nothing is decided "in someone's head": if it's not in an ADR, it's not decided. The [ADR index](adr/README.md) shows the global state at a glance.
 
 ## Roadmap
 
-- **Fase 0 — Estudio** *(actual)*: cerrar decisiones abiertas, validar el manifest en seco contra 3 plantillas dispares.
-- **Fase 1 — Motor**: librería + CLI (`templetry render`, `templetry plan`), golden tests.
-- **Fase 2 — Verify + CI**: verificación en contenedores, primeras plantillas reales migradas.
-- **Fase 3 — Web MVP**: OAuth GitHub, catálogo, formulario dinámico, creación de repos (GitHub + bring-your-own-remote).
-- **Fase 4+**: adaptadores GitLab/Gitea, updates con merge a 3 bandas, plantillas de terceros.
+- **Phase 0 — Study** *(current)*: close the open decisions, dry-run-validate the manifest against 3 dissimilar templates.
+- **Phase 1 — Engine**: library + CLI (`templetry render`, `templetry plan`), golden tests.
+- **Phase 2 — Verify + CI**: container-based verification, first real templates migrated.
+- **Phase 3 — Web MVP**: GitHub OAuth, catalog, dynamic form, repo creation (GitHub + bring-your-own-remote).
+- **Phase 4+**: GitLab/Gitea adapters, three-way-merge updates, third-party templates.

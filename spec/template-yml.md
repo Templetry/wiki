@@ -1,20 +1,20 @@
-# Especificación del manifest `template.yml`
+# `template.yml` manifest specification
 
-**Estado:** borrador v1 — NO es especificación cerrada. Se valida en seco contra 3 plantillas dispares (KMP, React, Python/FastAPI) antes de congelar nada. Criterio: si una plantilla necesita hacks, el schema está mal, no la plantilla.
+**Status:** draft v1 — NOT a frozen spec. It gets dry-run-validated against 3 dissimilar templates (KMP, React, Python/FastAPI) before anything freezes. Criterion: if a template needs hacks, the schema is wrong, not the template.
 
-El manifest es **la API pública de Templetry**: el frontend lo lee para pintar formularios, el motor para renderizar, el CI de la plantilla para verificar. Llevará `schema_version` desde v1.
+The manifest is **Templetry's public API**: the frontend reads it to render forms, the engine to render output, the template's CI to verify. It carries `schema_version` from v1.
 
-## Borrador actual
+## Current draft
 
 ```yaml
 schema_version: 1
 name: react-vite-ts
-platform: web          # tags de catálogo; el motor los ignora
+platform: web          # catalog tags; the engine ignores them
 framework: react
 
 variables:
   - key: project_name
-    label: Nombre del proyecto
+    label: Project name
     type: string
     pattern: "^[A-Za-z][A-Za-z0-9 ]+$"
   - key: node_version
@@ -22,12 +22,12 @@ variables:
     options: ["20", "22"]
     default: "22"
 
-# El motor deriva casings de cada variable string:
+# The engine derives casings from every string variable:
 # {project_name.pascal} {project_name.kebab} {project_name.snake}
 # {project_name.camel} {project_name.flat}
 
 identity:
-  - from: "template-app"        # cadena canónica en contenido y rutas
+  - from: "template-app"        # canonical string in content and paths
     to: "{project_name.kebab}"
   - from: "TemplateApp"
     to: "{project_name.pascal}"
@@ -35,7 +35,7 @@ identity:
 features:
   - key: router
     label: React Router
-    files: ["src/routes/**"]    # incluidos solo si la feature está activa
+    files: ["src/routes/**"]    # included only when the feature is on
     patches:                    # JSON Patch RFC 6902
       - file: package.json
         op: add
@@ -47,14 +47,14 @@ verify:
   run: npm ci && npm run build
 ```
 
-## Cuestiones abiertas del schema
+## Open schema questions
 
-- `requires`/`conflicts` entre features — ¿v1 o v1.1? (ver ADR-0007)
-- ¿Declarar ejecutables explícitamente o confiar en los permisos del tarball?
-- Orden de aplicación del mapa de identidad (cadenas largas primero) — ¿configurable o fijo?
-- Lista de exclusión por archivo para el renombrado (falsos positivos en URLs/badges).
-- Extensión del vocabulario de patch a YAML/TOML: mismo `op/path/value`, ¿mismas semánticas?
+- `requires`/`conflicts` between features — v1 or v1.1? (see ADR-0007)
+- Declare executables explicitly, or trust the tarball's permissions?
+- Identity-map application order (longest strings first) — configurable or fixed?
+- Per-file exclusion list for renaming (false positives in URLs/badges).
+- Extending the patch vocabulary to YAML/TOML: same `op/path/value`, same semantics?
 
-## Casos límite que la spec debe cubrir (del estudio §6)
+## Edge cases the spec must cover (study §6)
 
-Colisiones de subcadena y entre casings · CRLF/LF (autor en Windows) · permisos de ejecución (`gradlew`) · detección de binarios · `.gitkeep` · BOM/encodings · rutas profundas y límite de 260 chars en Windows · lockfiles con el nombre del proyecto.
+Substring and cross-casing collisions · CRLF/LF (author works on Windows) · execute permissions (`gradlew`) · binary detection · `.gitkeep` · BOM/encodings · deep paths and the 260-char Windows path limit · lockfiles containing the project name.

@@ -1,19 +1,19 @@
-# ADR 0009 — Creación de repos en cualquier forge (multi-forge)
+# ADR 0009 — Repo creation on any forge (multi-forge)
 
-**Estado:** Aceptada · **Fecha:** 2026-08-01
+**Status:** Accepted · **Date:** 2026-08-01
 
-## Contexto
+## Context
 
-Requisito RF9: el repo destino debe poder crearse en cualquier alojador git abierto (GitHub, GitLab, Gitea/Forgejo, Bitbucket, servidor propio), no solo GitHub. El motor no se ve afectado (es directorio-entra-directorio-sale); la pieza afectada es el orquestador. Clave: `git push` ya es universal — lo único específico por forge es crear el repo vía API y el post-setup.
+Requirement FR9: the target repo must be creatable on any open git host (GitHub, GitLab, Gitea/Forgejo, Bitbucket, self-hosted), not only GitHub. The engine is unaffected (directory in → directory out); the affected piece is the orchestrator. Key insight: `git push` is already universal — the only forge-specific parts are creating the repo via API and the post-setup.
 
-## Decisión
+## Decision
 
-1. **Interfaz de adaptador mínima**: `createRepo(nombre, visibilidad) → URL clonable`. No se abstrae más API que esa.
-2. **Modelo de capacidades**: cada adaptador declara qué post-setup soporta (`topics`, `branch_protection`...); la app degrada con elegancia, sin mínimo común denominador.
-3. **Fallback universal "bring your own remote" (BYOR)**: el usuario crea un repo vacío a mano donde quiera y pega la URL; la app solo hace push. Cubre el 100 % de alojadores con cero adaptadores.
-4. **Login ≠ credenciales de forge**: GitHub OAuth identifica al usuario en la app; crear repos en otros forges usa token (PAT) por alojador, guardado cifrado.
+1. **Minimal adapter interface**: `createRepo(name, visibility) → clone URL`. No more API surface than that.
+2. **Capability model**: each adapter declares which post-setup it supports (`topics`, `branch_protection`...); the app degrades gracefully instead of enforcing a lowest common denominator.
+3. **Universal fallback — "bring your own remote" (BYOR)**: the user creates an empty repo anywhere by hand and pastes the URL; the app only pushes. Covers 100% of git hosts with zero adapters.
+4. **Login ≠ forge credentials**: GitHub OAuth identifies the user in the app; creating repos on other forges uses a per-host token (PAT), stored encrypted.
 
-## Consecuencias
+## Consequences
 
-- MVP: adaptador GitHub + BYOR. GitLab y Gitea/Forgejo en Fase 4+ según uso real (Gitea/Forgejo/Codeberg comparten API: un adaptador sirve para los tres).
-- Riesgo controlado: los adaptadores no pueden crecer en superficie de API (anti-pozo de mantenimiento).
+- MVP: GitHub adapter + BYOR. GitLab and Gitea/Forgejo in Phase 4+ based on real usage (Gitea/Forgejo/Codeberg share one API: one adapter serves all three).
+- Controlled risk: adapters must not grow API surface (anti maintenance-pit rule).

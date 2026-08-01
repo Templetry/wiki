@@ -1,19 +1,19 @@
 # Architecture Decision Records
 
-Una decisión por archivo. Formato: contexto → decisión → consecuencias, con estado explícito en la cabecera.
+One decision per file. Format: context → decision → consequences, with an explicit status in the header.
 
-Estados: **abierta** (sin decidir) · **propuesta** (candidata, pendiente de validar) · **aceptada** (en vigor) · **reemplazada por ADR-XXXX**.
+Statuses: **open** (undecided) · **proposed** (candidate, pending validation) · **accepted** (in force) · **superseded by ADR-XXXX**.
 
-## Índice
+## Index
 
-| ADR | Título | Estado |
+| ADR | Title | Status |
 |---|---|---|
-| [0001](0001-motor-propio.md) | Motor propio en lugar de adoptar Copier/Cookiecutter | ✅ Aceptada |
-| [0002](0002-conocimiento-en-el-manifest.md) | El motor es agnóstico; el conocimiento vive en el manifest | ✅ Aceptada |
-| [0003](0003-la-plantilla-compila.md) | Las plantillas compilan; tres mecanismos de transformación | ✅ Aceptada |
-| [0004](0004-verify-en-contenedor.md) | Verificación en contenedores declarada en el manifest | ✅ Aceptada |
-| [0005](0005-preparar-updates.md) | Archivo de respuestas desde el día 1; updates 3-bandas pospuestos | ✅ Aceptada |
-| [0006](0006-lenguaje-del-motor.md) | Lenguaje de implementación del motor | ⏳ Abierta |
-| [0007](0007-gramatica-de-directivas.md) | Gramática mínima de las directivas `tpl:` | ⏳ Abierta |
-| [0008](0008-nombre-templetry.md) | Nombre del proyecto: Templetry | ✅ Aceptada |
-| [0009](0009-multi-forge.md) | Creación de repos en cualquier forge (multi-forge) | ✅ Aceptada |
+| [0001](0001-own-engine.md) | Build our own engine instead of adopting Copier/Cookiecutter | ✅ Accepted |
+| [0002](0002-knowledge-lives-in-the-manifest.md) | The engine is agnostic; knowledge lives in the manifest | ✅ Accepted |
+| [0003](0003-templates-compile.md) | Templates compile; three transformation mechanisms | ✅ Accepted |
+| [0004](0004-verify-in-containers.md) | Verification runs in containers, declared in the manifest | ✅ Accepted |
+| [0005](0005-prepare-for-updates.md) | Answers file from day one; three-way-merge updates postponed | ✅ Accepted |
+| [0006](0006-engine-language.md) | Engine implementation language | ⏳ Open |
+| [0007](0007-directive-grammar.md) | Minimal grammar for `tpl:` directives | ⏳ Open |
+| [0008](0008-project-name-templetry.md) | Project name: Templetry | ✅ Accepted |
+| [0009](0009-multi-forge.md) | Repo creation on any forge (multi-forge) | ✅ Accepted |
