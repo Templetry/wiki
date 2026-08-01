@@ -18,4 +18,4 @@ Statuses: **open** (undecided) · **proposed** (candidate, pending validation) �
 | [0008](0008-project-name-templetry.md) | Project name: Templetry | ✅ Accepted |
 | [0009](0009-multi-forge.md) | Repo creation on any forge (multi-forge) | ✅ Accepted |
 | [0010](0010-engine-execution-model.md) | Engine execution model: embedded in a Go backend | 🟡 Proposed |
-| [0011](0011-template-forms.md) | Catalog model: parents, forms and combinable features | 🟡 Proposed |
+| [0011](0011-template-forms.md) | Catalog model: parents, forms and combinable features | ✅ Accepted |
