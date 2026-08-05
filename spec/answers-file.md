@@ -8,7 +8,8 @@ Every render writes `.templetry-answers.yml` at the output root (ADR-0005). It i
 schema_version: 1
 template:
   name: react-vite-ts
-  source: local            # local | a forge URL/ref in later versions
+  source: local            # local | "github.com/owner/repo@ref/path" for remote renders
+  commit: <sha>            # resolved template commit when known (drift detection anchor)
 variables:                 # resolved values, keys sorted
   node_version: "22"
   project_name: Demo Shop
