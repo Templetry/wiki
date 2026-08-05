@@ -11,6 +11,8 @@ The most valuable (and hardest) feature in the ecosystem is Copier's: updating a
 - Every generated project includes `.templetry-answers.yml`: template, commit/version, variable values and features. Cost: zero.
 - Three-way-merge updates are postponed to Phase 4+ — they don't gate the MVP.
 
+> **Outcome (2026-08-05): fully realized.** Engine v0.2.2 records the resolved template commit; the desktop app ships drift detection, assisted updates (re-render with recorded inputs + diff) and real three-way merges via `git merge-file` when both the user and the template changed a file.
+
 ## Consequences
 
 - The door to updates stays open for every project generated from day one.

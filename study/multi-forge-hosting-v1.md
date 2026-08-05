@@ -1,6 +1,6 @@
 # Study V — Hosting beyond GitHub: feasibility per forge
 
-**Date:** August 2026 · **Status:** feasibility study extending ADR-0009 (multi-forge)
+**Date:** August 2026 · **Status:** 📦 Archived — adapters discarded for the desktop era (capability without users; BYOR covers exotic hosts). This study is the paved road if real demand appears.
 
 Two independent capabilities per forge: **fetching templates** (catalog sources) and **creating/pushing repos** (the app's create pipeline). `git push` is universal; only tarball download, repo-creation API and auth differ.
 

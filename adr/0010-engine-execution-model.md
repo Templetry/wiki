@@ -1,6 +1,8 @@
 # ADR 0010 — Engine execution model: embedded library in a Go backend
 
-**Status:** 🟡 Proposed · **Date:** 2026-08-01
+**Status:** ❌ Superseded by [ADR-0012](0012-desktop-app-wails.md) · **Date:** 2026-08-01
+
+> The web app was discarded: the product became a local-first desktop app (Wails) that embeds the engine — same embed principle, no hosted phase planned.
 
 ## Context
 

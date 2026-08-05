@@ -6,7 +6,9 @@
 
 ## Project status
 
-**Phase 0 — Preliminary study.** No code yet, by design: the decisions that are expensive to reverse get closed first.
+**Shipped (August 2026).** Engine v0.2.2 (hardened, remote catalogs, drift anchor) · `templetry` CLI with releases · verified template catalog (parents/forms/features, meta-template) · **Templetry Desktop** (Wails): GitHub sign-in, repo-first creation, preview, repo & project management, multi-catalog, full template update cycle (drift detection → assisted update → three-way merge) and in-app updater.
+
+Discarded along the way: the hosted web app (ADR-0010 → desktop, ADR-0012) and the Gitea/GitLab adapters (study V archived — BYOR covers exotic hosts; adapters return if real users need them).
 
 ## The three principles (study summary)
 
@@ -29,8 +31,5 @@ Decisions are recorded as ADRs with status `open → proposed → accepted` (or 
 
 ## Roadmap
 
-- **Phase 0 — Study** *(current)*: close the open decisions, dry-run-validate the manifest against 3 dissimilar templates.
-- **Phase 1 — Engine**: library + CLI (`templetry render`, `templetry plan`), golden tests.
-- **Phase 2 — Verify + CI**: container-based verification, first real templates migrated.
-- **Phase 3 — Web MVP**: GitHub OAuth, catalog, dynamic form, repo creation (GitHub + bring-your-own-remote).
-- **Phase 4+**: GitLab/Gitea adapters, three-way-merge updates, third-party templates.
+- ✅ Study · engine + CLI · template CI verification · catalog (parents/forms/features) · meta-template & third-party catalogs · desktop app · template updates incl. three-way merge · app auto-update.
+- Open backlog: planned forms (`kmp/modular-ui`, `android/single-module`), engine `verify` in Docker, settings sync via GitHub, code signing.
