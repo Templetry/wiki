@@ -10,6 +10,8 @@
 
 Discarded along the way: the hosted web app (ADR-0010 → desktop, ADR-0012) and the Gitea/GitLab adapters (study V archived — BYOR covers exotic hosts; adapters return if real users need them).
 
+The full, always-current picture — org repos, versions, shipped capabilities, backlog — lives in [**state-of-the-art.md**](state-of-the-art.md).
+
 ## The three principles (study summary)
 
 1. **The engine doesn't know what a framework is** — all knowledge lives in each template's `template.yml`; the engine has only 5 generic operations.
