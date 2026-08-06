@@ -32,4 +32,4 @@ Decisions are recorded as ADRs with status `open → proposed → accepted` (or 
 ## Roadmap
 
 - ✅ Study · engine + CLI · template CI verification · catalog (parents/forms/features) · meta-template & third-party catalogs · desktop app · template updates incl. three-way merge · app auto-update.
-- Open backlog: planned forms (`kmp/modular-ui`, `android/single-module`), engine `verify` in Docker, settings sync via GitHub, code signing.
+- Open backlog: planned form `android/single-module`, engine `verify` in Docker, settings sync via GitHub, code signing.
