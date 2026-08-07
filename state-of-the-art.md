@@ -61,6 +61,6 @@ Normative documents in [`spec/`](spec/): [`template-yml.md`](spec/template-yml.m
 
 - Form `android/single-module` (registry `planned`).
 - Engine `verify` in Docker as a first-class CLI step (ADR-0004 fully realized) — or an ADR explicitly scoping it out of the CLI.
-- Engine hardening: validate that rendered dest paths cannot escape the output root (mandatory before third-party templates — see [study/engine-execution-v1.md](study/engine-execution-v1.md)).
+- ~~Engine hardening~~ done 2026-08-07: dest paths can't escape or abuse platform semantics (incl. Windows device names and case-insensitive collisions); directive scanner fuzz-tested. Pending release as engine v0.3.0.
 - Desktop: tag the v0.3 release; settings sync via GitHub; code signing; macOS/Linux builds.
 - Road to v1.0.0: gates and proposed timeline in [study/road-to-v1.md](study/road-to-v1.md).

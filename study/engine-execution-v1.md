@@ -34,3 +34,5 @@ The engine was built for this without knowing it: a pure library with a CLI on t
 ## Hardening item (recorded, not blocking)
 
 The engine does not yet validate that renamed `dest` paths stay inside the output root (a hostile identity `to:` containing `../` could escape). Irrelevant for first-party templates; mandatory before accepting third-party ones. Tracked for the hardening pass.
+
+> **Outcome (2026-08): fully realized.** Engine v0.2.1 rejects escapes, absolute paths and backslash/colon in dests, plus unsafe tarball entries at ingest; the follow-up pass closed the Windows vectors (case-insensitive dest collisions, reserved device names, trailing dot/space segments, control characters) and added a fuzz suite over the directive scanner.

@@ -30,7 +30,7 @@ The schemas have not needed a breaking change since they were first validated �
 
 | # | Gate | Size | Why it blocks |
 |---|---|---|---|
-| G1 | **Output-root escape hardening**: reject rendered dest paths that leave the output root | small (days) | Recorded in [engine-execution-v1](engine-execution-v1.md) as mandatory before third-party templates — and v1.0.0 *is* the invitation to third parties |
+| G1 | ✅ **Output-root escape hardening** — done: v0.2.1 rejected escapes/absolute/backslash-colon; the 2026-08-07 pass closed the Windows vectors (case-insensitive collisions, reserved device names, trailing dot/space, control chars) and fuzzed the directive scanner (11M+ execs, no panics) | done | Recorded in [engine-execution-v1](engine-execution-v1.md) as mandatory before third-party templates — and v1.0.0 *is* the invitation to third parties |
 | G2 | **`verify` decision**: ship `templetry verify` in Docker (ADR-0004's last mile) or write the ADR that scopes it out of the v1 CLI | medium, or an ADR | A v1 CLI must not carry a half-promised command; either outcome is fine, ambiguity is not |
 | G3 | **No `planned` holes in the official catalog**: ship `android/single-module` or remove it from the registry | content-only | v1 should not announce gaps in its own storefront |
 | G4 | **Compatibility policy written**: what is public API (manifest, answers, registry, directives, CLI), what is not (Go internals), how deprecations work | small | The promise needs to be legible, not implicit |
