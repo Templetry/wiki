@@ -15,3 +15,5 @@ Each template declares its verification in the manifest: `verify: {image, run}` 
 - The host needs no toolchains; only Docker.
 - In interactive use, verify is optional/async (an Android build takes minutes); in each template's CI it is mandatory.
 - Fits the planned deployment (a VPS with Docker already running).
+
+> **Outcome (2026-08-07): fully realized.** `templetry verify --template <dir>` renders to a temp dir (or takes `--dir`) and runs the manifest's `verify: {image, run}` in Docker via the `verify` package. Template CI remains the mandatory gate; the CLI step is the local-use complement.
