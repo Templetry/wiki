@@ -16,7 +16,7 @@ Everything is published in the GitHub organization **[Templetry](https://github.
 | [desktop](https://github.com/Templetry/desktop) | Native desktop app (Wails: Go backend embedding the engine, React/TS frontend) | **v0.2.0** released; `main` carries unreleased v0.3 work (three sections, local scan, previews). The v0.2.1 tag was dropped during the 2026-08-06 GitHub Actions outage — next release retags from `main` |
 | [catalog](https://github.com/Templetry/catalog) | Default template registry — `registry.json` (schema v2) consumed by CLI and desktop | 6 forms `ready`, 1 `planned` |
 | [kmp](https://github.com/Templetry/kmp) | Parent: Kotlin Multiplatform | forms `modular-features`, `single-module`, `modular-ui` — all ready, CI-verified |
-| [android](https://github.com/Templetry/android) | Parent: Android native | form `modular-features` ready; `single-module` planned |
+| [android](https://github.com/Templetry/android) | Parent: Android native | forms `modular-features` ready; `single-module` built 2026-08-07 (CI pending on push) |
 | [meta](https://github.com/Templetry/meta) | Parent: the template that creates Templetry templates | form `template` ready |
 | [wiki](https://github.com/Templetry/wiki) | This repo: studies, ADRs, specs, journal, brand | living |
 | [.github](https://github.com/Templetry/.github) | Organization profile | living |
@@ -59,7 +59,7 @@ Normative documents in [`spec/`](spec/): [`template-yml.md`](spec/template-yml.m
 
 ## Open backlog
 
-- Form `android/single-module` (registry `planned`).
+- ~~Form `android/single-module`~~ built 2026-08-07 — awaiting green Verify CI on push, then the registry flip to `ready` ships.
 - ~~Engine `verify` in Docker~~ done 2026-08-07: `templetry verify` renders (or takes `--dir`) and runs the manifest's verify in a container — ADR-0004 fully realized.
 - ~~Engine hardening~~ done 2026-08-07: dest paths can't escape or abuse platform semantics (incl. Windows device names and case-insensitive collisions); directive scanner fuzz-tested; manifests tolerate a UTF-8 BOM. Pending release as engine v0.3.0.
 - Desktop: tag the v0.3 release; settings sync via GitHub; code signing; macOS/Linux builds.
