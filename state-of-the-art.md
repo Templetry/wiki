@@ -55,7 +55,7 @@ Discarded along the way: the hosted web app and dedicated Gitea/GitLab adapters 
 
 ## Specs
 
-Normative documents in [`spec/`](spec/): [`template-yml.md`](spec/template-yml.md) (the manifest), [`directives.md`](spec/directives.md) (`tpl:` comment grammar, ADR-0007), [`answers-file.md`](spec/answers-file.md), [`validation-manifests.md`](spec/validation-manifests.md).
+Normative documents in [`spec/`](spec/): [`template-yml.md`](spec/template-yml.md) (the manifest), [`directives.md`](spec/directives.md) (`tpl:` comment grammar, ADR-0007), [`answers-file.md`](spec/answers-file.md), [`validation-manifests.md`](spec/validation-manifests.md), [`compatibility.md`](spec/compatibility.md) (the v1 promise — normative from v1.0.0).
 
 ## Open backlog
 
