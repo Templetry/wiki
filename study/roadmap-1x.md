@@ -14,7 +14,7 @@ The update cycle (drift detection → assisted re-render → three-way merge) li
 
 Shape: `templetry update [--dry-run]` reading `.templetry-answers.yml`; library packages `update/` (diff+merge, today in desktop's `update.go`) move down into the engine.
 
-### B — Engine 1.1: the recorded additives
+### B — Engine additives — ✅ shipped 2026-08-12 as engine v1.3.0
 
 The three candidates the specs already noted, all additive (minor-safe under the [compatibility policy](../spec/compatibility.md)):
 
@@ -61,7 +61,7 @@ Open questions for study VII: piece-vs-piece merge ordering and conflicts; sub-c
 |---|---|---|
 | 1 | ✅ **A** (update in library + CLI) — engine v1.1.0 ships the `update` package and `templetry update [dir] [--apply]`; desktop v1.1.0 consumes it (−282 lines of duplicated cycle) | Foundation: unlocks F, feeds E's `update` tool, immediate standalone value |
 | 2 | ✅ **E-lite** — `templetry-mcp` ships with engine v1.2.0 (stdio, dependency-free, five tools incl. `update`); AGENTS.md convention in the meta GUIDE (§8) and added to `android/single-module`. Pending from E: JSON Schema publication + llms.txt | Cheap, high leverage — rides the freshly-moved library APIs |
-| 3 | **B** (patches, requires, presets) | Small additive wins; presets become the pieces-selection UX |
+| 3 | ✅ **B** — engine v1.3.0: YAML/TOML patches (extension-dispatched, deterministic re-serialization), requires/conflicts enforced on resolved states, presets with defaults → preset → explicit order (`--preset` in CLI, arg in MCP, selector in desktop v1.2.0) | Small additive wins; presets become the pieces-selection UX |
 | 4 | **F study VII → pieces v1** (template-local), then common pieces | The headline 1.x feature, entered with its prerequisites in place |
 | 5 | **C** (new parent) | Content lane — can run in parallel with any phase |
 | 6 | **D** (signing, packaging, sync, macOS) | Continuous; signing when the certificate decision is made |
