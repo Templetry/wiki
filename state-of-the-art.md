@@ -62,4 +62,4 @@ Normative documents in [`spec/`](spec/): [`template-yml.md`](spec/template-yml.m
 ## Open backlog
 
 - ~~Road to v1.0.0~~ **v1.0.0 declared and released 2026-08-07** across all components ([ADR-0013](adr/0013-declare-v1.md), soak window waived); the [compatibility policy](spec/compatibility.md) is in force.
-- Desktop: settings sync via GitHub; code signing; macOS/Linux builds.
+- **1.x roadmap** planned in [study/roadmap-1x.md](study/roadmap-1x.md): update-in-CLI → AI/MCP surface → engine 1.1 additives → **lazy pieces** (study VII pending) → new parent → distribution.
