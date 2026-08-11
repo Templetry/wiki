@@ -12,7 +12,7 @@ Everything is published in the GitHub organization **[Templetry](https://github.
 
 | Repo | Role | State |
 |---|---|---|
-| [engine](https://github.com/Templetry/engine) | Pure Go library + `templetry` CLI (`list`, `init`, `plan`, `render`, `verify`, `update`, `version`) | **v1.1.0** — public API under the [compatibility policy](spec/compatibility.md); binaries for linux/darwin/windows (amd64 + arm64) |
+| [engine](https://github.com/Templetry/engine) | Pure Go library + `templetry` CLI (`list`, `init`, `plan`, `render`, `verify`, `update`, `version`) + `templetry-mcp` MCP server | **v1.2.0** — public API under the [compatibility policy](spec/compatibility.md); binaries for linux/darwin/windows (amd64 + arm64) |
 | [desktop](https://github.com/Templetry/desktop) | Native desktop app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.1.0** — Windows portable exe + NSIS installer; update cycle now consumed from the engine library |
 | [catalog](https://github.com/Templetry/catalog) | Default template registry — `registry.json` (schema v2) consumed by CLI and desktop | 7 forms, all `ready` — tagged `v1.0.0` with the parents |
 | [kmp](https://github.com/Templetry/kmp) | Parent: Kotlin Multiplatform | forms `modular-features`, `single-module`, `modular-ui` — all ready, CI-verified |

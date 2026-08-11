@@ -33,7 +33,7 @@ A **web** parent (React + Vite + TS) or **backend** parent (Spring Boot or FastA
 - **Settings sync** via GitHub (gist or repo).
 - **macOS/Linux desktop builds** (Wails cross-compiles; needs CI runners per OS).
 
-### E — AI-ready surface (docs for AIs + MCP)
+### E — AI-ready surface (docs for AIs + MCP) — ✅ MVP shipped 2026-08-11 (engine v1.2.0)
 
 Make Templetry legible and drivable by AI agents:
 
@@ -60,7 +60,7 @@ Open questions for study VII: piece-vs-piece merge ordering and conflicts; sub-c
 | Phase | Content | Why this order |
 |---|---|---|
 | 1 | ✅ **A** (update in library + CLI) — engine v1.1.0 ships the `update` package and `templetry update [dir] [--apply]`; desktop v1.1.0 consumes it (−282 lines of duplicated cycle) | Foundation: unlocks F, feeds E's `update` tool, immediate standalone value |
-| 2 | **E-lite**: AGENTS.md convention + MCP server MVP (list/schema/plan/render) | Cheap, high leverage — rides the freshly-moved library APIs |
+| 2 | ✅ **E-lite** — `templetry-mcp` ships with engine v1.2.0 (stdio, dependency-free, five tools incl. `update`); AGENTS.md convention in the meta GUIDE (§8) and added to `android/single-module`. Pending from E: JSON Schema publication + llms.txt | Cheap, high leverage — rides the freshly-moved library APIs |
 | 3 | **B** (patches, requires, presets) | Small additive wins; presets become the pieces-selection UX |
 | 4 | **F study VII → pieces v1** (template-local), then common pieces | The headline 1.x feature, entered with its prerequisites in place |
 | 5 | **C** (new parent) | Content lane — can run in parallel with any phase |
