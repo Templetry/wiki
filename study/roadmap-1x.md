@@ -4,7 +4,7 @@
 
 ## The six lanes
 
-### A — `templetry update` in the CLI *(enabler lane — first)*
+### A — `templetry update` in the CLI *(enabler lane)* — ✅ shipped 2026-08-11 (engine + desktop v1.1.0)
 
 The update cycle (drift detection → assisted re-render → three-way merge) lives only in the desktop app today. Moving it into the engine library + CLI:
 
@@ -59,7 +59,7 @@ Open questions for study VII: piece-vs-piece merge ordering and conflicts; sub-c
 
 | Phase | Content | Why this order |
 |---|---|---|
-| 1 | **A** (update in library + CLI) | Foundation: unlocks F, feeds E's `update` tool, immediate standalone value |
+| 1 | ✅ **A** (update in library + CLI) — engine v1.1.0 ships the `update` package and `templetry update [dir] [--apply]`; desktop v1.1.0 consumes it (−282 lines of duplicated cycle) | Foundation: unlocks F, feeds E's `update` tool, immediate standalone value |
 | 2 | **E-lite**: AGENTS.md convention + MCP server MVP (list/schema/plan/render) | Cheap, high leverage — rides the freshly-moved library APIs |
 | 3 | **B** (patches, requires, presets) | Small additive wins; presets become the pieces-selection UX |
 | 4 | **F study VII → pieces v1** (template-local), then common pieces | The headline 1.x feature, entered with its prerequisites in place |
