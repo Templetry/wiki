@@ -12,9 +12,9 @@ Everything is published in the GitHub organization **[Templetry](https://github.
 
 | Repo | Role | State |
 |---|---|---|
-| [engine](https://github.com/Templetry/engine) | Pure Go library + `templetry` CLI (`list`, `init`, `plan`, `render`, `verify`, `version`) | **v0.3.0** — binary releases for linux/darwin/windows (amd64 + arm64) |
-| [desktop](https://github.com/Templetry/desktop) | Native desktop app (Wails: Go backend embedding the engine, React/TS frontend) | **v0.3.1** — Windows portable exe + NSIS installer |
-| [catalog](https://github.com/Templetry/catalog) | Default template registry — `registry.json` (schema v2) consumed by CLI and desktop | 7 forms, all `ready` |
+| [engine](https://github.com/Templetry/engine) | Pure Go library + `templetry` CLI (`list`, `init`, `plan`, `render`, `verify`, `version`) | **v1.0.0** — public API under the [compatibility policy](spec/compatibility.md); binaries for linux/darwin/windows (amd64 + arm64) |
+| [desktop](https://github.com/Templetry/desktop) | Native desktop app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.0.0** — Windows portable exe + NSIS installer, engine v1 embedded |
+| [catalog](https://github.com/Templetry/catalog) | Default template registry — `registry.json` (schema v2) consumed by CLI and desktop | 7 forms, all `ready` — tagged `v1.0.0` with the parents |
 | [kmp](https://github.com/Templetry/kmp) | Parent: Kotlin Multiplatform | forms `modular-features`, `single-module`, `modular-ui` — all ready, CI-verified |
 | [android](https://github.com/Templetry/android) | Parent: Android native | forms `modular-features`, `single-module` — both ready, CI-verified |
 | [meta](https://github.com/Templetry/meta) | Parent: the template that creates Templetry templates | form `template` ready |
@@ -25,7 +25,7 @@ Local layout mirrors the org under `Repos\templetry\` with the parents grouped i
 
 ## Shipped capabilities
 
-### Engine + CLI (v0.3.0)
+### Engine + CLI (v1.0.0)
 
 - Manifest parsing + validation + derived casings; planner (feature exclusion, identity renaming); renderer (directive scanner, JSON patches); deterministic output — same inputs, byte-identical result.
 - Remote catalogs: `templetry list` / `templetry init parent/form` resolve against the official registry (`https://raw.githubusercontent.com/Templetry/catalog/main/registry.json`) or any custom one.
@@ -34,7 +34,7 @@ Local layout mirrors the org under `Repos\templetry\` with the parents grouped i
 - Answers file records every input **and the resolved template commit** (drift anchor) — the foundation for the update cycle ([ADR-0005](adr/0005-prepare-for-updates.md)).
 - Releases with SHA256SUMS; CI on every push.
 
-### Desktop (v0.3.1)
+### Desktop (v1.0.0)
 
 Three main sections:
 
@@ -61,5 +61,5 @@ Normative documents in [`spec/`](spec/): [`template-yml.md`](spec/template-yml.m
 
 ## Open backlog
 
-- **Road to v1.0.0**: engineering gates G1–G4 closed and released ([study/road-to-v1.md](study/road-to-v1.md)); next step is declaring the v1.0.0-rc freeze and opening the G5 soak window (2–4 weeks of real use).
+- ~~Road to v1.0.0~~ **v1.0.0 declared and released 2026-08-07** across all components ([ADR-0013](adr/0013-declare-v1.md), soak window waived); the [compatibility policy](spec/compatibility.md) is in force.
 - Desktop: settings sync via GitHub; code signing; macOS/Linux builds.

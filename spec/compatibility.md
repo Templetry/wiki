@@ -1,6 +1,6 @@
 # Compatibility policy — v1
 
-**Status:** normative from engine v1.0.0 (draft until then — see [study VI](../study/road-to-v1.md)). This document defines the promise the version number makes.
+**Status:** ✅ **in force since engine v1.0.0 (2026-08-07, [ADR-0013](../adr/0013-declare-v1.md))**. This document defines the promise the version number makes.
 
 ## The public API
 
