@@ -98,6 +98,10 @@ A common piece (shared across templates) needs what template-local pieces get fo
 - MCP: `list_pieces`, `add_piece` tools; update tool reports pieces too.
 - Desktop: pieces panel in Local's project preview (list/add/update) — after the engine lands.
 
+## Finding from implementation (2026-08-12): the piece-socket boundary
+
+Patches only touch structured formats — and Gradle wiring lives in `.kts` code files. A Room piece for `android/single-module` therefore **cannot wire itself** via patches (adding to `libs.versions.toml` works; `implementation(libs.room.runtime)` in `build.gradle.kts` does not). The documented path: forms are authored **piece-ready** with conditional hooks — `if (file("piece.deps.gradle.kts").exists()) apply(from = …)` — whose target file the piece owns. Sockets are honest (visible in the form, compile when absent) and keep the no-overwrite rule intact. The android piece waits for its form to grow sockets; the web ecosystem needed none.
+
 ## Verification plan
 
 1. Unit: piece load/validate, collision refusal, answers round-trip.

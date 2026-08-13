@@ -41,7 +41,7 @@ Make Templetry legible and drivable by AI agents:
 - **AGENTS.md / AI_INDEX standard in every form**: `kmp` and `android/modular-features` already carry AGENTS.md + `docs/ai/`; make it a form-authoring convention (checklist in `meta/template`'s GUIDE) so every *rendered project* is born agent-friendly.
 - **Machine-readable specs**: publish the manifest/answers/registry schemas as JSON Schema; `llms.txt` on the wiki/org profile.
 
-### F — Lazy pieces *(the big one — needs its own study before any code)*
+### F — Lazy pieces — 🔶 v1 shipped 2026-08-12 (engine v1.4.0; desktop panel, piece updates and common pieces pending)
 
 **Owner's framing:** a template can have *pieces* — fully decoupled units of code you may not want at creation time but can bring in later, with update capability and their own sub-customization. Choosable at creation or added after the project exists. Two kinds: **template-local pieces** (belong to one form) and **common pieces** (shared across templates).
 

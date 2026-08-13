@@ -18,6 +18,21 @@ features:                  # resolved states, keys sorted
   router: true
 ```
 
+### Pieces (v1.4+, ADR-0014)
+
+Each applied piece appends an entry — its own drift anchor, sub-customization and owned files:
+
+```yaml
+pieces:
+  - name: axios-api
+    source: "github.com/Templetry/web@main/react-spa/pieces/axios-api"
+    commit: <sha resolved at add time>
+    variables:
+      api_base: /api
+    files:
+      - src/api/client.ts
+```
+
 ## Rules
 
 - Keys are emitted **sorted** and the file is byte-deterministic: same inputs → same file (NFR4; golden tests depend on it).
