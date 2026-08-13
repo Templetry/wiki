@@ -17,6 +17,8 @@ Split multi-forge into its two independent axes and build the foundation of both
 
 Forge adapters (GitLab, Gitea) stay deferred: with BYOR real, an adapter buys convenience (creating the repo for you, listing your groups), not capability. They land when a user asks — the same anti-maintenance-pit rule ADR-0009 set.
 
+> **Amendment (2026-08-13, same day): the owner asked, so the adapters shipped** in desktop v1.5.0 — GitLab and Gitea/Forgejo, with `whoami`, owners, create-repo and list-repos each. Authentication is a **personal access token per host**, not OAuth: GitLab and Gitea device flows require registering an application on every instance, which self-hosted servers make impossible to ship centrally, whereas a PAT works on gitlab.com, Codeberg and a company server alike. GitHub keeps its OAuth device flow. Tokens live in the OS keyring under `<scheme>@<host>`; the settings file stores only the account list, so exports stay shareable (the ADR-0009 rule that login and forge credentials are separate concerns).
+
 ## Consequences
 
 - The multi-forge claim becomes true in code, not just in an ADR.
