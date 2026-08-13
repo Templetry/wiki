@@ -20,7 +20,10 @@ Everything is published in the GitHub organization **[Templetry](https://github.
 | [web](https://github.com/Templetry/web) | Parent: Web | form `react-spa` (Vite + TS, presets `full`/`minimal`, declares `verify:`) — ready, CI-verified |
 | [meta](https://github.com/Templetry/meta) | Parent: the template that creates Templetry templates | form `template` ready |
 | [wiki](https://github.com/Templetry/wiki) | This repo: studies, ADRs, specs, journal, brand | living |
+| [scoop-bucket](https://github.com/Templetry/scoop-bucket) | Windows package manifest: `scoop install templetry` (CLI + MCP), autoupdating | live |
 | [.github](https://github.com/Templetry/.github) | Organization profile | living |
+
+Licenses: engine under **PolyForm Noncommercial 1.0.0**; every other repo **MIT**.
 
 Local layout mirrors the org under `Repos\templetry\` with the parents grouped in `parents\`.
 

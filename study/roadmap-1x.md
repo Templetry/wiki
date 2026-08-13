@@ -26,12 +26,12 @@ The three candidates the specs already noted, all additive (minor-safe under the
 
 A **web** parent (React + Vite + TS) or **backend** parent (Spring Boot or FastAPI — both in the owner's stack). Content work like `android/single-module`; publicly proves the engine-agnostic thesis (ADR-0002) outside the JVM. The FastAPI manifest from the dry-run validation is a ready-made starting spec.
 
-### D — Distribution & trust
+### D — Distribution & trust — 🔶 partially shipped 2026-08-12
 
-- **Code signing** for the desktop app (kill the SmartScreen warning) — needs a certificate, budget decision.
-- **winget/scoop** manifest for the CLI (and Homebrew when macOS builds exist).
-- **Settings sync** via GitHub (gist or repo).
-- **macOS/Linux desktop builds** (Wails cross-compiles; needs CI runners per OS).
+- ✅ **Licenses across the org** (prerequisite surfaced by packaging): engine under PolyForm Noncommercial 1.0.0 (owner's call), everything else MIT.
+- ✅ **scoop bucket** ([Templetry/scoop-bucket](https://github.com/Templetry/scoop-bucket)): `scoop bucket add templetry … && scoop install templetry` installs CLI + MCP server, autoupdating from engine releases.
+- ✅ **macOS/Linux desktop builds**: the release workflow is a three-platform matrix (Windows NSIS+portable, Linux GTK/WebKitGTK, macOS universal .app) with one aggregated release; the in-app updater stays Windows-only with a friendly pointer elsewhere.
+- Pending: **code signing** (certificate/budget decision), winget submission (better after signing), Homebrew tap, settings sync via GitHub.
 
 ### E — AI-ready surface (docs for AIs + MCP) — ✅ MVP shipped 2026-08-11 (engine v1.2.0)
 
