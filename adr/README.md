@@ -21,3 +21,4 @@ Statuses: **open** (undecided) · **proposed** (candidate, pending validation) �
 | [0011](0011-template-forms.md) | Catalog model: parents, forms and combinable features | ✅ Accepted |
 | [0012](0012-desktop-app-wails.md) | Desktop app with Wails, engine embedded | ✅ Accepted |
 | [0013](0013-declare-v1.md) | Declare v1.0.0 across all components (soak window waived) | ✅ Accepted |
+| [0014](0014-lazy-pieces.md) | Lazy pieces: decoupled units with their own lifecycle | ✅ Accepted |
