@@ -22,3 +22,4 @@ Statuses: **open** (undecided) · **proposed** (candidate, pending validation) �
 | [0012](0012-desktop-app-wails.md) | Desktop app with Wails, engine embedded | ✅ Accepted |
 | [0013](0013-declare-v1.md) | Declare v1.0.0 across all components (soak window waived) | ✅ Accepted |
 | [0014](0014-lazy-pieces.md) | Lazy pieces: decoupled units with their own lifecycle | ✅ Accepted |
+| [0015](0015-multi-forge-foundation.md) | Multi-forge foundation: BYOR and source schemes | ✅ Accepted |

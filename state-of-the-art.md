@@ -12,8 +12,8 @@ Everything is published in the GitHub organization **[Templetry](https://github.
 
 | Repo | Role | State |
 |---|---|---|
-| [engine](https://github.com/Templetry/engine) | Pure Go library + `templetry` CLI (`list`, `init`, `plan`, `render`, `verify`, `update`, `pieces`, `add`, `version`) + `templetry-mcp` MCP server | **v1.4.0** — public API under the [compatibility policy](spec/compatibility.md); binaries for linux/darwin/windows (amd64 + arm64) |
-| [desktop](https://github.com/Templetry/desktop) | Native desktop app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.2.0** — Windows portable exe + NSIS installer; preset selector, update cycle from the engine library |
+| [engine](https://github.com/Templetry/engine) | Pure Go library + `templetry` CLI (`list`, `init`, `plan`, `render`, `verify`, `update`, `pieces`, `add`, `version`) + `templetry-mcp` MCP server | **v1.5.0** — multi-forge template hosting (`github:`/`gitlab:`/`gitea:` schemes); public API under the [compatibility policy](spec/compatibility.md); binaries for linux/darwin/windows (amd64 + arm64) |
+| [desktop](https://github.com/Templetry/desktop) | Native desktop app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.4.0** — Windows, Linux and macOS builds; BYOR creation on any git host |
 | [catalog](https://github.com/Templetry/catalog) | Default template registry — `registry.json` (schema v2) consumed by CLI and desktop | 19 forms across 10 parents, all `ready`; 5 lazy pieces |
 | [kmp](https://github.com/Templetry/kmp) | Parent: Kotlin Multiplatform | forms `modular-features`, `single-module`, `modular-ui` — all ready, CI-verified |
 | [android](https://github.com/Templetry/android) | Parent: Android native | forms `modular-features`, `single-module` — both ready, CI-verified |
@@ -64,7 +64,9 @@ Cross-cutting: GitHub sign-in via OAuth device flow (scopes `repo workflow`); fu
 
 All ADRs are indexed in [`adr/README.md`](adr/README.md). Highlights: own engine in Go (0001, 0006), agnostic engine (0002), templates compile (0003), verify in containers (0004), updates prepared from day one (0005), multi-forge via BYOR (0009), parents/forms/features catalog (0011), desktop app with Wails superseding the hosted web app (0012 ⊃ 0010).
 
-Discarded along the way: the hosted web app and dedicated Gitea/GitLab adapters (BYOR covers exotic hosts; adapters return if real users need them).
+Multi-forge (ADR-0015, 2026-08-13): templates can be **hosted** on GitHub, GitLab or Gitea/Forgejo via source schemes, and projects can be **created** on any git host through BYOR (paste an empty repo's URL; Templetry renders and pushes). Forge adapters stay deferred — with BYOR shipped they add convenience, not reach.
+
+Discarded along the way: the hosted web app.
 
 ## Specs
 
