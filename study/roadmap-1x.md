@@ -22,7 +22,7 @@ The three candidates the specs already noted, all additive (minor-safe under the
 - **`requires`/`conflicts` between features** (postponed from v1 by ADR-0007/spec).
 - **Presets** — named feature combos in the manifest (study IV's "future sugar"); also the natural UI for choosing pieces at creation time.
 
-### C — New parent beyond Kotlin
+### C — New parent beyond Kotlin — ✅ shipped 2026-08-12 (`Templetry/web`)
 
 A **web** parent (React + Vite + TS) or **backend** parent (Spring Boot or FastAPI — both in the owner's stack). Content work like `android/single-module`; publicly proves the engine-agnostic thesis (ADR-0002) outside the JVM. The FastAPI manifest from the dry-run validation is a ready-made starting spec.
 
@@ -63,7 +63,7 @@ Open questions for study VII: piece-vs-piece merge ordering and conflicts; sub-c
 | 2 | ✅ **E-lite** — `templetry-mcp` ships with engine v1.2.0 (stdio, dependency-free, five tools incl. `update`); AGENTS.md convention in the meta GUIDE (§8) and added to `android/single-module`. Pending from E: JSON Schema publication + llms.txt | Cheap, high leverage — rides the freshly-moved library APIs |
 | 3 | ✅ **B** — engine v1.3.0: YAML/TOML patches (extension-dispatched, deterministic re-serialization), requires/conflicts enforced on resolved states, presets with defaults → preset → explicit order (`--preset` in CLI, arg in MCP, selector in desktop v1.2.0) | Small additive wins; presets become the pieces-selection UX |
 | 4 | **F study VII → pieces v1** (template-local), then common pieces | The headline 1.x feature, entered with its prerequisites in place |
-| 5 | **C** (new parent) | Content lane — can run in parallel with any phase |
+| 5 | ✅ **C** — `web/react-spa` (Vite + React + strict TS): first form with presets, first with a declared `verify:`, HTML-comment directives switching the entry point; validated locally (npm builds + browser run) and green in CI on both presets. Catalog: 4 parents / 8 forms. Lane order changed by owner: **F (pieces) moves last, D next** | Content lane — can run in parallel with any phase |
 | 6 | **D** (signing, packaging, sync, macOS) | Continuous; signing when the certificate decision is made |
 
 Registry/answers changes in B and F are **additive** (new optional fields) — no schema break, per the compatibility policy.

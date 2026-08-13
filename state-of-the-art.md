@@ -14,9 +14,10 @@ Everything is published in the GitHub organization **[Templetry](https://github.
 |---|---|---|
 | [engine](https://github.com/Templetry/engine) | Pure Go library + `templetry` CLI (`list`, `init`, `plan`, `render`, `verify`, `update`, `version`) + `templetry-mcp` MCP server | **v1.3.0** — public API under the [compatibility policy](spec/compatibility.md); binaries for linux/darwin/windows (amd64 + arm64) |
 | [desktop](https://github.com/Templetry/desktop) | Native desktop app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.2.0** — Windows portable exe + NSIS installer; preset selector, update cycle from the engine library |
-| [catalog](https://github.com/Templetry/catalog) | Default template registry — `registry.json` (schema v2) consumed by CLI and desktop | 7 forms, all `ready` — tagged `v1.0.0` with the parents |
+| [catalog](https://github.com/Templetry/catalog) | Default template registry — `registry.json` (schema v2) consumed by CLI and desktop | 8 forms across 4 parents, all `ready` |
 | [kmp](https://github.com/Templetry/kmp) | Parent: Kotlin Multiplatform | forms `modular-features`, `single-module`, `modular-ui` — all ready, CI-verified |
 | [android](https://github.com/Templetry/android) | Parent: Android native | forms `modular-features`, `single-module` — both ready, CI-verified |
+| [web](https://github.com/Templetry/web) | Parent: Web | form `react-spa` (Vite + TS, presets `full`/`minimal`, declares `verify:`) — ready, CI-verified |
 | [meta](https://github.com/Templetry/meta) | Parent: the template that creates Templetry templates | form `template` ready |
 | [wiki](https://github.com/Templetry/wiki) | This repo: studies, ADRs, specs, journal, brand | living |
 | [.github](https://github.com/Templetry/.github) | Organization profile | living |
