@@ -14,13 +14,14 @@ Everything is published in the GitHub organization **[Templetry](https://github.
 |---|---|---|
 | [engine](https://github.com/Templetry/engine) | Pure Go library + `templetry` CLI (`list`, `init`, `plan`, `render`, `verify`, `update`, `pieces`, `add`, `version`) + `templetry-mcp` MCP server | **v1.4.0** — public API under the [compatibility policy](spec/compatibility.md); binaries for linux/darwin/windows (amd64 + arm64) |
 | [desktop](https://github.com/Templetry/desktop) | Native desktop app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.2.0** — Windows portable exe + NSIS installer; preset selector, update cycle from the engine library |
-| [catalog](https://github.com/Templetry/catalog) | Default template registry — `registry.json` (schema v2) consumed by CLI and desktop | 14 forms across 9 parents, all `ready` |
+| [catalog](https://github.com/Templetry/catalog) | Default template registry — `registry.json` (schema v2) consumed by CLI and desktop | 18 forms across 10 parents, all `ready` |
 | [kmp](https://github.com/Templetry/kmp) | Parent: Kotlin Multiplatform | forms `modular-features`, `single-module`, `modular-ui` — all ready, CI-verified |
 | [android](https://github.com/Templetry/android) | Parent: Android native | forms `modular-features`, `single-module` — both ready, CI-verified |
-| [web](https://github.com/Templetry/web) | Parent: Web | form `react-spa` (Vite + TS, presets `full`/`minimal`, declares `verify:`) + piece `axios-api` — ready, CI-verified |
+| [web](https://github.com/Templetry/web) | Parent: Web | forms `react-spa` (+ piece `axios-api`), `vue-spa`, `nextjs` — all ready, CI-verified on both presets |
+| [rust](https://github.com/Templetry/rust) | Parent: Rust | forms `cli` (clap), `axum-service` (axum + tokio) — ready, CI-verified |
 | [go](https://github.com/Templetry/go) | Parent: Go | forms `cli`, `http-service` (stdlib only, distroless Docker) — ready, CI-verified |
 | [node](https://github.com/Templetry/node) | Parent: Node.js | form `express-api` (Express 5 + TS NodeNext, Vitest) — ready, CI-verified |
-| [python](https://github.com/Templetry/python) | Parent: Python | form `fastapi-service` (src layout, pytest, `python_version` select) — ready, CI-verified on 3.12 and 3.13 |
+| [python](https://github.com/Templetry/python) | Parent: Python | forms `fastapi-service`, `cli-typer` — ready, CI-verified on 3.12 and 3.13 |
 | [jvm](https://github.com/Templetry/jvm) | Parent: JVM | form `spring-boot` (Kotlin, Gradle KTS, RANDOM_PORT tests) — ready, CI-verified |
 | [dotnet](https://github.com/Templetry/dotnet) | Parent: .NET | form `minimal-api` (C# top-level, xUnit + WebApplicationFactory) — ready, CI-verified |
 | [meta](https://github.com/Templetry/meta) | Parent: the template that creates Templetry templates | form `template` ready |
@@ -56,7 +57,7 @@ Cross-cutting: GitHub sign-in via OAuth device flow (scopes `repo workflow`); fu
 ### Catalog & parents
 
 - Model: **parents → forms → combinable features** ([ADR-0011](adr/0011-template-forms.md)), plus **lazy pieces** adopted post-creation ([ADR-0014](adr/0014-lazy-pieces.md)). Every form is a real project verified by CI ("Verify forms" workflows render + compile the combos on every push); `status: ready` in the registry is gated on green CI.
-- **Nine ecosystems** proven against one engine and one manifest schema: Kotlin Multiplatform, Android, Web (React/Vite), Go, Node/TypeScript, Python, JVM/Spring, .NET, plus the meta-template — the strongest evidence for the agnostic-engine thesis (ADR-0002).
+- **Eleven ecosystems** proven against one engine and one manifest schema: Kotlin Multiplatform, Android, React, Vue, Next.js, Go, Node/TypeScript, Python, Rust, JVM/Spring, .NET, plus the meta-template — the strongest evidence for the agnostic-engine thesis (ADR-0002). No engine change was needed for any of them.
 - `meta/template` scaffolds new Templetry templates: pre-filled manifest, author guide (`GUIDE`), mechanism showcase, verify CI.
 
 ## Decisions in force

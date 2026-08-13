@@ -12,6 +12,14 @@ The catalog grew from 4 parents / 8 forms to **9 parents / 14 forms**: `go` (cli
 
 `dotnet/minimal-api` failed its first CI: implicit usings do not cover xUnit, so the rendered test project missed `using Xunit;`. One-line fix, green on rerun. Same lesson as the 13-round Kotlin sanitation of 2026-08-02, at 1/13 the cost: **the defect surfaced in the template's own CI, not in a user's project** — and it surfaced *because* the CI compiles the render rather than trusting the template.
 
+## Second pass, same day
+
+A follow-up round added the `rust` parent (`cli` with clap, `axum-service` with axum + tokio), two more web forms (`vue-spa`, `nextjs`) and `python/cli-typer` — **10 parents / 18 forms across eleven ecosystems**, all green. Notes:
+
+- The two SPAs (`react-spa`, `vue-spa`) switch their entry point with the *same* HTML-comment directive pattern — one comment-style table, two frameworks.
+- Rust needed two casings of one identity (`verify-app` package, `verify_app` import): pure identity-map work, no engine change.
+- Parent CIs graduated to matrices (form × preset, form × python version), so new forms cost a matrix entry rather than a workflow.
+
 ## Takeaway
 
 Adding an ecosystem is now a bounded, repeatable job: write a compilable form, declare its identity, ship AGENTS.md, wire a Verify job, flip the registry when green. The cost curve grows with templates, not with the engine (NFR5), exactly as designed.
