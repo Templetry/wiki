@@ -14,12 +14,12 @@ Everything is published in the GitHub organization **[Templetry](https://github.
 |---|---|---|
 | [engine](https://github.com/Templetry/engine) | Pure Go library + `templetry` CLI (`list`, `init`, `plan`, `render`, `verify`, `update`, `pieces`, `add`, `version`) + `templetry-mcp` MCP server | **v1.4.0** — public API under the [compatibility policy](spec/compatibility.md); binaries for linux/darwin/windows (amd64 + arm64) |
 | [desktop](https://github.com/Templetry/desktop) | Native desktop app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.2.0** — Windows portable exe + NSIS installer; preset selector, update cycle from the engine library |
-| [catalog](https://github.com/Templetry/catalog) | Default template registry — `registry.json` (schema v2) consumed by CLI and desktop | 18 forms across 10 parents, all `ready` |
+| [catalog](https://github.com/Templetry/catalog) | Default template registry — `registry.json` (schema v2) consumed by CLI and desktop | 19 forms across 10 parents, all `ready`; 5 lazy pieces |
 | [kmp](https://github.com/Templetry/kmp) | Parent: Kotlin Multiplatform | forms `modular-features`, `single-module`, `modular-ui` — all ready, CI-verified |
 | [android](https://github.com/Templetry/android) | Parent: Android native | forms `modular-features`, `single-module` — both ready, CI-verified |
-| [web](https://github.com/Templetry/web) | Parent: Web | forms `react-spa` (+ piece `axios-api`), `vue-spa`, `nextjs` — all ready, CI-verified on both presets |
+| [web](https://github.com/Templetry/web) | Parent: Web | forms `react-spa`, `vue-spa`, `nextjs`, `svelte-spa` — ready, CI-verified on both presets; pieces `axios-api`, `zustand-store`, `pinia-store`, `zod-env` |
 | [rust](https://github.com/Templetry/rust) | Parent: Rust | forms `cli` (clap), `axum-service` (axum + tokio) — ready, CI-verified |
-| [go](https://github.com/Templetry/go) | Parent: Go | forms `cli`, `http-service` (stdlib only, distroless Docker) — ready, CI-verified |
+| [go](https://github.com/Templetry/go) | Parent: Go | forms `cli`, `http-service` (stdlib only, distroless Docker) — ready, CI-verified; piece `version-endpoint` via the api socket |
 | [node](https://github.com/Templetry/node) | Parent: Node.js | form `express-api` (Express 5 + TS NodeNext, Vitest) — ready, CI-verified |
 | [python](https://github.com/Templetry/python) | Parent: Python | forms `fastapi-service`, `cli-typer` — ready, CI-verified on 3.12 and 3.13 |
 | [jvm](https://github.com/Templetry/jvm) | Parent: JVM | form `spring-boot` (Kotlin, Gradle KTS, RANDOM_PORT tests) — ready, CI-verified |

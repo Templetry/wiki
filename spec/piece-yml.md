@@ -32,6 +32,16 @@ patches:                     # the ONLY way to touch existing project files
 - **Recording**: applying a piece appends to the answers file's `pieces:` list — name, source, resolved commit (its own drift anchor), resolved variables and the owned file list (see [answers-file.md](answers-file.md)).
 - **Re-adding** an applied piece is an error; removal is not in v1 (the recorded file list keeps it possible later).
 
-## Known boundary (v1)
+## Known boundary (v1) and the socket pattern
 
-Patches only touch structured formats. Ecosystems whose wiring lives in code files (Gradle `.kts`, for instance) need the form to be authored **piece-ready**: a conditional hook such as `if (file("piece.deps.gradle.kts").exists()) apply(...)` whose target file the piece owns. This "piece socket" pattern is the documented path for JVM templates until something better earns its place.
+Patches only touch structured formats, so ecosystems whose wiring lives in code files need the form to be authored **piece-ready** with a *socket*: a registration point the piece plugs into from a file it owns, so no existing file is edited.
+
+Proven in `go/http-service` (2026-08-13): the form exposes
+
+```go
+var registrars []func(*http.ServeMux)
+func Register(f func(*http.ServeMux)) { registrars = append(registrars, f) }
+// NewMux ranges over registrars after its own routes
+```
+
+and the `version-endpoint` piece ships a file whose `init` calls `api.Register(...)`. The form compiles with zero pieces (empty slice) and gains routes as pieces arrive — CI verifies both states. The same shape applies elsewhere: a `pieces/` package the app imports and iterates, a conditional `apply(from = ...)` in Gradle whose target the piece owns, an auto-included routers directory in FastAPI.
