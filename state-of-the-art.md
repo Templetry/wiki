@@ -76,3 +76,4 @@ Normative documents in [`spec/`](spec/): [`template-yml.md`](spec/template-yml.m
 
 - ~~Road to v1.0.0~~ **v1.0.0 declared and released 2026-08-07** across all components ([ADR-0013](adr/0013-declare-v1.md), soak window waived); the [compatibility policy](spec/compatibility.md) is in force.
 - **1.x roadmap** planned in [study/roadmap-1x.md](study/roadmap-1x.md): update-in-CLI → AI/MCP surface → engine 1.1 additives → **lazy pieces** (study VII pending) → new parent → distribution.
+- **Industrial pieces** researched in [study/industrial-pieces-v1.md](study/industrial-pieces-v1.md): identity/roles (NIST RBAC, SCIM 2.0), compliance (Verifactu — already mandatory in Spain), cross-cutting infrastructure, domain CRUDs and integrations, with a recommended build order.
