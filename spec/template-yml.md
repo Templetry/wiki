@@ -8,8 +8,12 @@
 schema_version: 1            # required, must be 1
 name: react-vite-ts          # required, kebab-case
 description: React + Vite + TS starter
-platform: web                # catalog tag; the engine ignores it
-framework: react             # catalog tag; the engine ignores it
+
+# The taxonomy (ADR-0017). Each axis is a list: a form is usually more than
+# one thing. Optional — a form without it simply matches no filter.
+kinds: [frontend]            # closed vocabulary, validated
+languages: [typescript]      # open, kebab-case
+frameworks: [react, vite]    # open, kebab-case
 
 variables:
   - key: project_name        # required, ^[a-z][a-z0-9_]*$, unique
@@ -72,6 +76,28 @@ Since v1.3, patches target **`.json`, `.yml`/`.yaml` and `.toml`** files — the
 ### Presets
 `presets` (v1.3) are named feature combos. Resolution order is **defaults → preset → explicit user choices** — the more specific always wins. An unknown preset name is an error.
 
+### Taxonomy (v1.10, [ADR-0017](../adr/0017-template-taxonomy.md))
+
+Three independent axes, each a list, because a form is usually more than one thing.
+
+| Axis | Vocabulary | Meaning |
+|---|---|---|
+| `kinds` | **closed**, validated | What the form *is* |
+| `languages` | open, kebab-case | What it is written in |
+| `frameworks` | open, kebab-case | What it is built on |
+
+The closed vocabulary of `kinds`:
+
+`frontend` · `backend` · `database` · `infra` · `multiplatform` · `android` · `ios` · `desktop` · `cli`
+
+An unknown kind is an **error** naming the allowed set — a filter axis only works if two templates meaning the same thing use the same word, and a typo must not silently invent a tenth category. Extending the vocabulary is deliberate: a new value ships in a minor and is recorded in the ADR.
+
+The open axes constrain shape only (`^[a-z0-9]+(-[a-z0-9]+)*$`), which is what stops `C#`, `csharp` and `c-sharp` from becoming three languages. Duplicates within an axis are an error. All three are optional, and empty lists are valid.
+
+Consumers filter with **OR within an axis, AND across axes**: `--kind backend --kind cli --language go` selects "(backend or cli) and go". The registry carries a copy of each form's taxonomy (v2.2, additive) so filtering reads one fetched document instead of every manifest.
+
+**Deprecated:** `platform` and `framework` — the singular strings this replaces. They still parse, because the manifest is public API and a field only disappears with a major, but nothing reads them. There is no fallback from the old fields to the new: `platform: web` could mean `frontend`, and guessing would label templates wrongly while looking like it worked.
+
 ### Directives
 See [directives.md](directives.md) — normative grammar, comment-style table, and errors.
 
@@ -81,6 +107,7 @@ Every render writes `.templetry-answers.yml` into the output. See [answers-file.
 ## Validation rules (engine `manifest.Validate`)
 
 - `schema_version` present and equal to 1; `name` present, kebab-case.
+- Every `kinds` value belongs to the closed vocabulary; `languages` and `frameworks` values are kebab-case. No duplicates within an axis.
 - Variable/feature keys match `^[a-z][a-z0-9_]*$` and are unique across their list.
 - `select` requires non-empty `options`; `default`, if present, must be one of them.
 - `pattern` must compile (RE2).
