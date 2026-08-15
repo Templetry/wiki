@@ -25,7 +25,7 @@ Neither is a crisis today. Both are exactly the kind of quiet decay that makes a
 
 Things shipped code implies but does not yet do:
 
-- **Piece updates.** The answers file records each piece's source and commit — a drift anchor — but `templetry update` ignores them entirely. A project can update its template and never its pieces. Either implement it or say so in the spec; leaving it implied is the worst option.
+- ✅ **Piece updates** — shipped in engine v1.8.0. Auditing it also turned up two defects worth recording: `templetry update <dir> --apply` silently previewed (Go's flag package stops at the first positional, so the flag was never parsed), and the answers file was going through the three-way merge like ordinary content — it kept the `pieces:` section only by luck of the merge, and a conflict there would have corrupted the record the whole cycle depends on. It is now excluded from the diff and rewritten from the record.
 - **Pieces in the desktop.** A panel in Local's project preview: list what the template offers, mark what is applied, add with the piece's own variables. The bindings already exist (`list_pieces`, `add_piece` are in the MCP server; the Go API is the same).
 
 ### Phase 2 — Stop the rot *(days, then permanent)*

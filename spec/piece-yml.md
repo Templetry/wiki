@@ -31,6 +31,7 @@ patches:                     # the ONLY way to touch existing project files
 - **Variable namespaces**: a piece variable key that collides with a template variable key is an error.
 - **Recording**: applying a piece appends to the answers file's `pieces:` list — name, source, resolved commit (its own drift anchor), resolved variables and the owned file list (see [answers-file.md](answers-file.md)).
 - **Re-adding** an applied piece is an error; removal is not in v1 (the recorded file list keeps it possible later).
+- **Updates** (engine v1.8+): `templetry update` re-renders every applied piece at the template's head with its recorded inputs and puts the result through the same diff and three-way merge as the template's own files. Entries report which piece owns them, and applying moves the template's and every piece's anchor forward together. The answers file itself is never merged — it is rewritten from the record, so the `pieces:` list and the recorded inputs always survive.
 
 ## Known boundary (v1) and the socket pattern
 
