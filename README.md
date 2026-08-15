@@ -6,13 +6,13 @@
 
 ## Project status
 
-**v1.0.0 and beyond (August 2026).** Engine **v1.10.0** (library + `templetry` CLI + `templetry-mcp` server), desktop **v1.8.0** (Windows, Linux, macOS), a catalog of **25 forms across 10 parents**, **12 form-local pieces and 2 common pieces** covering eleven ecosystems, all CI-verified.
+**v1.0.0 and beyond (August 2026).** Engine **v1.10.0** (library + `templetry` CLI + `templetry-mcp` server), desktop **v1.8.0** (Windows, Linux, macOS), a catalog of **26 forms across 11 parents**, **12 form-local pieces and 2 common pieces** covering twelve ecosystems, all CI-verified.
 
 New here? Start with the [**usage guides**](guide/). The full, always-current picture — repos, versions, capabilities, backlog — lives in [**state-of-the-art.md**](state-of-the-art.md).
 
 ## The principles
 
-1. **The engine doesn't know what a framework is** — all knowledge lives in each template's `template.yml`; the engine has only generic operations ([ADR-0002](adr/0002-knowledge-lives-in-the-manifest.md)). Eleven ecosystems later, it has never needed a framework-specific line.
+1. **The engine doesn't know what a framework is** — all knowledge lives in each template's `template.yml`; the engine has only generic operations ([ADR-0002](adr/0002-knowledge-lives-in-the-manifest.md)). Twelve ecosystems later, it has never needed a framework-specific line.
 2. **Templates compile** — every template is a real project whose CI renders *and builds* its output ([ADR-0003](adr/0003-templates-compile.md)). Defects surface in the template's CI, not in a user's project.
 3. **Generated projects stay alive** — the answers file records template, commit and inputs from day one ([ADR-0005](adr/0005-prepare-for-updates.md)), which is what makes three-way-merge updates and lazy pieces possible.
 4. **Encode standards, not opinions** — an industrial piece is worth shipping when it encodes a real specification (NIST RBAC, SCIM, RD 1007/2023); otherwise it becomes someone else's technical debt ([study VIII](study/industrial-pieces-v1.md)).

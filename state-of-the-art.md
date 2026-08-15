@@ -14,7 +14,7 @@ The engine is a pure Go library plus a CLI and an MCP server; the desktop app em
 |---|---|---|
 | [engine](https://github.com/Templetry/engine) | Go library + `templetry` CLI + `templetry-mcp` server | **v1.10.0** — binaries for linux/darwin/windows (amd64 + arm64) with SHA256SUMS |
 | [desktop](https://github.com/Templetry/desktop) | Native app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.8.0** — Windows (installer + portable), Linux, macOS universal |
-| [catalog](https://github.com/Templetry/catalog) | Default registry (`registry.json`, schema v2) | **25 forms across 10 parents**, all `ready`; **12 form pieces + 2 common pieces** |
+| [catalog](https://github.com/Templetry/catalog) | Default registry (`registry.json`, schema v2) | **26 forms across 11 parents**, all `ready`; **12 form pieces + 2 common pieces** |
 | [scoop-bucket](https://github.com/Templetry/scoop-bucket) | `scoop install templetry` (CLI + MCP), autoupdating | live |
 | [pieces](https://github.com/Templetry/pieces) | Common pieces adoptable by any compatible project (ADR-0016) | live |
 | [renovate-config](https://github.com/Templetry/renovate-config) | Shared Renovate preset — one dependency policy for every repo | live |
@@ -25,12 +25,13 @@ Licences: engine under **PolyForm Noncommercial 1.0.0**; every other repo **MIT*
 
 ## The catalog
 
-Ten parents, every form a real project whose CI renders **and compiles** it on each push. `status: ready` in the registry is gated on green CI.
+Eleven parents, every form a real project whose CI renders **and compiles** it on each push. `status: ready` in the registry is gated on green CI.
 
 | Parent | Forms | Pieces |
 |---|---|---|
 | [kmp](https://github.com/Templetry/kmp) | `modular-features`, `single-module`, `modular-ui` | — |
 | [android](https://github.com/Templetry/android) | `modular-features`, `single-module` | — |
+| [ios](https://github.com/Templetry/ios) | `swiftui-app` | — |
 | [web](https://github.com/Templetry/web) | `react-spa`, `vue-spa`, `nextjs`, `svelte-spa` | `axios-api`, `zustand-store`, `pinia-store`, `zod-env` |
 | [go](https://github.com/Templetry/go) | `cli`, `http-service`, `rest-sqlite` | `version-endpoint`, `crud-resource` |
 | [python](https://github.com/Templetry/python) | `fastapi-service`, `cli-typer`, `fastapi-users` | `rbac`, `api-keys`, `audit-trail`, `soft-delete`, `verifactu`, `crud-resource` |
@@ -40,7 +41,7 @@ Ten parents, every form a real project whose CI renders **and compiles** it on e
 | [dotnet](https://github.com/Templetry/dotnet) | `minimal-api`, `razor-web` | — |
 | [meta](https://github.com/Templetry/meta) | `template` (the template that creates templates) | — |
 
-**Eleven ecosystems, one engine, one manifest schema** — Kotlin Multiplatform, Android, React, Vue, Next.js, Svelte, Go, Node/TypeScript, Python, Rust, JVM/Spring, .NET. None of them required an engine change: the strongest evidence for the agnostic-engine thesis (ADR-0002).
+**Twelve ecosystems, one engine, one manifest schema** — Kotlin Multiplatform, Android, Swift/SwiftUI, React, Vue, Next.js, Svelte, Go, Node/TypeScript, Python, Rust, JVM (Spring and Ktor), .NET. None of them required an engine change: the strongest evidence for the agnostic-engine thesis (ADR-0002).
 
 ## Shipped capabilities
 
@@ -50,7 +51,7 @@ Ten parents, every form a real project whose CI renders **and compiles** it on e
 - **`requires`/`conflicts` between features and `presets`** (named feature combos, resolved as defaults → preset → explicit).
 - **Remote catalogs and multi-forge hosting**: `github:`, `gitlab:` and `gitea:` source schemes (one adapter covers Gitea, Forgejo, Codeberg and self-hosted), with legacy bare refs untouched ([ADR-0015](adr/0015-multi-forge-foundation.md)).
 - **`templetry update`**: re-render at the template's head with the recorded inputs, diff against disk, three-way merge via `git merge-file`; adds and modifications only, never deletes.
-- **`templetry verify`**: runs the manifest's `verify: {image, run}` in Docker (ADR-0004 realized).
+- **`templetry verify`**: runs the manifest's `verify: {image, run}` in Docker (ADR-0004 realized). Its one blind spot is Apple platforms — an iOS build needs macOS with Xcode, so `ios/swiftui-app` declares no verify block and says so instead of pretending; its parent's CI carries the guarantee on a macOS runner.
 - **Pieces** (`templetry pieces` / `add`): decoupled units adopted after creation, with their own variables, identity map and drift anchor ([ADR-0014](adr/0014-lazy-pieces.md)). Applied pieces **ride the update cycle** — re-rendered at head and merged alongside the template, with the answers record rewritten rather than merged.
 - **Common pieces** ([ADR-0016](adr/0016-common-pieces.md)): pieces living outside any form, in a shared repository listed in the registry, declaring `applies_to`. One name may have one implementation per ecosystem; each records its own source so a fix reaches every project that adopted it.
 - **Hardened**: output paths cannot escape or abuse platform semantics (Windows device names, case-insensitive collisions, trailing dot/space); directive scanner fuzz-tested; manifests tolerate a UTF-8 BOM.
