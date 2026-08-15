@@ -88,6 +88,10 @@ Discarded along the way: the hosted web app (superseded by the desktop).
 
 Normative documents in [`spec/`](spec/): [`template-yml.md`](spec/template-yml.md) (the manifest), [`directives.md`](spec/directives.md), [`answers-file.md`](spec/answers-file.md), [`piece-yml.md`](spec/piece-yml.md), [`validation-manifests.md`](spec/validation-manifests.md), and [`compatibility.md`](spec/compatibility.md) — **in force since v1.0.0**: the manifest, directives, answers file, registry v2, CLI surface and exported Go API only break with a major.
 
+## Where next
+
+A proposed plan lives in [study X](study/where-next-v1.md): keep the promises already made (piece updates, pieces in the desktop), **stop the rot** (scheduled CI in every parent — nothing is verified on a schedule today, and `kmp`/`android` still render with engine v0.1.0), pay the waived soak window by dogfooding real projects, and only then decide whether adoption is a goal.
+
 ## Open backlog
 
 - **Pieces** (study VIII): `scim-provisioning` (RFC 7643), `oidc-login`, `multi-tenancy`, `outbox`, `rate-limit`, integrations (`stripe-billing`, `s3-storage`), domain CRUDs.
