@@ -14,7 +14,7 @@ The engine is a pure Go library plus a CLI and an MCP server; the desktop app em
 |---|---|---|
 | [engine](https://github.com/Templetry/engine) | Go library + `templetry` CLI + `templetry-mcp` server | **v1.10.0** — binaries for linux/darwin/windows (amd64 + arm64) with SHA256SUMS |
 | [desktop](https://github.com/Templetry/desktop) | Native app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.7.1** — Windows (installer + portable), Linux, macOS universal |
-| [catalog](https://github.com/Templetry/catalog) | Default registry (`registry.json`, schema v2) | **22 forms across 10 parents**, all `ready`; **12 form pieces + 2 common pieces** |
+| [catalog](https://github.com/Templetry/catalog) | Default registry (`registry.json`, schema v2) | **25 forms across 10 parents**, all `ready`; **12 form pieces + 2 common pieces** |
 | [scoop-bucket](https://github.com/Templetry/scoop-bucket) | `scoop install templetry` (CLI + MCP), autoupdating | live |
 | [pieces](https://github.com/Templetry/pieces) | Common pieces adoptable by any compatible project (ADR-0016) | live |
 | [renovate-config](https://github.com/Templetry/renovate-config) | Shared Renovate preset — one dependency policy for every repo | live |
@@ -35,8 +35,8 @@ Ten parents, every form a real project whose CI renders **and compiles** it on e
 | [go](https://github.com/Templetry/go) | `cli`, `http-service`, `rest-sqlite` | `version-endpoint`, `crud-resource` |
 | [python](https://github.com/Templetry/python) | `fastapi-service`, `cli-typer`, `fastapi-users` | `rbac`, `api-keys`, `audit-trail`, `soft-delete`, `verifactu`, `crud-resource` |
 | [rust](https://github.com/Templetry/rust) | `cli`, `axum-service` | — |
-| [node](https://github.com/Templetry/node) | `express-api` | — |
-| [jvm](https://github.com/Templetry/jvm) | `spring-boot` | — |
+| [node](https://github.com/Templetry/node) | `express-api`, `fastify-api`, `nestjs` | — |
+| [jvm](https://github.com/Templetry/jvm) | `spring-boot`, `ktor` | — |
 | [dotnet](https://github.com/Templetry/dotnet) | `minimal-api`, `razor-web` | — |
 | [meta](https://github.com/Templetry/meta) | `template` (the template that creates templates) | — |
 
