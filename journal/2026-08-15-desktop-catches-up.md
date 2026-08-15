@@ -44,6 +44,18 @@ The fix is a composite action in the org's `.github` repo: parents call `setup-t
 
 **Moving all ten from v1.7.0 to v1.9.0 in one push: ten green.** Eleven ecosystems, two engine minors, no template touched. Fourth data point for the v1 promise, and the first one that was free — the mechanism did it, not a person.
 
+## Postscript: the untested code was wrong, in the way untested code is
+
+v1.7.0 shipped with an honest caveat — the GitLab and Gitea calls were written against published APIs and never run against a server. Public repositories on both forges are readable without a token, so checking them needed no account, only the willingness to look.
+
+The first run failed. **GitLab caps a recursive tree at 100 entries and walks depth-first**, so a large project's first page is nothing but directories: the docs list came back empty for a repository full of markdown. Worse, template detection would have returned `false` — indistinguishable from a genuine "no template here". A wrong answer that looks exactly like a right one is the expensive kind.
+
+Gitea had the same problem from the other side: 1000 entries returned of a 10,004-entry tree, admitted only in a `truncated` field nothing read.
+
+Neither is exotic. Both are what happens when an API is modelled from its documentation instead of its behaviour — the docs describe the fields, not what a *big* repository does to them. The tests are now committed behind a `liveapi` build tag, so the next assumption gets caught the same way.
+
+What is still untested is the **authenticated** half: private repositories, and creating and pushing to a repo on those forges. Those genuinely need an account. The caveat shrank; it did not disappear.
+
 ## Takeaway
 
 When an ADR or a study accepts something, acceptance is not the end of the work. Twice today the gap was the same: a decision recorded, an implementation that approximated it, and drift that arrived on schedule.

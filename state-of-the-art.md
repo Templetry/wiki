@@ -114,7 +114,7 @@ What remains is deliberately **not** adoption work: certification and code signi
 
 - **Pieces** (study VIII): `scim-provisioning` (RFC 7643), `oidc-login`, `multi-tenancy`, `outbox`, `rate-limit`, integrations (`stripe-billing`, `s3-storage`), domain CRUDs.
 - **Engine**: `requires`/`conflicts` **between pieces**, piece **removal** (the answers file already records the owned files), and a jurisdiction/compat axis for pieces like `verifactu` — all surfaced by study VIII.
-- **Desktop**: settings sync, in-app update on macOS/Linux, and a live-server pass over the GitLab/Gitea API calls — they are written against the published APIs and covered by build and tests, not exercised against real instances.
+- **Desktop**: settings sync, in-app update on macOS/Linux. The GitLab and Gitea read paths are now checked against gitlab.com and codeberg.org by live tests (`go test -tags liveapi`), which caught a real truncation bug on the first run; still unexercised are the **authenticated** paths — private repositories, and creating and pushing to a repo on those forges.
 - **Distribution**: Homebrew tap. (winget and code signing: deliberately deferred.)
 - **Dependency automation**: the Renovate GitHub App still has to be installed on the org for the configs to do anything — the one item that needs a human click.
 - **Forge adapters**: Bitbucket if anyone asks; BYOR already covers it.
