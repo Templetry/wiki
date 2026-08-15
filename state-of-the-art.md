@@ -13,7 +13,7 @@ The engine is a pure Go library plus a CLI and an MCP server; the desktop app em
 | Repo | Role | State |
 |---|---|---|
 | [engine](https://github.com/Templetry/engine) | Go library + `templetry` CLI + `templetry-mcp` server | **v1.9.0** — binaries for linux/darwin/windows (amd64 + arm64) with SHA256SUMS |
-| [desktop](https://github.com/Templetry/desktop) | Native app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.6.0** — Windows (installer + portable), Linux, macOS universal |
+| [desktop](https://github.com/Templetry/desktop) | Native app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.7.0** — Windows (installer + portable), Linux, macOS universal |
 | [catalog](https://github.com/Templetry/catalog) | Default registry (`registry.json`, schema v2) | **22 forms across 10 parents**, all `ready`; **12 form pieces + 2 common pieces** |
 | [scoop-bucket](https://github.com/Templetry/scoop-bucket) | `scoop install templetry` (CLI + MCP), autoupdating | live |
 | [pieces](https://github.com/Templetry/pieces) | Common pieces adoptable by any compatible project (ADR-0016) | live |
@@ -56,13 +56,13 @@ Ten parents, every form a real project whose CI renders **and compiles** it on e
 - **Hardened**: output paths cannot escape or abuse platform semantics (Windows device names, case-insensitive collisions, trailing dot/space); directive scanner fuzz-tested; manifests tolerate a UTF-8 BOM.
 - **`templetry-mcp`**: dependency-free MCP server exposing `list_templates`, `get_form_schema`, `plan`, `render`, `update`, `list_pieces`, `add_piece`.
 
-### Desktop (v1.6.0)
+### Desktop (v1.7.0)
 
 Three sections:
 
-- **Build** — pick a form, fill the manifest-driven dynamic form (with preset selector), preview the render, create the repo and push.
-- **Cloud** — repositories across every signed-in account: GitHub (OAuth device flow), GitLab and Gitea/Forgejo (personal access token in the OS keyring). Engine-readable template repos are flagged, local clones cross-linked, and each repo opens a state preview: languages, branches, latest CI runs, README and docs rendered as sanitized markdown.
-- **Local** — recursive scan of the repositories folder organized by on-disk folders; per-repo preview with branches, remotes, last commit and working-tree state; drift detection, the assisted update cycle and a **pieces panel** that lists what the template offers, marks what is applied and adopts one in a click.
+- **Build** — pick a form, fill the manifest-driven dynamic form (preset selector, and `requires`/`conflicts` surfaced instead of failing at render), preview it, **verify** it (the render is built inside the manifest's container, log streaming), then create the repo and push. Templates are read through the catalog's source scheme, so forms hosted on GitLab or Gitea work like GitHub ones, with the token of the account on that host for private ones.
+- **Cloud** — repositories across every signed-in account: GitHub (OAuth device flow), GitLab and Gitea/Forgejo (personal access token in the OS keyring). Every action works on every forge — engine-readable template repos are flagged, local clones cross-linked, cloning authenticates as the owning account, and each repo opens a state preview: languages, branches, latest CI runs or pipelines, README and docs rendered as sanitized markdown.
+- **Local** — recursive scan of the repositories folder organized by on-disk folders; per-repo preview with branches, remotes, last commit and working-tree state; drift detection on the template's anchor **and every applied piece's own**, the assisted update cycle, and a **pieces panel** listing form-local and common pieces alike.
 
 Plus **BYOR**: paste any empty repository's URL and Templetry renders, commits and pushes — every git host on earth, no adapter needed. Ships for Windows, Linux and macOS; the in-app updater is Windows-only for now.
 
@@ -113,7 +113,7 @@ What remains is deliberately **not** adoption work: certification and code signi
 
 - **Pieces** (study VIII): `scim-provisioning` (RFC 7643), `oidc-login`, `multi-tenancy`, `outbox`, `rate-limit`, integrations (`stripe-billing`, `s3-storage`), domain CRUDs.
 - **Engine**: `requires`/`conflicts` **between pieces**, piece **removal** (the answers file already records the owned files), and a jurisdiction/compat axis for pieces like `verifactu` — all surfaced by study VIII.
-- **Desktop**: settings sync, in-app update on macOS/Linux.
+- **Desktop**: settings sync, in-app update on macOS/Linux, and a live-server pass over the GitLab/Gitea API calls — they are written against the published APIs and covered by build and tests, not exercised against real instances.
 - **Distribution**: Homebrew tap. (winget and code signing: deliberately deferred.)
 - **Dependency automation**: the Renovate GitHub App still has to be installed on the org for the configs to do anything — the one item that needs a human click.
 - **Forge adapters**: Bitbucket if anyone asks; BYOR already covers it.
