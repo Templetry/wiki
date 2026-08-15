@@ -13,7 +13,7 @@ The engine is a pure Go library plus a CLI and an MCP server; the desktop app em
 | Repo | Role | State |
 |---|---|---|
 | [engine](https://github.com/Templetry/engine) | Go library + `templetry` CLI + `templetry-mcp` server | **v1.10.0** — binaries for linux/darwin/windows (amd64 + arm64) with SHA256SUMS |
-| [desktop](https://github.com/Templetry/desktop) | Native app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.7.1** — Windows (installer + portable), Linux, macOS universal |
+| [desktop](https://github.com/Templetry/desktop) | Native app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.8.0** — Windows (installer + portable), Linux, macOS universal |
 | [catalog](https://github.com/Templetry/catalog) | Default registry (`registry.json`, schema v2) | **25 forms across 10 parents**, all `ready`; **12 form pieces + 2 common pieces** |
 | [scoop-bucket](https://github.com/Templetry/scoop-bucket) | `scoop install templetry` (CLI + MCP), autoupdating | live |
 | [pieces](https://github.com/Templetry/pieces) | Common pieces adoptable by any compatible project (ADR-0016) | live |
@@ -56,12 +56,12 @@ Ten parents, every form a real project whose CI renders **and compiles** it on e
 - **Hardened**: output paths cannot escape or abuse platform semantics (Windows device names, case-insensitive collisions, trailing dot/space); directive scanner fuzz-tested; manifests tolerate a UTF-8 BOM.
 - **`templetry-mcp`**: dependency-free MCP server exposing `list_templates`, `get_form_schema`, `plan`, `render`, `update`, `list_pieces`, `add_piece`.
 
-### Desktop (v1.7.1)
+### Desktop (v1.8.0)
 
 Three sections:
 
-- **Build** — pick a form, fill the manifest-driven dynamic form (preset selector, and `requires`/`conflicts` surfaced instead of failing at render), preview it, **verify** it (the render is built inside the manifest's container, log streaming), then create the repo and push. Templates are read through the catalog's source scheme, so forms hosted on GitLab or Gitea work like GitHub ones, with the token of the account on that host for private ones.
-- **Cloud** — repositories across every signed-in account: GitHub (OAuth device flow), GitLab and Gitea/Forgejo (personal access token in the OS keyring). Every action works on every forge — engine-readable template repos are flagged, local clones cross-linked, cloning authenticates as the owning account, and each repo opens a state preview: languages, branches, latest CI runs or pipelines, README and docs rendered as sanitized markdown.
+- **Build** — browse the catalog **by taxonomy** (kind chips plus a search over every axis, ADR-0017), pick a form, fill the manifest-driven dynamic form (preset selector, and `requires`/`conflicts` surfaced instead of failing at render), preview it, **verify** it (the render is built inside the manifest's container, log streaming), then create the repo and push. Templates are read through the catalog's source scheme, so forms hosted on GitLab or Gitea work like GitHub ones, with the token of the account on that host for private ones.
+- **Cloud** — repositories across every signed-in account: GitHub (OAuth device flow), GitLab and Gitea/Forgejo (personal access token in the OS keyring). Every action works on every forge — local clones cross-linked, cloning authenticates as the owning account, and each repo opens a state preview: languages, branches, latest CI runs or pipelines, README and docs rendered as sanitized markdown. A repo carrying template manifests has them **read**, so each detected form reports its name, description and taxonomy rather than only that it exists.
 - **Local** — recursive scan of the repositories folder organized by on-disk folders; per-repo preview with branches, remotes, last commit and working-tree state; drift detection on the template's anchor **and every applied piece's own**, the assisted update cycle, and a **pieces panel** listing form-local and common pieces alike.
 
 Plus **BYOR**: paste any empty repository's URL and Templetry renders, commits and pushes — every git host on earth, no adapter needed. Ships for Windows, Linux and macOS; the in-app updater is Windows-only for now.

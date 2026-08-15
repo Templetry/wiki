@@ -8,7 +8,7 @@
 
 Create a project:
 
-1. Pick a form from the catalog sidebar.
+1. Pick a form from the catalog sidebar. Every form shows its **taxonomy** — what it is (`kinds`, in brass), what it is written in, what it is built on — and the sidebar filters on it: click kind chips to narrow, or type to search across names, descriptions and all three axes.
 2. Fill the form — it is generated from the template's manifest, so it always matches the template: variables with their patterns, feature checkboxes, and a **preset** row when the template offers combinations. Features that declare `requires` or `conflicts` say so, and the actions stay blocked until the combination is valid — the engine refuses to guess which side you meant, and neither does the app.
 3. **Preview** renders the project in memory and lets you read any file before writing anything.
 4. **Verify build** goes one step further: it renders your inputs to a temporary directory and builds them inside the manifest's container, streaming the log. Needs Docker; nothing is installed on your machine and nothing is written to your folders.
@@ -24,7 +24,7 @@ The destination picker offers three kinds:
 
 Your repositories across every signed-in account — GitHub, GitLab and Gitea/Forgejo alike — with:
 
-- a **template** chip on repos the engine can render (they carry a `template.yml`),
+- a **template** chip on repos the engine can render (they carry a `template.yml`), and inside the preview each form it found, with the name, description and taxonomy read from its manifest,
 - a **cloned** chip on repos already on your disk, with *Folder* instead of *Clone*,
 - a **preview** per repo: description, languages, branches, the latest CI runs or pipelines with their status, and a reader for the README and any markdown docs.
 
