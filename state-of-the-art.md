@@ -19,7 +19,7 @@ The engine is a pure Go library plus a CLI and an MCP server; the desktop app em
 | [pieces](https://github.com/Templetry/pieces) | Common pieces adoptable by any compatible project (ADR-0016) | live |
 | [renovate-config](https://github.com/Templetry/renovate-config) | Shared Renovate preset — one dependency policy for every repo | live |
 | [wiki](https://github.com/Templetry/wiki) | Studies, ADRs, specs, journal, brand | living |
-| [.github](https://github.com/Templetry/.github) | Organization profile | living |
+| [.github](https://github.com/Templetry/.github) | Organization profile + the shared `setup-templetry` action | living |
 
 Licences: engine under **PolyForm Noncommercial 1.0.0**; every other repo **MIT**.
 
@@ -95,7 +95,8 @@ Normative documents in [`spec/`](spec/): [`template-yml.md`](spec/template-yml.m
 
 Two mechanisms, both added 2026-08-15 after [study X](study/where-next-v1.md) found that a green badge only meant "green when last pushed":
 
-- **Weekly scheduled CI** in all ten parents (plus a manual trigger), so upstream drift surfaces here rather than in a user's project. Every parent renders with the same current CLI release.
+- **Weekly scheduled CI** in all ten parents (plus a manual trigger), so upstream drift surfaces here rather than in a user's project.
+- **One engine version, in one file.** Every parent installs the CLI through [`Templetry/.github/actions/setup-templetry`](https://github.com/Templetry/.github/tree/main/actions/setup-templetry), whose `action.yml` holds the pinned release — and Renovate follows that line against the engine's releases, so the bump arrives as a PR the parents' own CI judges. The first version of this was "bump ten repositories by hand", which drifted by two releases within a day.
 - **Renovate** on every repository that carries dependencies, extending one shared preset ([renovate-config](https://github.com/Templetry/renovate-config)). The loop it closes: Renovate proposes a bump inside a form → Verify renders that form and builds it → green means the upgrade is safe for everything generated from it. Generated projects get the same policy as an adoptable piece (`templetry add renovate`).
 
 ## Documentation
@@ -105,7 +106,7 @@ Two mechanisms, both added 2026-08-15 after [study X](study/where-next-v1.md) fo
 
 ## Where next
 
-The plan in [study X](study/where-next-v1.md) has largely been executed: the promises made at v1.0.0 are kept (pieces ride the update cycle, the desktop has its pieces panel), the rot is stopped (weekly scheduled CI in all ten parents, Renovate everywhere, `kmp`/`android` re-verified on a current engine), and the catalog has been expanded and industrialized.
+The plan in [study X](study/where-next-v1.md) has largely been executed: the promises made at v1.0.0 are kept (pieces ride the update cycle, the desktop has its pieces panel), the rot is stopped (weekly scheduled CI in all ten parents, Renovate everywhere, and the engine pin centralized in one file after the hand-managed version drifted), and the catalog has been expanded and industrialized.
 
 What remains is deliberately **not** adoption work: certification and code signing are out of scope while Templetry is a self-use scaffolding project. The direction is more catalog, more pieces, and the engine gaps the pieces themselves surfaced.
 

@@ -34,6 +34,20 @@ Fixed in [desktop v1.7.0](https://github.com/Templetry/desktop/releases/tag/v1.7
 
 **Recording the wrong source would have broken updates silently.** A common piece has to record *its own* repository in the answers file. The obvious code — reuse the form's source, as the form-local path does — produces a valid-looking record that makes `templetry update` look for the fix where it was never made. It would have failed at the worst moment: months later, quietly.
 
+## The same shape, one level up: the pinned CLI
+
+Study X's phase 2 asked for "one pinned CLI version, centrally managed". It shipped as *bumping ten repositories by hand* — and by the time the desktop audit ran, all seventeen workflow references were on v1.7.0 against an engine at v1.9.0, `meta` had quietly been tracking `latest` instead of a pin, and `kmp` carried its own copy of the OS detection.
+
+That is not ten stale files. It is a mechanism that was never built, doing what an unbuilt mechanism does.
+
+The fix is a composite action in the org's `.github` repo: parents call `setup-templetry@main`, the version lives in its `action.yml`, and one edit moves the catalog. Renovate follows that single line against the engine's releases, so the bump arrives as a PR the parents' CI judges — the same loop already used for template dependencies, pointed at the tool instead of the libraries.
+
+**Moving all ten from v1.7.0 to v1.9.0 in one push: ten green.** Eleven ecosystems, two engine minors, no template touched. Fourth data point for the v1 promise, and the first one that was free — the mechanism did it, not a person.
+
 ## Takeaway
 
-When an ADR accepts a capability, the acceptance is not the end of the work — and the audit that catches the gap is worth running against *every* consumer, not the one that prompted it. A `grep` for the engine call the other consumers use took a minute and found the divergence.
+When an ADR or a study accepts something, acceptance is not the end of the work. Twice today the gap was the same: a decision recorded, an implementation that approximated it, and drift that arrived on schedule.
+
+The cheap tell is comparing *consumers*. Two of three used `source.ParseRef`; one did not. Nine of ten pinned a version; one tracked `latest`. When siblings disagree, the odd one is rarely a design choice — and a `grep` finds it in a minute.
+
+And when the manual version of a mechanism drifts within a day of being finished, that is the signal to build the mechanism, not to redo the work.
