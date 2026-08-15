@@ -33,6 +33,24 @@ patches:                     # the ONLY way to touch existing project files
 - **Re-adding** an applied piece is an error; removal is not in v1 (the recorded file list keeps it possible later).
 - **Updates** (engine v1.8+): `templetry update` re-renders every applied piece at the template's head with its recorded inputs and puts the result through the same diff and three-way merge as the template's own files. Entries report which piece owns them, and applying moves the template's and every piece's anchor forward together. The answers file itself is never merged — it is rewritten from the record, so the `pieces:` list and the recorded inputs always survive.
 
+## Common pieces (v1.9+, ADR-0016)
+
+A piece may live outside any form, in a shared repository listed in the registry's top-level `pieces` array. Such a piece declares what it supports:
+
+```yaml
+schema_version: 1
+name: audit-trail
+description: Append-only record of who changed what and when — Go + SQLite implementation
+applies_to:            # template names (the `name` of their template.yml)
+  - go-rest-sqlite     # omit entirely for a universal piece
+```
+
+Rules:
+
+- **Form-local wins.** If a form ships a piece with the same name, that one is used.
+- **One name, many implementations.** Several directories may declare the same `name` with disjoint `applies_to`; the project asks for the name and gets the implementation for its ecosystem. An incompatible request fails with `piece X does not apply to Y`.
+- **The source is recorded per piece.** Adopting a common piece writes *its* repository into the answers file, and `templetry update` fetches it from there — fix the piece once, every project that adopted it gets the fix.
+
 ## Known boundary (v1) and the socket pattern
 
 Patches only touch structured formats, so ecosystems whose wiring lives in code files need the form to be authored **piece-ready** with a *socket*: a registration point the piece plugs into from a file it owns, so no existing file is edited.
