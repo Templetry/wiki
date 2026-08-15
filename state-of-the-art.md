@@ -12,7 +12,7 @@ The engine is a pure Go library plus a CLI and an MCP server; the desktop app em
 
 | Repo | Role | State |
 |---|---|---|
-| [engine](https://github.com/Templetry/engine) | Go library + `templetry` CLI + `templetry-mcp` server | **v1.9.0** — binaries for linux/darwin/windows (amd64 + arm64) with SHA256SUMS |
+| [engine](https://github.com/Templetry/engine) | Go library + `templetry` CLI + `templetry-mcp` server | **v1.10.0** — binaries for linux/darwin/windows (amd64 + arm64) with SHA256SUMS |
 | [desktop](https://github.com/Templetry/desktop) | Native app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.7.1** — Windows (installer + portable), Linux, macOS universal |
 | [catalog](https://github.com/Templetry/catalog) | Default registry (`registry.json`, schema v2) | **22 forms across 10 parents**, all `ready`; **12 form pieces + 2 common pieces** |
 | [scoop-bucket](https://github.com/Templetry/scoop-bucket) | `scoop install templetry` (CLI + MCP), autoupdating | live |
@@ -44,7 +44,7 @@ Ten parents, every form a real project whose CI renders **and compiles** it on e
 
 ## Shipped capabilities
 
-### Engine + CLI (v1.9.0)
+### Engine + CLI (v1.10.0)
 
 - **Render**: manifest parsing/validation, derived casings, feature exclusion, identity renaming, comment directives, structured patches for `.json`/`.yml`/`.toml`, deterministic output (same inputs → byte-identical result).
 - **`requires`/`conflicts` between features and `presets`** (named feature combos, resolved as defaults → preset → explicit).

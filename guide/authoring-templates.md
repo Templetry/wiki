@@ -31,8 +31,13 @@ Pick concrete names and use them consistently:
 schema_version: 1
 name: my-template          # kebab-case, matches the registry entry
 description: What it scaffolds
-platform: backend          # catalog tags; the engine ignores them
-framework: fastapi
+
+# How it is found. `kinds` is a fixed vocabulary — frontend, backend,
+# database, infra, multiplatform, android, ios, desktop, cli — and an
+# unknown value is an error. Say all of them: most forms are more than one.
+kinds: [backend, database]
+languages: [python]
+frameworks: [fastapi, sqlalchemy]
 
 variables:
   - key: project_name

@@ -9,6 +9,21 @@ templetry list --registry <url|file>    # anyone else's
 
 Each line is `parent/form` — the reference every other command takes.
 
+### Filtering
+
+Every form declares a **taxonomy** on three axes: what it *is* (`kinds`), what it is written in (`languages`) and what it is built on (`frameworks`).
+
+```sh
+templetry list --tags                                  # show each form's axes
+templetry list --kind database                         # anything that ships a schema
+templetry list --kind cli --language go --language rust
+templetry list --framework react
+```
+
+The `kinds` vocabulary is fixed: `frontend`, `backend`, `database`, `infra`, `multiplatform`, `android`, `ios`, `desktop`, `cli`. A form usually carries more than one — `dotnet/razor-web` is frontend *and* backend, a KMP form is multiplatform *and* android *and* ios *and* desktop.
+
+Flags combine as **OR within an axis, AND across axes**, so the third example above means "(cli) and (go or rust)". A form that declares no taxonomy matches no filter.
+
 ## Inspecting before generating
 
 A form declares its inputs in its manifest. Two ways to see them without generating anything:
