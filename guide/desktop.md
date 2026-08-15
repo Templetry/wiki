@@ -9,9 +9,10 @@
 Create a project:
 
 1. Pick a form from the catalog sidebar.
-2. Fill the form — it is generated from the template's manifest, so it always matches the template: variables with their patterns, feature checkboxes, and a **preset** row when the template offers combinations.
+2. Fill the form — it is generated from the template's manifest, so it always matches the template: variables with their patterns, feature checkboxes, and a **preset** row when the template offers combinations. Features that declare `requires` or `conflicts` say so, and the actions stay blocked until the combination is valid — the engine refuses to guess which side you meant, and neither does the app.
 3. **Preview** renders the project in memory and lets you read any file before writing anything.
-4. Choose the destination and create.
+4. **Verify build** goes one step further: it renders your inputs to a temporary directory and builds them inside the manifest's container, streaming the log. Needs Docker; nothing is installed on your machine and nothing is written to your folders.
+5. Choose the destination and create.
 
 The destination picker offers three kinds:
 
@@ -21,20 +22,22 @@ The destination picker offers three kinds:
 
 ## Cloud
 
-Your repositories across every signed-in account, with:
+Your repositories across every signed-in account — GitHub, GitLab and Gitea/Forgejo alike — with:
 
 - a **template** chip on repos the engine can render (they carry a `template.yml`),
 - a **cloned** chip on repos already on your disk, with *Folder* instead of *Clone*,
-- a **preview** per repo: description, languages, branches, the latest CI runs with their status, and a reader for the README and any markdown docs.
+- a **preview** per repo: description, languages, branches, the latest CI runs or pipelines with their status, and a reader for the README and any markdown docs.
+
+Cloning authenticates as the account the repository came from, so private repos on any signed-in forge clone too.
 
 ## Local
 
 Every repository under your repositories folder, found recursively and grouped by the folders they live in. Per project:
 
 - branch, remotes, last commit and whether the working tree is clean,
-- a **template updated** chip when the template moved past what the project recorded,
+- a chip when there is something to pull — the template moved past what the project recorded, or an applied **piece** did (each piece tracks its own source, so a fix released in a common piece shows up here),
 - **Preview update** → the same diff/merge cycle as the CLI, file by file, before writing,
-- a **Pieces** panel: what the template offers, what is already applied, the variables each piece takes, and one click to adopt.
+- a **Pieces** panel: everything the project can adopt — the pieces its own form ships plus the **common** ones from your catalogs that fit its stack — with the variables each takes and one click to adopt.
 
 ## Accounts
 
