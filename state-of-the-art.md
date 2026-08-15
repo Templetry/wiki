@@ -83,7 +83,7 @@ Pieces wire themselves through **sockets** — a registration point the piece pl
 
 ## Decisions in force
 
-Sixteen ADRs, indexed in [`adr/README.md`](adr/README.md). Load-bearing ones: own engine in Go (0001, 0006), agnostic engine (0002), templates compile (0003), verify in containers (0004), updates prepared from day one (0005), minimal directive grammar (0007), multi-forge (0009 + 0015), parents/forms/features (0011), desktop with Wails (0012 ⊃ 0010), **v1.0.0 declared** (0013), **lazy pieces** (0014), **common pieces** (0016).
+Seventeen ADRs, indexed in [`adr/README.md`](adr/README.md). Load-bearing ones: own engine in Go (0001, 0006), agnostic engine (0002), templates compile (0003), verify in containers (0004), updates prepared from day one (0005), minimal directive grammar (0007), multi-forge (0009 + 0015), parents/forms/features (0011), desktop with Wails (0012 ⊃ 0010), **v1.0.0 declared** (0013), **lazy pieces** (0014), **common pieces** (0016), **the taxonomy** (0017).
 
 Discarded along the way: the hosted web app (superseded by the desktop).
 

@@ -24,3 +24,4 @@ Statuses: **open** (undecided) · **proposed** (candidate, pending validation) �
 | [0014](0014-lazy-pieces.md) | Lazy pieces: decoupled units with their own lifecycle | ✅ Accepted |
 | [0015](0015-multi-forge-foundation.md) | Multi-forge foundation: BYOR and source schemes | ✅ Accepted |
 | [0016](0016-common-pieces.md) | Common pieces: one idea, many implementations | ✅ Accepted |
+| [0017](0017-template-taxonomy.md) | Template taxonomy: three axes, one closed vocabulary | ✅ Accepted |
