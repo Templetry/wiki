@@ -19,22 +19,24 @@ What has not grown at the same pace:
 
 Neither is a crisis today. Both are exactly the kind of quiet decay that makes a template catalog untrustworthy in six months.
 
+> **Outcome (2026-08-15).** The owner accepted the plan and reordered it. Phases 1, 2 and 5 are **done**; phase 3 runs continuously; **phase 4 was answered "not yet"** — Templetry stays a self-use scaffolding project for now, so certification, code signing and adoption work are explicitly out of scope, and the rule against speculative additions was lifted in favour of growing the catalog. Statuses below are marked inline.
+
 ## The plan
 
-### Phase 1 — Keep the promises already made *(days)*
+### Phase 1 — Keep the promises already made *(days)* — ✅ **done**
 
 Things shipped code implies but does not yet do:
 
 - ✅ **Piece updates** — shipped in engine v1.8.0. Auditing it also turned up two defects worth recording: `templetry update <dir> --apply` silently previewed (Go's flag package stops at the first positional, so the flag was never parsed), and the answers file was going through the three-way merge like ordinary content — it kept the `pieces:` section only by luck of the merge, and a conflict there would have corrupted the record the whole cycle depends on. It is now excluded from the diff and rewritten from the record.
-- **Pieces in the desktop.** A panel in Local's project preview: list what the template offers, mark what is applied, add with the piece's own variables. The bindings already exist (`list_pieces`, `add_piece` are in the MCP server; the Go API is the same).
+- ✅ **Pieces in the desktop** — shipped in desktop v1.6.0. A panel in Local's project preview: list what the template offers, mark what is applied, add with the piece's own variables.
 
-### Phase 2 — Stop the rot *(days, then permanent)*
+### Phase 2 — Stop the rot *(days, then permanent)* — ✅ **done**
 
-- **Weekly scheduled CI in every parent.** `schedule: cron` on the Verify workflow, so upstream drift surfaces here rather than in a user's project. This is the single highest-value change in the whole plan: it converts "green when pushed" into "green today".
-- **One pinned CLI version, centrally managed.** Bring every parent to the current release and keep them together — a repository variable or a tiny reusable workflow, so the ten parents stop drifting apart.
-- **Dependency updates on the templates themselves** (Dependabot/Renovate), because a template's value decays with its dependency versions.
+- ✅ **Weekly scheduled CI in every parent.** `schedule: cron` on the Verify workflow, so upstream drift surfaces here rather than in a user's project. This was the single highest-value change in the whole plan: it converts "green when pushed" into "green today".
+- ✅ **One pinned CLI version, centrally managed.** All ten parents brought to the current release. Doing it exposed a real defect: parents fetched the CLI with `curl -sL`, so a 404 was silently written to disk as an executable — every parent now uses `curl -fsSL`.
+- ✅ **Dependency updates on the templates themselves** — Renovate on every repository carrying dependencies, extending one shared preset ([renovate-config](https://github.com/Templetry/renovate-config)), plus the same policy adoptable by generated projects as the `renovate` common piece. *(Remaining human step: installing the Renovate GitHub App on the org.)*
 
-### Phase 3 — Pay the soak-window debt by dogfooding *(weeks, in the background)*
+### Phase 3 — Pay the soak-window debt by dogfooding *(weeks, in the background)* — ⏳ ongoing
 
 The honest way to validate v1 is to run real work through it. The owner already has candidates: the portfolio (`carreerV2`), the career API worker, future side projects.
 
@@ -44,11 +46,13 @@ The honest way to validate v1 is to run real work through it. The owner already 
 
 **Rule for this phase: no new forms or pieces are added speculatively.** What dogfooding demands gets built; what it does not demand waits. This directly answers the diagnosis — it converts guesses into evidence.
 
-### Phase 4 — Decide whether adoption is a goal *(owner's call)*
+> **Superseded (2026-08-15).** The owner lifted this rule: the project keeps growing on purpose while it is a self-use tool, and breadth is being built ahead of demand deliberately rather than by drift.
+
+### Phase 4 — Decide whether adoption is a goal *(owner's call)* — ⛔ **answered: not yet**
 
 This is the fork in the road, and it should be a conscious choice rather than a drift:
 
-**If Templetry stays a personal tool**, most of what follows is unnecessary. Skip to "steady state".
+**If Templetry stays a personal tool**, most of what follows is unnecessary. Skip to "steady state". ← **this is the answer**: certification, code signing and the adoption checklist below are deliberately not being done.
 
 **If it is meant to have users**, then the blockers are not features:
 
@@ -57,11 +61,11 @@ This is the fork in the road, and it should be a conscious choice rather than a 
 - **Packaging**: winget (after signing) and a Homebrew tap.
 - **A worked example**, end to end: "generate an API, adopt RBAC, update it three weeks later" — with output shown.
 
-### Phase 5 — At most one ambitious bet *(months)*
+### Phase 5 — At most one ambitious bet *(months)* — ✅ **bet chosen and shipped**
 
 Only after phases 1–3, and only one:
 
-- **Common pieces** ([study VII](pieces-v1.md) phase 2). `audit-trail` is the same idea in every ecosystem; today it would be copied five times. Cross-template pieces with per-parent implementations and a compatibility axis. This is the natural next architectural step and the one that scales the catalog rather than multiplying it.
+- ✅ **Common pieces** ([study VII](pieces-v1.md) phase 2, now [ADR-0016](../adr/0016-common-pieces.md), engine v1.9.0). `audit-trail` is the same idea in every ecosystem; it would have been copied five times. Shipped as cross-template pieces with `applies_to`, per-ecosystem implementations behind one name, and the source recorded per piece so an upstream fix reaches every adopter. **This was the bet.**
 - **Piece dependencies** (`requires` between pieces) — smaller, already identified in study VIII, and a prerequisite if the piece catalog keeps growing.
 - **Templetry as a CI action** — regenerate/verify templates from other people's pipelines. Cheap to build, unclear demand.
 
@@ -74,9 +78,11 @@ Only after phases 1–3, and only one:
 
 A monthly rhythm rather than a project: watch the scheduled CI, apply dependency updates, run `templetry update` on the dogfooded projects, and add a piece only when a real project asked for it twice.
 
-## Decision points for the owner
+## Decision points for the owner — resolved
 
-1. **Adoption: yes or no?** Everything in phase 4 hangs on it.
-2. **Certificate budget** (~10 €/month) — only if the answer to (1) is yes.
-3. **Which real project gets dogfooded first**, and whether regenerating it is acceptable.
-4. **Which single bet** in phase 5, when the time comes.
+1. **Adoption: yes or no?** → **Not yet.** Self-use scaffolding for now; promotion is a later, deliberate step.
+2. **Certificate budget** (~10 €/month) → **No**, follows from (1).
+3. **Which real project gets dogfooded first** → open; the portfolio and the career API remain the candidates.
+4. **Which single bet** in phase 5 → **common pieces**, shipped.
+
+What replaced this study as the forward view: the "Where next" section of [state-of-the-art.md](../state-of-the-art.md), which is kept current.

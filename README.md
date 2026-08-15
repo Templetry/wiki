@@ -6,9 +6,9 @@
 
 ## Project status
 
-**v1.0.0 and beyond (August 2026).** Engine **v1.7.0** (library + `templetry` CLI + `templetry-mcp` server), desktop **v1.5.0** (Windows, Linux, macOS), a catalog of **21 forms across 10 parents and 12 pieces** covering eleven ecosystems, all CI-verified.
+**v1.0.0 and beyond (August 2026).** Engine **v1.9.0** (library + `templetry` CLI + `templetry-mcp` server), desktop **v1.6.0** (Windows, Linux, macOS), a catalog of **21 forms across 10 parents**, **12 form-local pieces and 2 common pieces** covering eleven ecosystems, all CI-verified.
 
-The full, always-current picture — repos, versions, capabilities, backlog — lives in [**state-of-the-art.md**](state-of-the-art.md).
+New here? Start with the [**usage guides**](guide/). The full, always-current picture — repos, versions, capabilities, backlog — lives in [**state-of-the-art.md**](state-of-the-art.md).
 
 ## The principles
 
@@ -32,6 +32,7 @@ Golden rule: **additive → feature · structural → form · independent lifecy
 
 | Folder | Contents |
 |---|---|
+| [`guide/`](guide/) | Usage guides: getting started, templates, pieces, updates, desktop, authoring, agents, multi-forge |
 | [`study/`](study/) | Research: engine design, technology choice, execution model, template forms, multi-forge, road to v1, roadmap 1.x, lazy pieces, industrial pieces, Verifactu |
 | [`adr/`](adr/) | Architecture Decision Records — one decision per file, explicit status |
 | [`spec/`](spec/) | Normative specs: manifest, directives, answers file, `piece.yml`, compatibility policy |

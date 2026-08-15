@@ -98,15 +98,22 @@ Two mechanisms, both added 2026-08-15 after [study X](study/where-next-v1.md) fo
 - **Weekly scheduled CI** in all ten parents (plus a manual trigger), so upstream drift surfaces here rather than in a user's project. Every parent renders with the same current CLI release.
 - **Renovate** on every repository that carries dependencies, extending one shared preset ([renovate-config](https://github.com/Templetry/renovate-config)). The loop it closes: Renovate proposes a bump inside a form → Verify renders that form and builds it → green means the upgrade is safe for everything generated from it. Generated projects get the same policy as an adoptable piece (`templetry add renovate`).
 
+## Documentation
+
+- [**`guide/`**](guide/) — the usage documentation: [getting started](guide/getting-started.md), [using templates](guide/using-templates.md), [using pieces](guide/using-pieces.md), [keeping projects updated](guide/keeping-updated.md), [the desktop app](guide/desktop.md), [authoring templates](guide/authoring-templates.md), [authoring pieces](guide/authoring-pieces.md), [AI agents and MCP](guide/ai-agents.md), [multi-forge](guide/multi-forge.md).
+- Each repository's README covers *that* repository; the wiki covers the product. Version numbers live **here** and in the org profile — nowhere else, so there is one place to update.
+
 ## Where next
 
-A proposed plan lives in [study X](study/where-next-v1.md): keep the promises already made (piece updates, pieces in the desktop), **stop the rot** (scheduled CI in every parent — nothing is verified on a schedule today, and `kmp`/`android` still render with engine v0.1.0), pay the waived soak window by dogfooding real projects, and only then decide whether adoption is a goal.
+The plan in [study X](study/where-next-v1.md) has largely been executed: the promises made at v1.0.0 are kept (pieces ride the update cycle, the desktop has its pieces panel), the rot is stopped (weekly scheduled CI in all ten parents, Renovate everywhere, `kmp`/`android` re-verified on a current engine), and the catalog has been expanded and industrialized.
+
+What remains is deliberately **not** adoption work: certification and code signing are out of scope while Templetry is a self-use scaffolding project. The direction is more catalog, more pieces, and the engine gaps the pieces themselves surfaced.
 
 ## Open backlog
 
 - **Pieces** (study VIII): `scim-provisioning` (RFC 7643), `oidc-login`, `multi-tenancy`, `outbox`, `rate-limit`, integrations (`stripe-billing`, `s3-storage`), domain CRUDs.
-- **Engine**: `requires`/`conflicts` **between pieces** and a jurisdiction/compat axis for pieces like `verifactu` — both surfaced by study VIII.
-- **Desktop**: pieces panel (list/add from the UI), piece drift in the update cycle, settings sync, code signing, in-app update on macOS/Linux.
-- **Distribution**: winget (after signing), Homebrew tap.
-- **Dependency automation**: the Renovate GitHub App still has to be installed on the org for the configs to do anything.
+- **Engine**: `requires`/`conflicts` **between pieces**, piece **removal** (the answers file already records the owned files), and a jurisdiction/compat axis for pieces like `verifactu` — all surfaced by study VIII.
+- **Desktop**: settings sync, in-app update on macOS/Linux.
+- **Distribution**: Homebrew tap. (winget and code signing: deliberately deferred.)
+- **Dependency automation**: the Renovate GitHub App still has to be installed on the org for the configs to do anything — the one item that needs a human click.
 - **Forge adapters**: Bitbucket if anyone asks; BYOR already covers it.
