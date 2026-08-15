@@ -64,6 +64,10 @@ Open questions for study VII: piece-vs-piece merge ordering and conflicts; sub-c
 | 3 | ✅ **B** — engine v1.3.0: YAML/TOML patches (extension-dispatched, deterministic re-serialization), requires/conflicts enforced on resolved states, presets with defaults → preset → explicit order (`--preset` in CLI, arg in MCP, selector in desktop v1.2.0) | Small additive wins; presets become the pieces-selection UX |
 | 4 | **F study VII → pieces v1** (template-local), then common pieces | The headline 1.x feature, entered with its prerequisites in place |
 | 5 | ✅ **C** — `web/react-spa` (Vite + React + strict TS): first form with presets, first with a declared `verify:`, HTML-comment directives switching the entry point; validated locally (npm builds + browser run) and green in CI on both presets. Catalog: 4 parents / 8 forms. Lane order changed by owner: **F (pieces) moves last, D next** | Content lane — can run in parallel with any phase |
-| 6 | **D** (signing, packaging, sync, macOS) | Continuous; signing when the certificate decision is made |
+| 6 | 🔶 **D** — licences across the org, scoop bucket, multi-OS desktop builds and multi-forge (BYOR + GitLab/Gitea accounts) shipped; signing, winget and Homebrew pending | Continuous; signing when the certificate decision is made |
+
+## Status (2026-08-14)
+
+**A, E, B, C shipped · D partially · F v1 shipped.** Beyond the original lanes, the catalog grew to 21 forms / 12 pieces across eleven ecosystems, and pieces became an industrial catalog of their own ([study VIII](industrial-pieces-v1.md)). What remains is listed in the backlog of [state-of-the-art.md](../state-of-the-art.md).
 
 Registry/answers changes in B and F are **additive** (new optional fields) — no schema break, per the compatibility policy.
