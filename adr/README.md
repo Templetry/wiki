@@ -25,3 +25,4 @@ Statuses: **open** (undecided) · **proposed** (candidate, pending validation) �
 | [0015](0015-multi-forge-foundation.md) | Multi-forge foundation: BYOR and source schemes | ✅ Accepted |
 | [0016](0016-common-pieces.md) | Common pieces: one idea, many implementations | ✅ Accepted |
 | [0017](0017-template-taxonomy.md) | Template taxonomy: three axes, one closed vocabulary | ✅ Accepted |
+| [0018](0018-environment-profiles.md) | Environment profiles: three names, each ecosystem's own mechanism | ✅ Accepted |
