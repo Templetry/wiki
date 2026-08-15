@@ -78,6 +78,15 @@ Three observations, none of which needs an engine change today:
 2. **Jurisdictional pieces need a compatibility axis** — `verifactu` is Spain-only. A `tags:`/`applies_to:` field would let the UI say so instead of the author documenting it in prose.
 3. **Common pieces (study VII phase 2) become urgent here** — `audit-trail` is the same idea in every ecosystem, differing only in implementation. That is the argument for cross-template pieces with per-parent implementations.
 
+## Progress (2026-08)
+
+Shipped on `python/fastapi-users`, each CI-verified alone and composed with the rest: **`rbac`** (tier 1), **`api-keys`** (tier 1), **`audit-trail`** and **`soft-delete`** (tier 3), **`verifactu`** (tier 2, scoped by [study IX](verifactu-v1.md)). The generic **`crud-resource`** covers tier 4 on this form and on `go/rest-sqlite`.
+
+Findings worth carrying forward:
+
+- `api-keys` shipped with a *probabilistic* parsing bug (base64url secrets contain `_`, and the key was split on every underscore) that CI caught only because one job of two happened to draw an underscored secret. Security pieces need adversarial test vectors, not just happy paths.
+- `verifactu` confirmed the tier-2 thesis and its cost: the valuable part is refusing to invent the parts the state has not published.
+
 ## Recommended order
 
 1. **`rbac`** on `python/fastapi-users` — the SIP core, on the form that already owns users. Highest reuse, best standard.
