@@ -1,6 +1,6 @@
 # Templetry — State of the art
 
-**Snapshot: 2026-08-14** · the single up-to-date picture of what exists, where it lives and what state it is in. History lives in [`journal/`](journal/); decisions in [`adr/`](adr/); research in [`study/`](study/).
+**Snapshot: 2026-08-15** · the single up-to-date picture of what exists, where it lives and what state it is in. History lives in [`journal/`](journal/); decisions in [`adr/`](adr/); research in [`study/`](study/).
 
 ## What Templetry is
 
@@ -12,10 +12,12 @@ The engine is a pure Go library plus a CLI and an MCP server; the desktop app em
 
 | Repo | Role | State |
 |---|---|---|
-| [engine](https://github.com/Templetry/engine) | Go library + `templetry` CLI + `templetry-mcp` server | **v1.7.0** — binaries for linux/darwin/windows (amd64 + arm64) with SHA256SUMS |
-| [desktop](https://github.com/Templetry/desktop) | Native app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.5.0** — Windows (installer + portable), Linux, macOS universal |
-| [catalog](https://github.com/Templetry/catalog) | Default registry (`registry.json`, schema v2) | **21 forms across 10 parents**, all `ready`; **12 pieces** |
+| [engine](https://github.com/Templetry/engine) | Go library + `templetry` CLI + `templetry-mcp` server | **v1.9.0** — binaries for linux/darwin/windows (amd64 + arm64) with SHA256SUMS |
+| [desktop](https://github.com/Templetry/desktop) | Native app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.6.0** — Windows (installer + portable), Linux, macOS universal |
+| [catalog](https://github.com/Templetry/catalog) | Default registry (`registry.json`, schema v2) | **21 forms across 10 parents**, all `ready`; **12 form pieces + 2 common pieces** |
 | [scoop-bucket](https://github.com/Templetry/scoop-bucket) | `scoop install templetry` (CLI + MCP), autoupdating | live |
+| [pieces](https://github.com/Templetry/pieces) | Common pieces adoptable by any compatible project (ADR-0016) | live |
+| [renovate-config](https://github.com/Templetry/renovate-config) | Shared Renovate preset — one dependency policy for every repo | live |
 | [wiki](https://github.com/Templetry/wiki) | Studies, ADRs, specs, journal, brand | living |
 | [.github](https://github.com/Templetry/.github) | Organization profile | living |
 
@@ -42,24 +44,25 @@ Ten parents, every form a real project whose CI renders **and compiles** it on e
 
 ## Shipped capabilities
 
-### Engine + CLI (v1.7.0)
+### Engine + CLI (v1.9.0)
 
 - **Render**: manifest parsing/validation, derived casings, feature exclusion, identity renaming, comment directives, structured patches for `.json`/`.yml`/`.toml`, deterministic output (same inputs → byte-identical result).
 - **`requires`/`conflicts` between features and `presets`** (named feature combos, resolved as defaults → preset → explicit).
 - **Remote catalogs and multi-forge hosting**: `github:`, `gitlab:` and `gitea:` source schemes (one adapter covers Gitea, Forgejo, Codeberg and self-hosted), with legacy bare refs untouched ([ADR-0015](adr/0015-multi-forge-foundation.md)).
 - **`templetry update`**: re-render at the template's head with the recorded inputs, diff against disk, three-way merge via `git merge-file`; adds and modifications only, never deletes.
 - **`templetry verify`**: runs the manifest's `verify: {image, run}` in Docker (ADR-0004 realized).
-- **Pieces** (`templetry pieces` / `add`): decoupled units adopted after creation, with their own variables, identity map and drift anchor ([ADR-0014](adr/0014-lazy-pieces.md)).
+- **Pieces** (`templetry pieces` / `add`): decoupled units adopted after creation, with their own variables, identity map and drift anchor ([ADR-0014](adr/0014-lazy-pieces.md)). Applied pieces **ride the update cycle** — re-rendered at head and merged alongside the template, with the answers record rewritten rather than merged.
+- **Common pieces** ([ADR-0016](adr/0016-common-pieces.md)): pieces living outside any form, in a shared repository listed in the registry, declaring `applies_to`. One name may have one implementation per ecosystem; each records its own source so a fix reaches every project that adopted it.
 - **Hardened**: output paths cannot escape or abuse platform semantics (Windows device names, case-insensitive collisions, trailing dot/space); directive scanner fuzz-tested; manifests tolerate a UTF-8 BOM.
 - **`templetry-mcp`**: dependency-free MCP server exposing `list_templates`, `get_form_schema`, `plan`, `render`, `update`, `list_pieces`, `add_piece`.
 
-### Desktop (v1.5.0)
+### Desktop (v1.6.0)
 
 Three sections:
 
 - **Build** — pick a form, fill the manifest-driven dynamic form (with preset selector), preview the render, create the repo and push.
 - **Cloud** — repositories across every signed-in account: GitHub (OAuth device flow), GitLab and Gitea/Forgejo (personal access token in the OS keyring). Engine-readable template repos are flagged, local clones cross-linked, and each repo opens a state preview: languages, branches, latest CI runs, README and docs rendered as sanitized markdown.
-- **Local** — recursive scan of the repositories folder organized by on-disk folders; per-repo preview with branches, remotes, last commit and working-tree state; drift detection and the assisted update cycle.
+- **Local** — recursive scan of the repositories folder organized by on-disk folders; per-repo preview with branches, remotes, last commit and working-tree state; drift detection, the assisted update cycle and a **pieces panel** that lists what the template offers, marks what is applied and adopts one in a click.
 
 Plus **BYOR**: paste any empty repository's URL and Templetry renders, commits and pushes — every git host on earth, no adapter needed. Ships for Windows, Linux and macOS; the in-app updater is Windows-only for now.
 
@@ -80,13 +83,20 @@ Pieces wire themselves through **sockets** — a registration point the piece pl
 
 ## Decisions in force
 
-Fifteen ADRs, indexed in [`adr/README.md`](adr/README.md). Load-bearing ones: own engine in Go (0001, 0006), agnostic engine (0002), templates compile (0003), verify in containers (0004), updates prepared from day one (0005), minimal directive grammar (0007), multi-forge (0009 + 0015), parents/forms/features (0011), desktop with Wails (0012 ⊃ 0010), **v1.0.0 declared** (0013), **lazy pieces** (0014).
+Sixteen ADRs, indexed in [`adr/README.md`](adr/README.md). Load-bearing ones: own engine in Go (0001, 0006), agnostic engine (0002), templates compile (0003), verify in containers (0004), updates prepared from day one (0005), minimal directive grammar (0007), multi-forge (0009 + 0015), parents/forms/features (0011), desktop with Wails (0012 ⊃ 0010), **v1.0.0 declared** (0013), **lazy pieces** (0014), **common pieces** (0016).
 
 Discarded along the way: the hosted web app (superseded by the desktop).
 
 ## Specs
 
 Normative documents in [`spec/`](spec/): [`template-yml.md`](spec/template-yml.md) (the manifest), [`directives.md`](spec/directives.md), [`answers-file.md`](spec/answers-file.md), [`piece-yml.md`](spec/piece-yml.md), [`validation-manifests.md`](spec/validation-manifests.md), and [`compatibility.md`](spec/compatibility.md) — **in force since v1.0.0**: the manifest, directives, answers file, registry v2, CLI surface and exported Go API only break with a major.
+
+## Keeping the catalog alive
+
+Two mechanisms, both added 2026-08-15 after [study X](study/where-next-v1.md) found that a green badge only meant "green when last pushed":
+
+- **Weekly scheduled CI** in all ten parents (plus a manual trigger), so upstream drift surfaces here rather than in a user's project. Every parent renders with the same current CLI release.
+- **Renovate** on every repository that carries dependencies, extending one shared preset ([renovate-config](https://github.com/Templetry/renovate-config)). The loop it closes: Renovate proposes a bump inside a form → Verify renders that form and builds it → green means the upgrade is safe for everything generated from it. Generated projects get the same policy as an adoptable piece (`templetry add renovate`).
 
 ## Where next
 
@@ -98,4 +108,5 @@ A proposed plan lives in [study X](study/where-next-v1.md): keep the promises al
 - **Engine**: `requires`/`conflicts` **between pieces** and a jurisdiction/compat axis for pieces like `verifactu` — both surfaced by study VIII.
 - **Desktop**: pieces panel (list/add from the UI), piece drift in the update cycle, settings sync, code signing, in-app update on macOS/Linux.
 - **Distribution**: winget (after signing), Homebrew tap.
+- **Dependency automation**: the Renovate GitHub App still has to be installed on the org for the configs to do anything.
 - **Forge adapters**: Bitbucket if anyone asks; BYOR already covers it.
