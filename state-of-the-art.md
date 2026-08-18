@@ -1,6 +1,6 @@
 # Templetry — State of the art
 
-**Snapshot: 2026-08-15** · the single up-to-date picture of what exists, where it lives and what state it is in. History lives in [`journal/`](journal/); decisions in [`adr/`](adr/); research in [`study/`](study/).
+**Snapshot: 2026-08-18** · the single up-to-date picture of what exists, where it lives and what state it is in. History lives in [`journal/`](journal/); decisions in [`adr/`](adr/); research in [`study/`](study/).
 
 ## What Templetry is
 
@@ -42,6 +42,27 @@ Eleven parents, every form a real project whose CI renders **and compiles** it o
 | [meta](https://github.com/Templetry/meta) | `template` (the template that creates templates) | — |
 
 **Twelve ecosystems, one engine, one manifest schema** — Kotlin Multiplatform, Android, Swift/SwiftUI, React, Vue, Next.js, Svelte, Go, Node/TypeScript, Python, Rust, JVM (Spring and Ktor), .NET. None of them required an engine change: the strongest evidence for the agnostic-engine thesis (ADR-0002).
+
+### Environment profiles ([ADR-0018](adr/0018-environment-profiles.md))
+
+**All 26 forms** ship `development` / `staging` / `production`, each in its own ecosystem's mechanism rather than a Templetry-shaped one — the same rule that keeps framework knowledge out of the engine (ADR-0002), applied to the catalog.
+
+| Mechanism | Forms |
+|---|---|
+| `appsettings.{Environment}.json` | dotnet ×2 |
+| `application-{profile}.yml` (Spring profiles) | jvm/spring-boot |
+| Vite `.env.{mode}` | web ×3 |
+| `.env.{profile}` inlined by `next.config.ts` | web/nextjs |
+| `@nestjs/config` with a validate hook | node/nestjs |
+| `.env.<profile>` + one validated accessor | python ×3, node ×2, go ×3, rust ×2, jvm/ktor |
+| Android product flavors + `buildConfigField` | android ×2 |
+| Xcode build configurations + compilation conditions | ios/swiftui-app |
+| Gradle task generating one object into `commonMain` | kmp ×3 |
+| Documented convention, not an implementation | meta/template |
+
+A profile counts as done only when the three sources differ in something observable, the app reads the active one through a single validated accessor, and a test asserts that loading a named profile yields its values. Two platforms could not meet the third condition as written and say so instead of faking it: **iOS** makes the selection a compile-time fact and turns a missing flag into `#error`, and **Android** verifies each flavor's generated `BuildConfig` in CI, because per-variant codegen makes a plain unit test awkward across flavors.
+
+KMP was the one ecosystem where both obvious mechanisms fail — `buildConfigField` does not reach iOS, Desktop or Web, and `expect`/`actual` would put the actuals in source sets that are themselves feature-gated, landing the profile in the intersection of two features. Generating into `commonMain` avoids per-platform files entirely.
 
 ## Shipped capabilities
 
