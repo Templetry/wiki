@@ -31,6 +31,10 @@ Validated by the engine, and an unknown value is an error naming the allowed set
 
 Extending the vocabulary is a deliberate act — a new value ships in a minor and is recorded here.
 
+**A form may legitimately declare no kind.** `kinds` answers *what the generated project is*, and `meta/template` generates a template, not a project — none of the nine words is true of it, and inventing a tenth to hold one entry would weaken the axis rather than complete it.
+
+The consequence is deliberate and worth stating plainly: **an untagged form matches no kind filter**, so `meta/template` is visible in the full listing and absent the moment any kind is selected. That is the right behaviour — someone filtering for `backend` is not looking for the template that creates templates — but it is a trap for any *other* form that forgets its taxonomy. The catalog's validator emits a warning for exactly this case, and the desktop's filter tests assert the rule so it cannot change by accident.
+
 ### 2. `languages` and `frameworks` are open
 
 New languages and frameworks arrive constantly; a closed list would be a permanent bottleneck for third-party catalogs. Only the **shape** is enforced (`^[a-z0-9]+(-[a-z0-9]+)*$`), which is what stops `C#`, `csharp` and `c-sharp` from being three things.
