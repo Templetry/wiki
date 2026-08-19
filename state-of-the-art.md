@@ -12,7 +12,7 @@ The engine is a pure Go library plus a CLI and an MCP server; the desktop app em
 
 | Repo | Role | State |
 |---|---|---|
-| [engine](https://github.com/Templetry/engine) | Go library + `templetry` CLI + `templetry-mcp` server | **v1.10.0** — binaries for linux/darwin/windows (amd64 + arm64) with SHA256SUMS |
+| [engine](https://github.com/Templetry/engine) | Go library + `templetry` CLI + `templetry-mcp` server | **v1.10.1** — binaries for linux/darwin/windows (amd64 + arm64) with SHA256SUMS |
 | [desktop](https://github.com/Templetry/desktop) | Native app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.8.1** — Windows (installer + portable), Linux, macOS universal |
 | [catalog](https://github.com/Templetry/catalog) | Default registry (`registry.json`, schema v2) | **26 forms across 11 parents**, all `ready`; **12 form pieces + 2 common pieces** |
 | [scoop-bucket](https://github.com/Templetry/scoop-bucket) | `scoop install templetry` (CLI + MCP), autoupdating | live |
@@ -22,6 +22,8 @@ The engine is a pure Go library plus a CLI and an MCP server; the desktop app em
 | [.github](https://github.com/Templetry/.github) | Organization profile + the shared `setup-templetry` action | living |
 
 Licences: engine under **PolyForm Noncommercial 1.0.0**; every other repo **MIT**.
+
+**Every repository now carries CI.** The catalog validates `registry.json` by fetching all 26 forms and 2 pieces from the repo and ref each declares; the pieces repo applies each common piece to a real target project through the registry pinned at the commit under test; the scoop bucket tracks engine releases on a schedule and checks that every URL it publishes resolves; the desktop runs its Go and frontend checks on every push rather than at release time. CodeQL runs on the engine and the desktop, and secret scanning with push protection is on across the organization.
 
 ## The catalog
 
@@ -66,7 +68,7 @@ KMP was the one ecosystem where both obvious mechanisms fail — `buildConfigFie
 
 ## Shipped capabilities
 
-### Engine + CLI (v1.10.0)
+### Engine + CLI (v1.10.1)
 
 - **Render**: manifest parsing/validation, derived casings, feature exclusion, identity renaming, comment directives, structured patches for `.json`/`.yml`/`.toml`, deterministic output (same inputs → byte-identical result).
 - **`requires`/`conflicts` between features and `presets`** (named feature combos, resolved as defaults → preset → explicit).
@@ -75,7 +77,7 @@ KMP was the one ecosystem where both obvious mechanisms fail — `buildConfigFie
 - **`templetry verify`**: runs the manifest's `verify: {image, run}` in Docker (ADR-0004 realized). Its one blind spot is Apple platforms — an iOS build needs macOS with Xcode, so `ios/swiftui-app` declares no verify block and says so instead of pretending; its parent's CI carries the guarantee on a macOS runner.
 - **Pieces** (`templetry pieces` / `add`): decoupled units adopted after creation, with their own variables, identity map and drift anchor ([ADR-0014](adr/0014-lazy-pieces.md)). Applied pieces **ride the update cycle** — re-rendered at head and merged alongside the template, with the answers record rewritten rather than merged.
 - **Common pieces** ([ADR-0016](adr/0016-common-pieces.md)): pieces living outside any form, in a shared repository listed in the registry, declaring `applies_to`. One name may have one implementation per ecosystem; each records its own source so a fix reaches every project that adopted it.
-- **Hardened**: output paths cannot escape or abuse platform semantics (Windows device names, case-insensitive collisions, trailing dot/space); directive scanner fuzz-tested; manifests tolerate a UTF-8 BOM.
+- **Hardened**: every write resolves its path against the output root and refuses escapes — `render.Contain`, applied by the render, piece and update writers alike; output paths cannot escape or abuse platform semantics (Windows device names, case-insensitive collisions, trailing dot/space); directive scanner fuzz-tested; manifests tolerate a UTF-8 BOM.
 - **`templetry-mcp`**: dependency-free MCP server exposing `list_templates`, `get_form_schema`, `plan`, `render`, `update`, `list_pieces`, `add_piece`.
 
 ### Desktop (v1.8.1)
