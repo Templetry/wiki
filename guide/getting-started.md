@@ -2,7 +2,21 @@
 
 ## Install
 
-**Windows (scoop)** — installs the CLI and the MCP server, and keeps them updated:
+**macOS and Linux (Homebrew)** — installs the CLI and the MCP server:
+
+```sh
+brew install Templetry/tap/templetry
+```
+
+**macOS and Linux (script)** — the same two binaries, verified against the release's own `SHA256SUMS`, no package manager:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/Templetry/engine/main/install.sh | sh
+```
+
+It installs into `/usr/local/bin` when that is writable and `~/.local/bin` otherwise, and tells you if that directory is not on your `PATH`. Set `TEMPLETRY_BIN_DIR` to choose, or `TEMPLETRY_VERSION` to pin a tag.
+
+**Windows (scoop)** — installs the CLI and the MCP server:
 
 ```powershell
 scoop bucket add templetry https://github.com/Templetry/scoop-bucket
