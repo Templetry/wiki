@@ -28,7 +28,7 @@ A **web** parent (React + Vite + TS) or **backend** parent (Spring Boot or FastA
 
 ### D — Distribution & trust — 🔶 partially shipped 2026-08-12
 
-- ✅ **Licenses across the org** (prerequisite surfaced by packaging): engine under PolyForm Noncommercial 1.0.0 (owner's call), everything else MIT.
+- ✅ **Licenses across the org** (prerequisite surfaced by packaging): engine under Apache License 2.0 (relicensed from PolyForm Noncommercial on 2026-08-19), everything else MIT.
 - ✅ **scoop bucket** ([Templetry/scoop-bucket](https://github.com/Templetry/scoop-bucket)): `scoop bucket add templetry … && scoop install templetry` installs CLI + MCP server, autoupdating from engine releases.
 - ✅ **macOS/Linux desktop builds**: the release workflow is a three-platform matrix (Windows NSIS+portable, Linux GTK/WebKitGTK, macOS universal .app) with one aggregated release; the in-app updater stays Windows-only with a friendly pointer elsewhere.
 - Pending: **code signing** (certificate/budget decision), winget submission (better after signing), Homebrew tap, settings sync via GitHub.

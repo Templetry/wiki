@@ -21,7 +21,7 @@ The engine is a pure Go library plus a CLI and an MCP server; the desktop app em
 | [wiki](https://github.com/Templetry/wiki) | Studies, ADRs, specs, journal, brand | living |
 | [.github](https://github.com/Templetry/.github) | Organization profile + the shared `setup-templetry` action | living |
 
-Licences: engine under **PolyForm Noncommercial 1.0.0**; every other repo **MIT**.
+Licences: engine under **Apache License 2.0**; every other repo **MIT**. The engine was relicensed from PolyForm Noncommercial on 2026-08-19: a noncommercial engine barred the people the project needs — someone using it at work, and any contributor who would then be unable to use what they built.
 
 **Every repository now carries CI.** The catalog validates `registry.json` by fetching all 26 forms and 2 pieces from the repo and ref each declares; the pieces repo applies each common piece to a real target project through the registry pinned at the commit under test; the scoop bucket tracks engine releases on a schedule and checks that every URL it publishes resolves; the desktop runs its Go and frontend checks on every push rather than at release time. CodeQL runs on the engine and the desktop, and secret scanning with push protection is on across the organization.
 
@@ -107,7 +107,7 @@ Pieces wire themselves through **sockets** — a registration point the piece pl
 
 ## Decisions in force
 
-Eighteen ADRs, indexed in [`adr/README.md`](adr/README.md). Load-bearing ones: own engine in Go (0001, 0006), agnostic engine (0002), templates compile (0003), verify in containers (0004), updates prepared from day one (0005), minimal directive grammar (0007), multi-forge (0009 + 0015), parents/forms/features (0011), desktop with Wails (0012 ⊃ 0010), **v1.0.0 declared** (0013), **lazy pieces** (0014), **common pieces** (0016), **the taxonomy** (0017), **environment profiles** (0018).
+Nineteen ADRs, indexed in [`adr/README.md`](adr/README.md). Load-bearing ones: own engine in Go (0001, 0006), agnostic engine (0002), templates compile (0003), verify in containers (0004), updates prepared from day one (0005), minimal directive grammar (0007), multi-forge (0009 + 0015), parents/forms/features (0011), desktop with Wails (0012 ⊃ 0010), **v1.0.0 declared** (0013), **lazy pieces** (0014), **common pieces** (0016), **the taxonomy** (0017), **environment profiles** (0018), **Apache-2.0 for the engine** (0019).
 
 Discarded along the way: the hosted web app (superseded by the desktop).
 

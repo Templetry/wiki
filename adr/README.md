@@ -26,3 +26,4 @@ Statuses: **open** (undecided) · **proposed** (candidate, pending validation) �
 | [0016](0016-common-pieces.md) | Common pieces: one idea, many implementations | ✅ Accepted |
 | [0017](0017-template-taxonomy.md) | Template taxonomy: three axes, one closed vocabulary | ✅ Accepted |
 | [0018](0018-environment-profiles.md) | Environment profiles: three names, each ecosystem's own mechanism | ✅ Accepted |
+| [0019](0019-engine-under-apache-2.md) | The engine moves to Apache License 2.0 | ✅ Accepted |
