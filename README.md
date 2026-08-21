@@ -37,7 +37,7 @@ Golden rule: **additive → feature · structural → form · independent lifecy
 | [`adr/`](adr/) | Architecture Decision Records — one decision per file, explicit status |
 | [`spec/`](spec/) | Normative specs: manifest, directives, answers file, `piece.yml`, compatibility policy |
 | [`journal/`](journal/) | Log of working sessions and what they taught |
-| [`brand/`](brand/) | Ink & Brass: palette, typography, logo, voice |
+| [`brand/`](brand/) | Ink & Brass: palette, typography, logo, voice, and the [demo script](brand/demos.md) |
 
 ## How we work here
 

@@ -36,6 +36,10 @@ Rule: **brass is spent, not sprayed** — one accent, on the thing that matters.
 
 The **warp**: thin vertical brass threads (10% opacity as background texture behind the wordmark) and **stitched dashed dividers**. This motif is the identity — use it before inventing new decoration.
 
+## Demos
+
+Recordings are a brand surface and follow the palette and voice above. The shot list, the terminal setup and what each recording has to prove live in [`demos.md`](demos.md). Two rules override convenience: nothing is faked, and every recording is scripted as a VHS tape so it can be re-rendered when the CLI moves.
+
 ## Voice
 
 Plain verbs, sentence case, no filler. Buttons say exactly what happens ("Create repo & project"). Errors state what went wrong and how to fix it — no apologies, no vagueness. Empty states are invitations to act.
