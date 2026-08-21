@@ -13,7 +13,7 @@ The engine is a pure Go library plus a CLI and an MCP server; the desktop app em
 | Repo | Role | State |
 |---|---|---|
 | [engine](https://github.com/Templetry/engine) | Go library + `templetry` CLI + `templetry-mcp` server | **v1.10.1** — binaries for linux/darwin/windows (amd64 + arm64) with SHA256SUMS |
-| [desktop](https://github.com/Templetry/desktop) | Native app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.8.1** — Windows (installer + portable), Linux, macOS universal |
+| [desktop](https://github.com/Templetry/desktop) | Native app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.9.0** — Windows (installer + portable), Linux, macOS universal |
 | [catalog](https://github.com/Templetry/catalog) | Default registry (`registry.json`, schema v2) | **26 forms across 11 parents**, all `ready`; **12 form pieces + 3 common pieces** |
 | [homebrew-tap](https://github.com/Templetry/homebrew-tap) | `brew install Templetry/tap/templetry` (CLI + MCP) — formula generated from the release, installed and tested on macOS and Linux CI | live |
 | [scoop-bucket](https://github.com/Templetry/scoop-bucket) | `scoop install templetry` (CLI + MCP), autoupdating | live |
@@ -81,7 +81,7 @@ KMP was the one ecosystem where both obvious mechanisms fail — `buildConfigFie
 - **Hardened**: every write resolves its path against the output root and refuses escapes — `render.Contain`, applied by the render, piece and update writers alike; output paths cannot escape or abuse platform semantics (Windows device names, case-insensitive collisions, trailing dot/space); directive scanner fuzz-tested; manifests tolerate a UTF-8 BOM.
 - **`templetry-mcp`**: dependency-free MCP server exposing `list_templates`, `get_form_schema`, `plan`, `render`, `update`, `list_pieces`, `add_piece`.
 
-### Desktop (v1.8.1)
+### Desktop (v1.9.0)
 
 Three sections:
 
