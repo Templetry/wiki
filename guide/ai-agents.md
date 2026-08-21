@@ -48,7 +48,7 @@ For an existing project: `list_pieces` → `add_piece`, or `update` without `app
 
 ## AGENTS.md
 
-Every Templetry template ships an `AGENTS.md`, and it renames with the project like every other file — so the generated project is born with an operating contract for whatever agent works on it.
+All twenty-six forms ship an `AGENTS.md`, and it renames with the project like every other file — so the generated project is born with an operating contract for whatever agent works on it.
 
 What belongs in it:
 
@@ -58,6 +58,60 @@ What belongs in it:
 - **The safe change workflow** — where to add code, what never to edit by hand.
 
 Keep it imperative and short. Agents follow lists; they skim prose.
+
+### The checks block is verified
+
+The "checks that must pass" section carries a machine-readable block:
+
+````
+```sh templetry:checks
+go build ./...
+go test ./...
+```
+````
+
+Every parent's CI asserts that this block still matches the form's own
+`verify.run`. This is [ADR-0003](../adr/0003-templates-compile.md) one level
+up: a template has to build, and the instructions handed to an agent have to
+be the ones the template is actually verified with.
+
+The failure it prevents is silent by construction. Change the test command in
+`template.yml` and nothing breaks — `AGENTS.md` simply keeps telling every
+agent in every generated project to run the old one. Seven forms declare no
+`verify` block because a Linux container cannot build them; there the block
+is still required, and their parent's CI carries the guarantee instead.
+
+### One file, four doors
+
+Every AI tool looks somewhere else for its instructions. The
+[`agent-pointers`](https://github.com/Templetry/pieces/tree/main/agent-pointers)
+common piece adds a two-line file for each — `CLAUDE.md`, `GEMINI.md`,
+`.github/copilot-instructions.md`, `.cursor/rules/templetry.mdc` — all
+pointing at the one `AGENTS.md`:
+
+```sh
+templetry add agent-pointers
+```
+
+It is a piece rather than part of each form because the formats churn and the
+files are identical everywhere: one fix here reaches every project that
+adopted it, instead of a pull request against twenty-six repositories.
+
+It also drops in an `.mcp.json` wiring the project to `templetry-mcp`, which
+closes the loop — an agent working inside a generated project can list and
+adopt pieces, and run the update cycle, without leaving it.
+
+### What AGENTS.md says about Templetry
+
+Four facts an agent cannot infer from the source in front of it, so every
+form states them: never hand-edit `.templetry-answers.yml`; run
+`templetry pieces` before building a capability by hand; use
+`templetry update` rather than copying files from the template; and a
+`tpl:` directive found in a generated project is a rendering bug, not
+something to interpret.
+
+The second one matters beyond tidiness. An agent that checks for an existing
+piece before hand-rolling RBAC turns agents into how pieces get found.
 
 Repositories in the organization carry the same file for their own contributors, human or otherwise — the engine's `AGENTS.md` states the layering rules, the catalog's states the manifest and CI conventions.
 
