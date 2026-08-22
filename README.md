@@ -6,7 +6,7 @@
 
 ## Project status
 
-**v1.0.0 and beyond (August 2026).** Engine **v1.10.1** (library + `templetry` CLI + `templetry-mcp` server), desktop **v1.9.0** (Windows, Linux, macOS), a catalog of **26 forms across 11 parents**, **12 form-local pieces and 2 common pieces** covering twelve ecosystems, all CI-verified.
+**v1.0.0 and beyond (August 2026).** Engine **v1.10.1** (library + `templetry` CLI + `templetry-mcp` server), desktop **v1.10.0** (Windows, Linux, macOS), a catalog of **26 forms across 11 parents**, **12 form-local pieces and 2 common pieces** covering twelve ecosystems, all CI-verified.
 
 New here? Start with the [**usage guides**](guide/). The full, always-current picture — repos, versions, capabilities, backlog — lives in [**state-of-the-art.md**](state-of-the-art.md).
 
