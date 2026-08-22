@@ -24,6 +24,8 @@ The engine is a pure Go library plus a CLI and an MCP server; the desktop app em
 
 Licences: engine under **Apache License 2.0**; every other repo **MIT**. The engine was relicensed from PolyForm Noncommercial on 2026-08-19: a noncommercial engine barred the people the project needs — someone using it at work, and any contributor who would then be unable to use what they built.
 
+**Every packaging path follows the engine on its own.** The scoop manifest and the Homebrew formula are generated from a release's own `SHA256SUMS`; the desktop, which compiles the engine in rather than calling it, cuts a minor of itself when the engine moves — taking the new version, proving the app still builds and its tests still pass, and only then tagging. Its release workflow is callable rather than duplicated, because a tag pushed with the default token does not start another workflow.
+
 **Every repository now carries CI.** The catalog validates `registry.json` by fetching all 26 forms and 2 pieces from the repo and ref each declares; the pieces repo applies each common piece to a real target project through the registry pinned at the commit under test; the scoop bucket tracks engine releases on a schedule and checks that every URL it publishes resolves; the desktop runs its Go and frontend checks on every push rather than at release time. CodeQL runs on the engine and the desktop, and secret scanning with push protection is on across the organization.
 
 ## The catalog
