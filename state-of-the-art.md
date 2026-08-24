@@ -1,6 +1,6 @@
 # Templetry — State of the art
 
-**Snapshot: 2026-08-18** · the single up-to-date picture of what exists, where it lives and what state it is in. History lives in [`journal/`](journal/); decisions in [`adr/`](adr/); research in [`study/`](study/).
+**Snapshot: 2026-08-24** · the single up-to-date picture of what exists, where it lives and what state it is in. History lives in [`journal/`](journal/); decisions in [`adr/`](adr/); research in [`study/`](study/).
 
 ## What Templetry is
 
@@ -14,7 +14,7 @@ The engine is a pure Go library plus a CLI and an MCP server; the desktop app em
 |---|---|---|
 | [engine](https://github.com/Templetry/engine) | Go library + `templetry` CLI + `templetry-mcp` server | **v1.10.1** — binaries for linux/darwin/windows (amd64 + arm64) with SHA256SUMS |
 | [desktop](https://github.com/Templetry/desktop) | Native app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.11.0** — Windows (installer + portable), Linux, macOS universal |
-| [catalog](https://github.com/Templetry/catalog) | Default registry (`registry.json`, schema v2) | **26 forms across 11 parents**, all `ready`; **12 form pieces + 3 common pieces** |
+| [catalog](https://github.com/Templetry/catalog) | Default registry (`registry.json`, schema v2) | **28 forms across 11 parents**; **12 form pieces + 3 common pieces** |
 | [homebrew-tap](https://github.com/Templetry/homebrew-tap) | `brew install Templetry/tap/templetry` (CLI + MCP) — formula generated from the release, installed and tested on macOS and Linux CI | live |
 | [scoop-bucket](https://github.com/Templetry/scoop-bucket) | `scoop install templetry` (CLI + MCP), autoupdating | live |
 | [pieces](https://github.com/Templetry/pieces) | Common pieces adoptable by any compatible project (ADR-0016) | live |
@@ -30,14 +30,19 @@ Licences: engine under **Apache License 2.0**; every other repo **MIT**. The eng
 
 ## The catalog
 
-Eleven parents, every form a real project whose CI renders **and compiles** it on each push. `status: ready` in the registry is gated on green CI.
+Eleven parents, every form a real project whose CI renders **and compiles** it on each push.
+
+Two forms added on 2026-08-24, both because a real project needed something the catalog could not generate:
+
+- **kmp/library** — every kmp form was an application. There was no way to generate the thing those applications depend on: a shared multiplatform library, published to Maven, with no UI. All five verify combinations are green, iOS included.
+- **web/react-router-ssr** — all four web forms rendered in the browser. Nothing generated a server-rendered app, which is what you need the moment the pages are meant to be found rather than logged into. Its CI job is separate from the shared matrix on purpose: the exit code is not what matters, because removing `main` from wrangler.jsonc makes the build go green and produce no server bundle at all. CI asserts `build/server/index.js` exists. `status: ready` in the registry is gated on green CI.
 
 | Parent | Forms | Pieces |
 |---|---|---|
-| [kmp](https://github.com/Templetry/kmp) | `modular-features`, `single-module`, `modular-ui` | — |
+| [kmp](https://github.com/Templetry/kmp) | `modular-features`, `single-module`, `modular-ui`, `library` | — |
 | [android](https://github.com/Templetry/android) | `modular-features`, `single-module` | — |
 | [ios](https://github.com/Templetry/ios) | `swiftui-app` | — |
-| [web](https://github.com/Templetry/web) | `react-spa`, `vue-spa`, `nextjs`, `svelte-spa` | `axios-api`, `zustand-store`, `pinia-store`, `zod-env` |
+| [web](https://github.com/Templetry/web) | `react-spa`, `vue-spa`, `nextjs`, `svelte-spa`, `react-router-ssr` | `axios-api`, `zustand-store`, `pinia-store`, `zod-env` |
 | [go](https://github.com/Templetry/go) | `cli`, `http-service`, `rest-sqlite` | `version-endpoint`, `crud-resource` |
 | [python](https://github.com/Templetry/python) | `fastapi-service`, `cli-typer`, `fastapi-users` | `rbac`, `api-keys`, `audit-trail`, `soft-delete`, `verifactu`, `crud-resource` |
 | [rust](https://github.com/Templetry/rust) | `cli`, `axum-service` | — |
