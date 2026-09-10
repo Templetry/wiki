@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Templetry organization architecture",
+    "quality_profile": "showcase",
+    "views": [
+      { "id": "usage-path", "label": "Usage path", "focus": ["users", "desktop", "engine", "forges"], "note": "How a developer or an AI agent turns a template into a pushed repository." },
+      { "id": "content-pipeline", "label": "Content pipeline", "focus": ["engine", "catalog", "pieces", "parents"], "note": "Where template and piece content actually lives, and how the engine finds it." },
+      { "id": "governance-loop", "label": "Governance & distribution", "focus": ["renovateConfig", "githubOrg", "parents", "homebrew", "scoop"], "note": "How one engine-version pin, propagated org-wide, keeps every parent and every install channel current." }
+    ]
+  },
+  "components": [
+    { "id": "desktop", "type": "frontend", "label": "desktop", "sublabel": "Wails: Go backend + React/TS", "pos": [40, 60], "size": [190, 72] },
+    { "id": "users", "type": "external", "label": "Developers & AI agents", "sublabel": "CLI · Desktop · MCP", "pos": [40, 280], "size": [190, 72] },
+    { "id": "homebrew", "type": "cloud", "label": "homebrew-tap", "sublabel": "brew install (macOS/Linux)", "pos": [340, 60], "size": [190, 72] },
+    { "id": "engine", "type": "backend", "label": "engine", "sublabel": "Go library + CLI + MCP server", "tag": "Apache-2.0", "pos": [340, 280], "size": [190, 72] },
+    { "id": "catalog", "type": "database", "label": "catalog", "sublabel": "registry.json · schema v2", "pos": [340, 500], "size": [190, 72] },
+    { "id": "pieces", "type": "external", "label": "pieces", "sublabel": "common, decoupled units", "pos": [340, 680], "size": [190, 72] },
+    { "id": "scoop", "type": "cloud", "label": "scoop-bucket", "sublabel": "scoop install (Windows)", "pos": [600, 60], "size": [190, 72] },
+    { "id": "parents", "type": "external", "label": "11 parent repos", "sublabel": "android · web · python · go …", "pos": [600, 500], "size": [190, 72] },
+    { "id": "githubOrg", "type": "security", "label": ".github", "sublabel": "org profile + setup-templetry action", "pos": [600, 680], "size": [190, 72] },
+    { "id": "forges", "type": "external", "label": "Git forges", "sublabel": "GitHub · GitLab · Gitea · self-hosted", "pos": [940, 280], "size": [230, 72] },
+    { "id": "renovateConfig", "type": "external", "label": "renovate-config", "sublabel": "shared preset · Renovate bot", "pos": [860, 680], "size": [200, 72] }
+  ],
+  "connections": [
+    { "id": "users-desktop", "from": "users", "to": "desktop", "label": "alternate entry", "fromSide": "top", "toSide": "bottom" },
+    { "id": "users-engine", "from": "users", "to": "engine", "label": "CLI render/verify/update · MCP tools", "variant": "emphasis", "fromSide": "right", "toSide": "left", "labelAt": [285, 276] },
+    { "id": "desktop-engine", "from": "desktop", "to": "engine", "label": "imports engine library (no IPC)", "fromSide": "right", "toSide": "top" },
+    { "id": "engine-forges", "from": "engine", "to": "forges", "label": "push generated/updated repos", "variant": "emphasis", "fromSide": "right", "toSide": "left" },
+    { "id": "engine-catalog", "from": "engine", "to": "catalog", "label": "reads registry.json", "fromSide": "bottom", "toSide": "top", "labelAt": [435, 366] },
+    { "id": "engine-homebrew", "from": "engine", "to": "homebrew", "label": "release + SHA256SUMS", "fromSide": "top", "toSide": "bottom", "labelAt": [435, 145] },
+    { "id": "engine-scoop", "from": "engine", "to": "scoop", "label": "release + SHA256SUMS", "fromSide": "top", "toSide": "bottom" },
+    { "id": "catalog-pieces", "from": "catalog", "to": "pieces", "label": "piece pointers (repo+ref)", "variant": "dashed", "fromSide": "bottom", "toSide": "top", "labelAt": [435, 586] },
+    { "id": "catalog-parents", "from": "catalog", "to": "parents", "label": "form pointers (repo+ref)", "variant": "dashed", "fromSide": "right", "toSide": "left", "labelAt": [565, 586] },
+    { "id": "githuborg-parents", "from": "githubOrg", "to": "parents", "label": "installs pinned CLI (setup-templetry)", "fromSide": "top", "toSide": "bottom" },
+    { "id": "renovate-githuborg", "from": "renovateConfig", "to": "githubOrg", "label": "proposes engine-version bump", "fromSide": "left", "toSide": "right", "labelAt": [825, 766] }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Usage", "items": ["Developers drive the `templetry` CLI directly or through the desktop app; AI agents drive it over `templetry-mcp`", "The desktop app imports the engine as a Go library — no IPC, no sidecar", "Every path ends the same way: a repo created or updated on GitHub, GitLab, Gitea/Forgejo, or any self-hosted forge (BYOR)"] },
+    { "dot": "emerald", "title": "Content pipeline", "items": ["`catalog`'s registry.json is the single source of truth for where every form and piece actually lives", "11 parent repos hold the forms themselves; `pieces` holds units adopted after creation, independent of any one form's lifecycle"] },
+    { "dot": "amber", "title": "Governance & distribution", "items": ["Renovate proposes an engine-version bump; once merged into `.github`'s setup-templetry action, every parent's CI re-verifies all its forms against it", "Homebrew tap and Scoop bucket regenerate their install manifests from the engine's own GitHub Release artifacts — packaging trails the engine automatically", "`renovate-config`'s preset is extended by every repository in the org, not drawn as an edge to every node to keep the diagram readable"] },
+    { "dot": "slate", "title": "Documentation", "items": ["The `wiki` repo (ADRs, specs, studies) isn't a runtime dependency — every other repo's README links back into it, and this diagram is generated from its content"] }
+  ]
+}
