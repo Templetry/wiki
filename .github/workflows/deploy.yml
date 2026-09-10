@@ -23,10 +23,10 @@ jobs:
         with:
           python-version: "3.x"
       - run: pip install -r requirements.txt
-      - run: mkdocs build --strict
+      - run: mkdocs build --strict -f mkdocs/mkdocs.yml
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: site
+          path: ${{ github.workspace }}/../site-build
 
   deploy:
     needs: build
