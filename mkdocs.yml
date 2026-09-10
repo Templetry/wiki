@@ -1,0 +1,135 @@
+site_name: Templetry wiki
+site_description: Study & design wiki for Templetry — ADRs, specs, guides, research and journal.
+site_url: https://templetry.github.io/wiki/
+repo_url: https://github.com/Templetry/wiki
+repo_name: Templetry/wiki
+edit_uri: edit/main/
+
+docs_dir: .
+site_dir: site
+
+exclude_docs: |
+  .git/
+  .github/
+  site/
+  mkdocs.yml
+  requirements.txt
+  LICENSE
+  renovate.json
+  .gitattributes
+  architecture/*.json
+
+theme:
+  name: material
+  logo: brand/logo.svg
+  favicon: brand/logo.svg
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode (linen)
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode (ink)
+  font:
+    text: Segoe UI
+    code: Consolas
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.action.edit
+
+extra_css:
+  - stylesheets/ink-and-brass.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.tabbed:
+      alternate_style: true
+
+nav:
+  - Home: README.md
+  - State of the art: state-of-the-art.md
+  - Guide:
+      - Overview: guide/README.md
+      - Getting started: guide/getting-started.md
+      - Using templates: guide/using-templates.md
+      - Using pieces: guide/using-pieces.md
+      - Keeping projects updated: guide/keeping-updated.md
+      - The desktop app: guide/desktop.md
+      - Authoring templates: guide/authoring-templates.md
+      - Authoring pieces: guide/authoring-pieces.md
+      - AI agents and MCP: guide/ai-agents.md
+      - Multi-forge: guide/multi-forge.md
+  - Architecture:
+      - Organization architecture: architecture/index.md
+  - Study:
+      - I — Repository generation engine: study/engine-v1.md
+      - II — Internal architecture & tech selection: study/engine-tech-v1.md
+      - III — Execution model: study/engine-execution-v1.md
+      - IV — Template forms: study/template-forms-v1.md
+      - V — Hosting beyond GitHub: study/multi-forge-hosting-v1.md
+      - VI — Road to v1.0.0: study/road-to-v1.md
+      - VII — Lazy pieces: study/pieces-v1.md
+      - VIII — Industrial pieces: study/industrial-pieces-v1.md
+      - IX — Verifactu: study/verifactu-v1.md
+      - X — Where next: study/where-next-v1.md
+      - Roadmap 1.x: study/roadmap-1x.md
+  - ADR:
+      - Index: adr/README.md
+      - 0001 Own engine: adr/0001-own-engine.md
+      - 0002 Knowledge lives in the manifest: adr/0002-knowledge-lives-in-the-manifest.md
+      - 0003 Templates compile: adr/0003-templates-compile.md
+      - 0004 Verify in containers: adr/0004-verify-in-containers.md
+      - 0005 Prepare for updates: adr/0005-prepare-for-updates.md
+      - "0006 Engine language: Go": adr/0006-engine-language.md
+      - 0007 Directive grammar: adr/0007-directive-grammar.md
+      - "0008 Project name: Templetry": adr/0008-project-name-templetry.md
+      - 0009 Multi-forge: adr/0009-multi-forge.md
+      - 0010 Engine execution model (superseded): adr/0010-engine-execution-model.md
+      - 0011 Template forms: adr/0011-template-forms.md
+      - 0012 Desktop app with Wails: adr/0012-desktop-app-wails.md
+      - 0013 Declare v1.0.0: adr/0013-declare-v1.md
+      - 0014 Lazy pieces: adr/0014-lazy-pieces.md
+      - 0015 Multi-forge foundation: adr/0015-multi-forge-foundation.md
+      - 0016 Common pieces: adr/0016-common-pieces.md
+      - 0017 Template taxonomy: adr/0017-template-taxonomy.md
+      - 0018 Environment profiles: adr/0018-environment-profiles.md
+      - 0019 Engine under Apache-2.0: adr/0019-engine-under-apache-2.md
+  - Spec:
+      - template.yml: spec/template-yml.md
+      - Directives: spec/directives.md
+      - Answers file: spec/answers-file.md
+      - piece.yml: spec/piece-yml.md
+      - Validation manifests: spec/validation-manifests.md
+      - Compatibility policy: spec/compatibility.md
+  - Journal:
+      - 2026-08-01 Kickoff: journal/2026-08-01-kickoff.md
+      - 2026-08-01 Engine language: journal/2026-08-01-engine-language.md
+      - 2026-08-02 Fire test: journal/2026-08-02-fire-test.md
+      - 2026-08-02 Verify CI: journal/2026-08-02-verify-ci.md
+      - 2026-08-06 Org migration: journal/2026-08-06-org-migration.md
+      - 2026-08-13 Catalog expansion: journal/2026-08-13-catalog-expansion.md
+      - 2026-08-14 Industrial pieces: journal/2026-08-14-industrial-pieces.md
+      - 2026-08-15 Desktop catches up: journal/2026-08-15-desktop-catches-up.md
+  - Brand:
+      - Guidelines: brand/guidelines.md
+      - Demos: brand/demos.md

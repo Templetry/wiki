@@ -1,0 +1,59 @@
+/* Templetry brand — "Ink & Brass" (see brand/guidelines.md) */
+
+:root {
+  --tt-brass: #d9a441;
+  --tt-brass-deep: #b5852c;
+  --tt-loom-green: #a4d9a9;
+  --tt-warning-red: #ff9090;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-default-bg-color: #15171e;
+  --md-default-fg-color: #eae7de;
+  --md-default-fg-color--light: #969aa8;
+  --md-default-fg-color--lighter: #6b6f7d;
+  --md-primary-fg-color: #1b1e27;
+  --md-primary-bg-color: #eae7de;
+  --md-accent-fg-color: var(--tt-brass);
+  --md-accent-fg-color--transparent: rgba(217, 164, 65, 0.15);
+  --md-typeset-a-color: var(--tt-brass);
+  --md-code-bg-color: #1b1e27;
+  --md-code-fg-color: #eae7de;
+  --md-footer-bg-color: #1b1e27;
+  --md-footer-fg-color: #eae7de;
+}
+
+[data-md-color-scheme="default"] {
+  --md-default-bg-color: #f2efe6;
+  --md-default-fg-color: #15171e;
+  --md-primary-fg-color: #15171e;
+  --md-primary-bg-color: #f2efe6;
+  --md-accent-fg-color: var(--tt-brass-deep);
+  --md-typeset-a-color: var(--tt-brass-deep);
+}
+
+.md-typeset a:hover {
+  color: var(--tt-brass);
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+  font-weight: 650;
+}
+
+.md-typeset h2 {
+  border-bottom: 1px dashed var(--tt-brass);
+  padding-bottom: 0.3em;
+}
+
+.md-typeset code,
+.md-typeset kbd {
+  font-family: Consolas, monospace;
+}
+
+[data-md-color-scheme="slate"] .md-nav__link--active,
+[data-md-color-scheme="slate"] .md-nav__link:focus,
+[data-md-color-scheme="slate"] .md-nav__link:hover {
+  color: var(--tt-brass);
+}

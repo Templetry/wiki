@@ -33,11 +33,14 @@ Golden rule: **additive → feature · structural → form · independent lifecy
 | Folder | Contents |
 |---|---|
 | [`guide/`](guide/) | Usage guides: getting started, templates, pieces, updates, desktop, authoring, agents, multi-forge |
+| [`architecture/`](architecture/) | The whole organization's repos and how they depend on each other, as an explorable diagram |
 | [`study/`](study/) | Research: engine design, technology choice, execution model, template forms, multi-forge, road to v1, roadmap 1.x, lazy pieces, industrial pieces, Verifactu |
 | [`adr/`](adr/) | Architecture Decision Records — one decision per file, explicit status |
 | [`spec/`](spec/) | Normative specs: manifest, directives, answers file, `piece.yml`, compatibility policy |
 | [`journal/`](journal/) | Log of working sessions and what they taught |
 | [`brand/`](brand/) | Ink & Brass: palette, typography, logo, voice, and the [demo script](brand/demos.md) |
+
+This wiki is also published as a browsable site at **https://templetry.github.io/wiki/**.
 
 ## How we work here
 
