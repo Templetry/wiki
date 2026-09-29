@@ -14,7 +14,7 @@ The engine is a pure Go library plus a CLI and an MCP server; the desktop app em
 |---|---|---|
 | [engine](https://github.com/Templetry/engine) | Go library + `templetry` CLI + `templetry-mcp` server | **v1.10.1** — binaries for linux/darwin/windows (amd64 + arm64) with SHA256SUMS |
 | [desktop](https://github.com/Templetry/desktop) | Native app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.11.0** — Windows (installer + portable), Linux, macOS universal |
-| [catalog](https://github.com/Templetry/catalog) | Default registry (`registry.json`, schema v2) | **28 forms across 11 parents**; **12 form pieces + 5 common pieces** |
+| [catalog](https://github.com/Templetry/catalog) | Default registry (`registry.json`, schema v2) | **29 forms across 12 parents**; **12 form pieces + 5 common pieces** |
 | [homebrew-tap](https://github.com/Templetry/homebrew-tap) | `brew install Templetry/tap/templetry` (CLI + MCP) — formula generated from the release, installed and tested on macOS and Linux CI | live |
 | [scoop-bucket](https://github.com/Templetry/scoop-bucket) | `scoop install templetry` (CLI + MCP), autoupdating | live |
 | [pieces](https://github.com/Templetry/pieces) | Common pieces adoptable by any compatible project (ADR-0016) | live |
@@ -30,7 +30,9 @@ Licences: engine under **Apache License 2.0**; every other repo **MIT**. The eng
 
 ## The catalog
 
-Eleven parents, every form a real project whose CI renders **and compiles** it on each push.
+Twelve parents, every form a real project whose CI renders **and compiles** it on each push.
+
+**browser-extension/wxt-svelte** (2026-09-30) — a new kind of artifact for the catalog: a Chromium Manifest V3 extension, publishable to the Chrome Web Store. Its CI does not stop at the exit code: it reads the manifest WXT derives from the rendered output, so a preset that silently dropped the options page or the content script fails. One repository per extension by design, since each has its own store listing and review cycle.
 
 Two forms added on 2026-08-24, both because a real project needed something the catalog could not generate:
 
@@ -49,6 +51,7 @@ Two forms added on 2026-08-24, both because a real project needed something the 
 | [node](https://github.com/Templetry/node) | `express-api`, `fastify-api`, `nestjs` | — |
 | [jvm](https://github.com/Templetry/jvm) | `spring-boot`, `ktor` | — |
 | [dotnet](https://github.com/Templetry/dotnet) | `minimal-api`, `razor-web` | — |
+| [browser-extension](https://github.com/Templetry/browser-extension) | `wxt-svelte` (Chromium MV3: WXT + Svelte 5, popup and service worker, optional options page, content script and Vitest) | — |
 | [meta](https://github.com/Templetry/meta) | `template` (the template that creates templates) | — |
 
 **Twelve ecosystems, one engine, one manifest schema** — Kotlin Multiplatform, Android, Swift/SwiftUI, React, Vue, Next.js, Svelte, Go, Node/TypeScript, Python, Rust, JVM (Spring and Ktor), .NET. None of them required an engine change: the strongest evidence for the agnostic-engine thesis (ADR-0002).
