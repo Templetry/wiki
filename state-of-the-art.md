@@ -14,7 +14,7 @@ The engine is a pure Go library plus a CLI and an MCP server; the desktop app em
 |---|---|---|
 | [engine](https://github.com/Templetry/engine) | Go library + `templetry` CLI + `templetry-mcp` server | **v1.10.1** — binaries for linux/darwin/windows (amd64 + arm64) with SHA256SUMS |
 | [desktop](https://github.com/Templetry/desktop) | Native app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.11.0** — Windows (installer + portable), Linux, macOS universal |
-| [catalog](https://github.com/Templetry/catalog) | Default registry (`registry.json`, schema v2) | **28 forms across 11 parents**; **12 form pieces + 3 common pieces** |
+| [catalog](https://github.com/Templetry/catalog) | Default registry (`registry.json`, schema v2) | **28 forms across 11 parents**; **12 form pieces + 4 common pieces** |
 | [homebrew-tap](https://github.com/Templetry/homebrew-tap) | `brew install Templetry/tap/templetry` (CLI + MCP) — formula generated from the release, installed and tested on macOS and Linux CI | live |
 | [scoop-bucket](https://github.com/Templetry/scoop-bucket) | `scoop install templetry` (CLI + MCP), autoupdating | live |
 | [pieces](https://github.com/Templetry/pieces) | Common pieces adoptable by any compatible project (ADR-0016) | live |
@@ -112,6 +112,8 @@ Researched in [study VIII](study/industrial-pieces-v1.md) with one rule — **en
 | `audit-trail` | Append-only who/what/when/where, with no write routes at all |
 | `soft-delete` | `deleted_at` with opt-out filtering, restore, explicit purge |
 | `crud-resource` | A whole entity (model, repository/router, tests) renamed to your object |
+
+Common pieces that are not from that study: `renovate`, `agent-pointers`, `audit-trail` (Go) and `doppler` — opt-in Doppler binding and secrets runbook for env-driven forms (no socket, files only; Android forms excluded until Gradle has a socket for it).
 
 Pieces wire themselves through **sockets** — a registration point the piece plugs into from a file it owns — so adopting one never edits an existing file. Proven in Go (`api.Register`, `store.Register`) and Python (routers package walk).
 
