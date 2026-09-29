@@ -79,6 +79,14 @@ Some pieces are not specific to one form. They live in a shared repository ([Tem
 - **Universal** ones (`renovate`) apply anywhere.
 - **Per-ecosystem** ones share a name with different implementations: you ask for `audit-trail` and get the one written for your stack. Asking from an unsupported project fails clearly: `piece audit-trail does not apply to web-react-spa`.
 
+A worked example is `doppler`, the opt-in secrets manager binding. No form ships it, because a fresh project must build without a third-party account; you adopt it when you want it:
+
+```sh
+templetry add doppler ./my-api --set doppler_project=my-api
+```
+
+Backend and web forms get a `doppler.yaml` and a `docs/SECRETS.md` runbook and nothing else: their configuration already lets a real environment variable win over the `.env` files, so `doppler run -- <command>` needs no code change. `android-modular-features` gets scripts that regenerate the gitignored `app/secrets.properties` from Doppler instead, since Gradle does not read the environment. Same name, one implementation per ecosystem.
+
 Everything else works the same, with one difference that matters for maintenance: a common piece records *its own* repository as its source, so when it is fixed upstream, `templetry update` brings the fix to every project that adopted it.
 
 ## Limits (today)
