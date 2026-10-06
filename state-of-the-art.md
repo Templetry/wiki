@@ -13,7 +13,7 @@ The engine is a pure Go library plus a CLI and an MCP server; the desktop app em
 | Repo | Role | State |
 |---|---|---|
 | [engine](https://github.com/Templetry/engine) | Go library + `templetry` CLI + `templetry-mcp` server | **v1.10.1** — binaries for linux/darwin/windows (amd64 + arm64) with SHA256SUMS |
-| [desktop](https://github.com/Templetry/desktop) | Native app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.11.0** — Windows (installer + portable), Linux, macOS universal |
+| [desktop](https://github.com/Templetry/desktop) | Native app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.12.0** — Windows (installer + portable), Linux, macOS universal |
 | [catalog](https://github.com/Templetry/catalog) | Default registry (`registry.json`, schema v2) | **29 forms across 12 parents**; **12 form pieces + 5 common pieces** |
 | [homebrew-tap](https://github.com/Templetry/homebrew-tap) | `brew install Templetry/tap/templetry` (CLI + MCP) — formula generated from the release, installed and tested on macOS and Linux CI | live |
 | [scoop-bucket](https://github.com/Templetry/scoop-bucket) | `scoop install templetry` (CLI + MCP), autoupdating | live |
@@ -91,7 +91,7 @@ KMP was the one ecosystem where both obvious mechanisms fail — `buildConfigFie
 - **Hardened**: every write resolves its path against the output root and refuses escapes — `render.Contain`, applied by the render, piece and update writers alike; output paths cannot escape or abuse platform semantics (Windows device names, case-insensitive collisions, trailing dot/space); directive scanner fuzz-tested; manifests tolerate a UTF-8 BOM.
 - **`templetry-mcp`**: dependency-free MCP server exposing `list_templates`, `get_form_schema`, `plan`, `render`, `update`, `list_pieces`, `add_piece`.
 
-### Desktop (v1.11.0)
+### Desktop (v1.12.0)
 
 Three sections:
 
@@ -100,6 +100,8 @@ Three sections:
 - **Local** — recursive scan of the repositories folder, **grouped by the account that owns each repository** with its avatar, and an explicit bucket for those with no remote to read one from; per-repo preview inside its own card, with branches, remotes, last commit and working-tree state; drift detection on the template's anchor **and every applied piece's own**, the assisted update cycle, and a **pieces panel** listing form-local and common pieces alike.
 
 Six panes can be dragged to size and remember their own width: the rendered-project preview, both document readers, the update diff, the sidebar and the build form column. Settings shows one section at a time, chosen from the sidebar.
+
+Since v1.12.0 the app follows its own brand guidelines rather than only their palette: each form in the catalog tree says what it is instead of repeating its siblings' chips, the selected one marked by a brass thread over the stitched guide line; repository cards share a height across a row and name a remote as `owner/name`; a manifest variable is checked against its pattern as it is typed; the top bar carries the logo; and the light theme is readable throughout.
 
 Plus **BYOR**: paste any empty repository's URL and Templetry renders, commits and pushes — every git host on earth, no adapter needed. Ships for Windows, Linux and macOS; the in-app updater is Windows-only for now.
 
