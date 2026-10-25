@@ -1,6 +1,6 @@
 # Templetry — State of the art
 
-**Snapshot: 2026-08-24** · the single up-to-date picture of what exists, where it lives and what state it is in. History lives in [`journal/`](journal/); decisions in [`adr/`](adr/); research in [`study/`](study/).
+**Snapshot: 2026-10-25** · the single up-to-date picture of what exists, where it lives and what state it is in. History lives in [`journal/`](journal/); decisions in [`adr/`](adr/); research in [`study/`](study/).
 
 ## What Templetry is
 
@@ -12,7 +12,7 @@ The engine is a pure Go library plus a CLI and an MCP server; the desktop app em
 
 | Repo | Role | State |
 |---|---|---|
-| [engine](https://github.com/Templetry/engine) | Go library + `templetry` CLI + `templetry-mcp` server | **v1.10.1** — binaries for linux/darwin/windows (amd64 + arm64) with SHA256SUMS |
+| [engine](https://github.com/Templetry/engine) | Go library + `templetry` CLI + `templetry-mcp` server | **v1.10.1** — binaries for linux/darwin/windows (amd64 + arm64) with SHA256SUMS. CI on push, PR, weekly (Mondays 06:00 UTC) and on demand: gofmt, vet, `go test -race`, golangci-lint v2 (standard set, baseline clean), `install.sh` run for real on Ubuntu and macOS; `main` protected (PR required, 0 approvals, all four checks, no force-push or deletion) |
 | [desktop](https://github.com/Templetry/desktop) | Native app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.12.0** — Windows (installer + portable), Linux, macOS universal |
 | [catalog](https://github.com/Templetry/catalog) | Default registry (`registry.json`, schema v2) | **29 forms across 12 parents**; **12 form pieces + 5 common pieces** |
 | [homebrew-tap](https://github.com/Templetry/homebrew-tap) | `brew install Templetry/tap/templetry` (CLI + MCP) — formula generated from the release, installed and tested on macOS and Linux CI | live |
@@ -26,7 +26,7 @@ Licences: engine under **Apache License 2.0**; every other repo **MIT**. The eng
 
 **Every packaging path follows the engine on its own.** The scoop manifest and the Homebrew formula are generated from a release's own `SHA256SUMS`; the desktop, which compiles the engine in rather than calling it, cuts a minor of itself when the engine moves — taking the new version, proving the app still builds and its tests still pass, and only then tagging. Its release workflow is callable rather than duplicated, because a tag pushed with the default token does not start another workflow.
 
-**Every repository now carries CI.** The catalog validates `registry.json` by fetching all 26 forms and 2 pieces from the repo and ref each declares; the pieces repo applies each common piece to a real target project through the registry pinned at the commit under test; the scoop bucket tracks engine releases on a schedule and checks that every URL it publishes resolves; the desktop runs its Go and frontend checks on every push rather than at release time. CodeQL runs on the engine and the desktop, and secret scanning with push protection is on across the organization.
+**Every repository now carries CI.** The engine runs its checks (gofmt, vet, `go test -race`, golangci-lint) on every push and PR, weekly on Mondays and on demand, and `main` only moves through a PR with those checks green. The catalog validates `registry.json` by fetching every form and piece it declares (29 forms, 5 common pieces) from the repo and ref each names; the pieces repo applies each common piece to a real target project through the registry pinned at the commit under test; the scoop bucket tracks engine releases on a schedule and checks that every URL it publishes resolves; the desktop runs its Go and frontend checks on every push rather than at release time. CodeQL runs on the engine and the desktop, and secret scanning with push protection is on across the organization.
 
 ## The catalog
 
@@ -58,7 +58,7 @@ Two forms added on 2026-08-24, both because a real project needed something the 
 
 ### Environment profiles ([ADR-0018](adr/0018-environment-profiles.md))
 
-**All 26 forms** ship `development` / `staging` / `production`, each in its own ecosystem's mechanism rather than a Templetry-shaped one — the same rule that keeps framework knowledge out of the engine (ADR-0002), applied to the catalog.
+**The 26 forms in the catalog on 2026-08-15** (of 29 today — `kmp/library`, `web/react-router-ssr` and `browser-extension/wxt-svelte` came later and are not tallied below) ship `development` / `staging` / `production`, each in its own ecosystem's mechanism rather than a Templetry-shaped one — the same rule that keeps framework knowledge out of the engine (ADR-0002), applied to the catalog.
 
 | Mechanism | Forms |
 |---|---|
