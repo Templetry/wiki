@@ -1,6 +1,6 @@
 # Templetry — State of the art
 
-**Snapshot: 2026-10-25** · the single up-to-date picture of what exists, where it lives and what state it is in. History lives in [`journal/`](journal/); decisions in [`adr/`](adr/); research in [`study/`](study/).
+**Snapshot: 2026-10-29** · the single up-to-date picture of what exists, where it lives and what state it is in. History lives in [`journal/`](journal/); decisions in [`adr/`](adr/); research in [`study/`](study/).
 
 ## What Templetry is
 
@@ -12,8 +12,8 @@ The engine is a pure Go library plus a CLI and an MCP server; the desktop app em
 
 | Repo | Role | State |
 |---|---|---|
-| [engine](https://github.com/Templetry/engine) | Go library + `templetry` CLI + `templetry-mcp` server | **v1.10.1** — binaries for linux/darwin/windows (amd64 + arm64) with SHA256SUMS. CI on push, PR, weekly (Mondays 06:00 UTC) and on demand: gofmt, vet, `go test -race`, golangci-lint v2 (standard set, baseline clean), `install.sh` run for real on Ubuntu and macOS; `main` protected (PR required, 0 approvals, all four checks, no force-push or deletion) |
-| [desktop](https://github.com/Templetry/desktop) | Native app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.12.0** — Windows (installer + portable), Linux, macOS universal |
+| [engine](https://github.com/Templetry/engine) | Go library + `templetry` CLI + `templetry-mcp` server | **v1.10.2** — binaries for linux/darwin/windows (amd64 + arm64) with SHA256SUMS. CI on push, PR, weekly (Mondays 06:00 UTC) and on demand: gofmt, vet, `go test -race`, golangci-lint v2 (standard set, baseline clean), `install.sh` run for real on Ubuntu and macOS; `main` protected (PR required, 0 approvals, all four checks, no force-push or deletion) |
+| [desktop](https://github.com/Templetry/desktop) | Native app (Wails: Go backend embedding the engine, React/TS frontend) | **v1.13.0** — Windows (installer + portable), Linux, macOS universal |
 | [catalog](https://github.com/Templetry/catalog) | Default registry (`registry.json`, schema v2) | **29 forms across 12 parents**; **12 form pieces + 5 common pieces** |
 | [homebrew-tap](https://github.com/Templetry/homebrew-tap) | `brew install Templetry/tap/templetry` (CLI + MCP) — formula generated from the release, installed and tested on macOS and Linux CI | live |
 | [scoop-bucket](https://github.com/Templetry/scoop-bucket) | `scoop install templetry` (CLI + MCP), autoupdating | live |
@@ -79,7 +79,7 @@ KMP was the one ecosystem where both obvious mechanisms fail — `buildConfigFie
 
 ## Shipped capabilities
 
-### Engine + CLI (v1.10.1)
+### Engine + CLI (v1.10.2)
 
 - **Render**: manifest parsing/validation, derived casings, feature exclusion, identity renaming, comment directives, structured patches for `.json`/`.yml`/`.toml`, deterministic output (same inputs → byte-identical result).
 - **`requires`/`conflicts` between features and `presets`** (named feature combos, resolved as defaults → preset → explicit).
@@ -91,7 +91,7 @@ KMP was the one ecosystem where both obvious mechanisms fail — `buildConfigFie
 - **Hardened**: every write resolves its path against the output root and refuses escapes — `render.Contain`, applied by the render, piece and update writers alike; output paths cannot escape or abuse platform semantics (Windows device names, case-insensitive collisions, trailing dot/space); directive scanner fuzz-tested; manifests tolerate a UTF-8 BOM.
 - **`templetry-mcp`**: dependency-free MCP server exposing `list_templates`, `get_form_schema`, `plan`, `render`, `update`, `list_pieces`, `add_piece`.
 
-### Desktop (v1.12.0)
+### Desktop (v1.13.0)
 
 Three sections:
 
@@ -136,8 +136,8 @@ Normative documents in [`spec/`](spec/): [`template-yml.md`](spec/template-yml.m
 
 Two mechanisms, both added 2026-08-15 after [study X](study/where-next-v1.md) found that a green badge only meant "green when last pushed":
 
-- **Weekly scheduled CI** in all ten parents (plus a manual trigger), so upstream drift surfaces here rather than in a user's project.
-- **One engine version, in one file.** Every parent installs the CLI through [`Templetry/.github/actions/setup-templetry`](https://github.com/Templetry/.github/tree/main/actions/setup-templetry), whose `action.yml` holds the pinned release — and Renovate follows that line against the engine's releases, so the bump arrives as a PR the parents' own CI judges. The first version of this was "bump ten repositories by hand", which drifted by two releases within a day.
+- **Weekly scheduled CI** in all twelve parents (plus a manual trigger), so upstream drift surfaces here rather than in a user's project.
+- **One engine version, in one file.** Every parent installs the CLI through [`Templetry/.github/actions/setup-templetry`](https://github.com/Templetry/.github/tree/main/actions/setup-templetry), whose `action.yml` holds the pinned release — and Renovate follows that line against the engine's releases, so the bump arrives as a PR the parents' own CI judges. The first version of this was "bump twelve repositories by hand", which drifted by two releases within a day.
 - **Renovate** on every repository that carries dependencies, extending one shared preset ([renovate-config](https://github.com/Templetry/renovate-config)). The loop it closes: Renovate proposes a bump inside a form → Verify renders that form and builds it → green means the upgrade is safe for everything generated from it. Generated projects get the same policy as an adoptable piece (`templetry add renovate`).
 
 ## Documentation
@@ -147,7 +147,7 @@ Two mechanisms, both added 2026-08-15 after [study X](study/where-next-v1.md) fo
 
 ## Where next
 
-The plan in [study X](study/where-next-v1.md) has largely been executed: the promises made at v1.0.0 are kept (pieces ride the update cycle, the desktop has its pieces panel), the rot is stopped (weekly scheduled CI in all ten parents, Renovate everywhere, and the engine pin centralized in one file after the hand-managed version drifted), and the catalog has been expanded and industrialized.
+The plan in [study X](study/where-next-v1.md) has largely been executed: the promises made at v1.0.0 are kept (pieces ride the update cycle, the desktop has its pieces panel), the rot is stopped (weekly scheduled CI in all twelve parents, Renovate everywhere, and the engine pin centralized in one file after the hand-managed version drifted), and the catalog has been expanded and industrialized.
 
 What remains is deliberately **not** adoption work: certification and code signing are out of scope while Templetry is a self-use scaffolding project. The direction is more catalog, more pieces, and the engine gaps the pieces themselves surfaced.
 

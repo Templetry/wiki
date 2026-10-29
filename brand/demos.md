@@ -2,7 +2,7 @@
 
 **Status:** production material for the website and the READMEs. Seven recordings, each with one job.
 
-Every command here was checked against the CLI surface of engine v1.10.1. Where a demo needs something that does not exist yet, it says so instead of inventing a flag.
+Every command here was checked against the CLI surface of engine v1.10.2. Where a demo needs something that does not exist yet, it says so instead of inventing a flag.
 
 ## Rules for all of them
 

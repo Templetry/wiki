@@ -8,11 +8,76 @@ Two independent mechanisms serve this: **the MCP server** (agents drive Templetr
 
 `templetry-mcp` ships in the same [releases](https://github.com/Templetry/engine/releases) as the CLI. It speaks the Model Context Protocol (JSON-RPC 2.0 over stdio) with no dependencies and no configuration.
 
+Any MCP client works the same way — the server is a plain executable reading stdin and writing stdout. Copy-paste configuration for the common ones:
+
+#### Where the binary is
+
+If `templetry-mcp` is on your `PATH`, use the bare name `templetry-mcp` as the command. Some apps (Claude Desktop especially) do not inherit your shell `PATH`, so give them the absolute path:
+
+| Installed with | Path |
+|---|---|
+| Homebrew, Apple Silicon | `/opt/homebrew/bin/templetry-mcp` |
+| Homebrew, Intel Mac / Linux | `/usr/local/bin/templetry-mcp` (Linux brew: `/home/linuxbrew/.linuxbrew/bin/templetry-mcp`) |
+| `install.sh` | `~/.local/bin/templetry-mcp` (or `/usr/local/bin/templetry-mcp` when run as root); write the full home path in JSON, `~` is not expanded |
+| Scoop (Windows) | `C:\Users\<you>\scoop\shims\templetry-mcp.exe` |
+| Downloaded release binary | wherever you put it |
+
+`where templetry-mcp` (Windows) or `command -v templetry-mcp` prints the right one.
+
+#### Claude Code
+
 ```sh
-claude mcp add templetry -- templetry-mcp
+claude mcp add templetry -- templetry-mcp            # this project, private to you
+claude mcp add --scope user templetry -- templetry-mcp   # every project
+claude mcp list
 ```
 
-Any MCP client works the same way — the server is a plain executable reading stdin and writing stdout.
+#### Claude Desktop
+
+Edit `claude_desktop_config.json` (Settings > Developer > Edit Config; macOS `~/Library/Application Support/Claude/`, Windows `%APPDATA%\Claude\`) and restart the app:
+
+```json
+{
+  "mcpServers": {
+    "templetry": {
+      "command": "/opt/homebrew/bin/templetry-mcp"
+    }
+  }
+}
+```
+
+On Windows use `"command": "C:\Users\<you>\scoop\shims\templetry-mcp.exe"`.
+
+#### Cursor
+
+`.cursor/mcp.json` in a project, or `~/.cursor/mcp.json` for all projects:
+
+```json
+{
+  "mcpServers": {
+    "templetry": {
+      "command": "templetry-mcp"
+    }
+  }
+}
+```
+
+#### VS Code
+
+`.vscode/mcp.json` in the workspace (or "MCP: Open User Configuration" for every workspace). Note the key is `servers`, not `mcpServers`:
+
+```json
+{
+  "servers": {
+    "templetry": {
+      "type": "stdio",
+      "command": "templetry-mcp"
+    }
+  }
+}
+```
+
+The server takes no arguments and no environment; to work against a private catalog the agent passes `registry` on each tool call.
 
 ### The seven tools
 
